@@ -18,7 +18,7 @@ import contextlib
 import decimal
 import aiohttp
 import ccxt.async_support as ccxt
-import ccxt.static_dependencies.ecdsa.der
+import ecdsa.der
 from ccxt.base.types import (
     # usual "import ccxt.base.types" is not working here from ... import ... is required
     Market as CCXTMarket,
@@ -238,7 +238,7 @@ class CCXTConnector(abstract_exchange.AbstractExchange):
                 await self._load_markets(self.client, reload, market_filter=market_filter)
                 ccxt_client_util.set_markets_cache(self.client, authenticated_cache)
             except (
-                ccxt.AuthenticationError, ccxt.ArgumentsRequired, ccxt.static_dependencies.ecdsa.der.UnexpectedDER,
+                ccxt.AuthenticationError, ccxt.ArgumentsRequired, ecdsa.der.UnexpectedDER,
                 binascii.Error, AssertionError, IndexError
             ) as err:
                 if self.force_authentication:

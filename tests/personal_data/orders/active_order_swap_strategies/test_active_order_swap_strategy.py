@@ -33,7 +33,7 @@ import tests.test_utils.random_numbers as random_numbers
 
 
 # All test coroutines will be treated as marked.
-pytestmark = pytest.mark.asyncio
+
 
 
 
@@ -44,12 +44,14 @@ def swap_strategy():
     )
 
 
+@pytest.mark.asyncio
 async def test_is_priority_order(swap_strategy):
     assert swap_strategy.swap_timeout == 123
     with pytest.raises(NotImplementedError):
         swap_strategy.is_priority_order(None)
 
 
+@pytest.mark.asyncio
 async def test_apply_inactive_orders(swap_strategy, simulated_trader):
     _, exchange_manager, trader_instance = simulated_trader
     oco_group = personal_data.OneCancelsTheOtherOrderGroup(
@@ -144,6 +146,7 @@ async def test_apply_inactive_orders(swap_strategy, simulated_trader):
 
 
 
+@pytest.mark.asyncio
 async def test_execute_no_reverse(swap_strategy, simulated_trader):
     _, exchange_manager, trader_instance = simulated_trader
     trader_instance.allow_artificial_orders = False
@@ -230,6 +233,7 @@ async def test_execute_no_reverse(swap_strategy, simulated_trader):
             assert exchange_manager.exchange_personal_data.orders_manager.get_open_orders() == []
 
 
+@pytest.mark.asyncio
 async def test_execute_with_reverse(swap_strategy, simulated_trader):
     _, exchange_manager, trader_instance = simulated_trader
     trader_instance.allow_artificial_orders = False
@@ -320,6 +324,7 @@ async def test_execute_with_reverse(swap_strategy, simulated_trader):
             assert len(exchange_manager.exchange_personal_data.orders_manager.get_open_orders()) == 2
 
 
+@pytest.mark.asyncio
 async def test_on_order_update(swap_strategy):
     # Setup
     order = mock.Mock()

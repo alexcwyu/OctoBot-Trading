@@ -24,7 +24,7 @@ from tests import event_loop
 
 
 # All test coroutines will be treated as marked.
-pytestmark = pytest.mark.asyncio
+
 
 
 EXCHANGE_NAME = "binanceus"
@@ -36,6 +36,7 @@ def abstract_exchange():
     return exchanges.AbstractExchange(config, exchanges.ExchangeManager(config, EXCHANGE_NAME), None)
 
 
+@pytest.mark.asyncio
 @pytest.mark.asyncio
 async def test_log_order_creation_error(abstract_exchange):
     logger_mock = mock.Mock()
@@ -54,6 +55,7 @@ async def test_log_order_creation_error(abstract_exchange):
     logger_mock.reset_mock()
 
 
+@pytest.mark.asyncio
 async def test_supports_bundled_order_on_order_creation(abstract_exchange):
     order_mock = mock.Mock()
     order_mock.order_type = enums.TraderOrderType.SELL_MARKET
@@ -68,10 +70,12 @@ async def test_supports_bundled_order_on_order_creation(abstract_exchange):
            is True
 
 
+@pytest.mark.asyncio
 async def test_get_order_additional_params(abstract_exchange):
     assert abstract_exchange.get_order_additional_params(None) == {}
 
 
+@pytest.mark.asyncio
 async def test_get_bundled_order_parameters(abstract_exchange):
     with pytest.raises(NotImplementedError):
         abstract_exchange.get_bundled_order_parameters(None)

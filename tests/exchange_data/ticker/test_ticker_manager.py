@@ -24,7 +24,7 @@ from octobot_trading.enums import ExchangeConstantsMiniTickerColumns, ExchangeCo
 from tests.test_utils.random_numbers import random_price, random_quantity, random_timestamp
 from tests import event_loop
 
-pytestmark = pytest.mark.asyncio
+
 
 
 @pytest_asyncio.fixture()
@@ -34,11 +34,13 @@ async def ticker_manager():
     return t_manager
 
 
+@pytest.mark.asyncio
 async def test_init(ticker_manager):
     assert not ticker_manager.ticker == {}
     assert not ticker_manager.mini_ticker == {}
 
 
+@pytest.mark.asyncio
 async def test_update_and_reset_ticker(ticker_manager):
     price = random_price()
     tm = random_timestamp()
@@ -72,6 +74,7 @@ async def test_update_and_reset_ticker(ticker_manager):
         }
 
 
+@pytest.mark.asyncio
 async def test_update_and_reset_mini_ticker(ticker_manager):
     vol = random_quantity()
     open_p = random_price()

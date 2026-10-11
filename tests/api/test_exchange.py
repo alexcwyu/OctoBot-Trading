@@ -25,14 +25,16 @@ from tests.exchanges import exchange_manager
 from tests import event_loop
 
 # All test coroutines will be treated as marked.
-pytestmark = pytest.mark.asyncio
 
 
+
+@pytest.mark.asyncio
 async def test_create_exchange_builder():
     exchange_builder = create_exchange_builder(load_test_config(), "binanceus")
     assert exchange_builder
 
 
+@pytest.mark.asyncio
 async def test_get_exchange_configurations_from_exchange_name(exchange_manager):
     Exchanges.instance().add_exchange(exchange_manager, None)
     assert get_exchange_configurations_from_exchange_name("binanceus")
@@ -40,6 +42,7 @@ async def test_get_exchange_configurations_from_exchange_name(exchange_manager):
         get_exchange_configurations_from_exchange_name("bybit")
 
 
+@pytest.mark.asyncio
 async def test_get_exchange_manager_from_exchange_name_and_id(exchange_manager):
     Exchanges.instance().add_exchange(exchange_manager, None)
     assert get_exchange_manager_from_exchange_name_and_id(exchange_manager.exchange_name, exchange_manager.id)

@@ -27,12 +27,13 @@ from tests.exchanges import simulated_exchange_manager
 from tests.exchanges.traders import trader_simulator
 
 # All test coroutines will be treated as marked.
-pytestmark = pytest.mark.asyncio
+
 
 
 class TestChainedOrderFillingPriceOrderCancelPolicy:
     """Test the ChainedOrderFillingPriceOrderCancelPolicy class"""
 
+    @pytest.mark.asyncio
     async def test_should_cancel_when_chained_order_price_reached_trigger_above(self, trader_simulator):
         """Test that should_cancel returns True when chained order price is reached (trigger_above=True)"""
         config, exchange_manager_inst, trader_inst = trader_simulator
@@ -75,6 +76,7 @@ class TestChainedOrderFillingPriceOrderCancelPolicy:
             # current_price (110) > filling_price (100) and trigger_above=True, should cancel
             assert policy.should_cancel(order) is True
 
+    @pytest.mark.asyncio
     async def test_should_cancel_when_chained_order_price_reached_trigger_below(self, trader_simulator):
         """Test that should_cancel returns True when chained order price is reached (trigger_above=False)"""
         config, exchange_manager_inst, trader_inst = trader_simulator
@@ -117,6 +119,7 @@ class TestChainedOrderFillingPriceOrderCancelPolicy:
             # current_price (90) < filling_price (100) and trigger_above=False, should cancel
             assert policy.should_cancel(order) is True
 
+    @pytest.mark.asyncio
     async def test_should_not_cancel_when_chained_order_price_not_reached(self, trader_simulator):
         """Test that should_cancel returns False when chained order price is not reached"""
         config, exchange_manager_inst, trader_inst = trader_simulator
@@ -159,6 +162,7 @@ class TestChainedOrderFillingPriceOrderCancelPolicy:
             # current_price (95) < filling_price (100) and trigger_above=True, should not cancel
             assert policy.should_cancel(order) is False
 
+    @pytest.mark.asyncio
     async def test_should_not_cancel_when_order_cleared(self, trader_simulator):
         """Test that should_cancel returns False when order is cleared"""
         config, exchange_manager_inst, trader_inst = trader_simulator
@@ -182,6 +186,7 @@ class TestChainedOrderFillingPriceOrderCancelPolicy:
             # Verify error was logged
             logger_mock.error.assert_called_once()
 
+    @pytest.mark.asyncio
     async def test_should_not_cancel_when_no_chained_orders(self, trader_simulator):
         """Test that should_cancel returns False when order has no chained orders"""
         config, exchange_manager_inst, trader_inst = trader_simulator
@@ -205,6 +210,7 @@ class TestChainedOrderFillingPriceOrderCancelPolicy:
             # Verify error was logged
             logger_mock.error.assert_called_once()
 
+    @pytest.mark.asyncio
     async def test_should_not_cancel_when_price_outdated(self, trader_simulator):
         """Test that should_cancel returns False when price is outdated"""
         config, exchange_manager_inst, trader_inst = trader_simulator
@@ -250,6 +256,7 @@ class TestChainedOrderFillingPriceOrderCancelPolicy:
                 # Verify error was logged
                 logger_mock.error.assert_called_once()
 
+    @pytest.mark.asyncio
     async def test_should_cancel_with_multiple_chained_orders_when_one_reached(self, trader_simulator):
         """Test that should_cancel returns True when at least one chained order price is reached"""
         config, exchange_manager_inst, trader_inst = trader_simulator

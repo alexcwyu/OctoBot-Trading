@@ -1023,7 +1023,7 @@ async def test_get_portfolio_filled_orders_deltas_with_inferrence_thread_timeout
 
         with (
             mock.patch.object(asyncio, "to_thread", mock.AsyncMock(wraps=asyncio.to_thread)) as to_thread_mock,
-            mock.patch.object(random, "shuffle", mock.AsyncMock(wraps=random.shuffle)) as shuffle_mock
+            mock.patch.object(random, "shuffle", mock.Mock(wraps=random.shuffle)) as shuffle_mock
         ):
             # 1. NOT randomize secondary checks, timeout is too short: don't start thread
             task = asyncio.create_task(_async_get_portfolio_filled_orders_deltas(False, 0.0001))

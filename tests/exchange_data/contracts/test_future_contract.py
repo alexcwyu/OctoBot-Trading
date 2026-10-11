@@ -22,11 +22,12 @@ import octobot_trading.exchange_data.contracts as contracts
 
 from tests import event_loop
 
-pytestmark = pytest.mark.asyncio
+
 
 DEFAULT_SYMBOL = "BTC/USDT"
 
 
+@pytest.mark.asyncio
 async def test_is_inverse_contract():
     contract = contracts.FutureContract(
         pair=DEFAULT_SYMBOL,
@@ -42,6 +43,7 @@ async def test_is_inverse_contract():
     assert not contract.is_inverse_contract()
 
 
+@pytest.mark.asyncio
 async def test_is_perpetual_contract():
     contract = contracts.FutureContract(
         pair=DEFAULT_SYMBOL,
@@ -57,6 +59,7 @@ async def test_is_perpetual_contract():
     assert not contract.is_perpetual_contract()
 
 
+@pytest.mark.asyncio
 async def test_is_one_way_position_mode():
     contract = contracts.FutureContract(
         pair=DEFAULT_SYMBOL,
@@ -74,6 +77,7 @@ async def test_is_one_way_position_mode():
     assert not contract.is_one_way_position_mode()
 
 
+@pytest.mark.asyncio
 async def test_set_position_mode():
     contract = contracts.FutureContract(
         pair=DEFAULT_SYMBOL,

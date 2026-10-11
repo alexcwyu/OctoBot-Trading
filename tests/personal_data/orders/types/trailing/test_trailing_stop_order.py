@@ -32,9 +32,10 @@ from tests import event_loop
 from tests.exchanges import simulated_trader, simulated_exchange_manager
 from tests.personal_data.orders import trailing_stop_order
 
-pytestmark = pytest.mark.asyncio
 
 
+
+@pytest.mark.asyncio
 async def test_trailing_stop_trigger(trailing_stop_order):
     trailing_stop_order, order_price, price_events_manager = await initialize_trailing_stop(trailing_stop_order)
     await trailing_stop_order.set_trailing_percent(decimal.Decimal(10))
@@ -68,6 +69,7 @@ async def test_trailing_stop_trigger(trailing_stop_order):
     assert trailing_stop_order.is_filled()
 
 
+@pytest.mark.asyncio
 async def test_trailing_stop_with_new_price(trailing_stop_order):
     trailing_stop_order, order_price, price_events_manager = await initialize_trailing_stop(trailing_stop_order)
     await trailing_stop_order.set_trailing_percent(decimal.Decimal(2))
@@ -94,6 +96,7 @@ async def test_trailing_stop_with_new_price(trailing_stop_order):
     assert trailing_stop_order.is_filled()
 
 
+@pytest.mark.asyncio
 async def test_trailing_stop_with_new_old_price(trailing_stop_order):
     trailing_stop_order, order_price, price_events_manager = await initialize_trailing_stop(trailing_stop_order)
     await trailing_stop_order.set_trailing_percent(decimal.Decimal(5))
@@ -119,6 +122,7 @@ async def test_trailing_stop_with_new_old_price(trailing_stop_order):
     assert trailing_stop_order.is_filled()
 
 
+@pytest.mark.asyncio
 async def test_trailing_stop_with_new_price_inversed(trailing_stop_order):
     trailing_stop_order, order_price, price_events_manager = await initialize_trailing_stop(trailing_stop_order,
                                                                                             side=TradeOrderSide.BUY)

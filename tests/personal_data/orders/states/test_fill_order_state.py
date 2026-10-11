@@ -24,17 +24,20 @@ from tests.exchanges import simulated_trader, simulated_exchange_manager
 from tests.personal_data.orders import sell_limit_order, buy_limit_order, buy_market_order
 import tests.personal_data.orders.states as states
 
-pytestmark = pytest.mark.asyncio
 
 
+
+@pytest.mark.asyncio
 async def test_initialize_without_kwargs(sell_limit_order):
     await states.inner_test_initialize_without_kwargs(sell_limit_order, enums.OrderStatus.FILLED, 'on_close')
 
 
+@pytest.mark.asyncio
 async def test_initialize_with_kwargs(sell_limit_order):
     await states.inner_test_initialize_with_kwargs(sell_limit_order, enums.OrderStatus.FILLED, 'on_close')
 
 
+@pytest.mark.asyncio
 async def test_on_order_refresh_successful(buy_limit_order):
     buy_limit_order.status = enums.OrderStatus.FILLED
     buy_limit_order.exchange_manager.is_backtesting = True
@@ -44,6 +47,7 @@ async def test_on_order_refresh_successful(buy_limit_order):
     buy_limit_order.clear()
 
 
+@pytest.mark.asyncio
 async def test_constructor_with_partially_filled_status(buy_limit_order):
     # with PARTIALLY_FILLED status
     buy_limit_order.status = enums.OrderStatus.PARTIALLY_FILLED
@@ -56,6 +60,7 @@ async def test_constructor_with_partially_filled_status(buy_limit_order):
         assert not state.is_status_filled()
 
 
+@pytest.mark.asyncio
 async def test_constructor_with_filled_status(sell_limit_order):
     # with FILLED status
     sell_limit_order.status = enums.OrderStatus.FILLED
@@ -68,6 +73,7 @@ async def test_constructor_with_filled_status(sell_limit_order):
         assert state.is_status_filled()
 
 
+@pytest.mark.asyncio
 async def test_constructor_with_closed_status(buy_market_order):
     # with CLOSED status
     buy_market_order.status = enums.OrderStatus.CLOSED

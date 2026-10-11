@@ -26,9 +26,10 @@ from tests import event_loop
 from tests.exchanges import simulated_trader, simulated_exchange_manager
 from tests.personal_data.orders import stop_loss_sell_order, stop_loss_buy_order
 
-pytestmark = pytest.mark.asyncio
 
 
+
+@pytest.mark.asyncio
 async def test_stop_loss_sell_order_trigger(stop_loss_sell_order):
     order_price = decimal_random_price()
     stop_loss_sell_order.update(
@@ -63,6 +64,7 @@ async def test_stop_loss_sell_order_trigger(stop_loss_sell_order):
     assert stop_loss_sell_order.is_filled()
 
 
+@pytest.mark.asyncio
 async def test_stop_loss_buy_order_trigger(stop_loss_buy_order):
     order_price = decimal_random_price()
     stop_loss_buy_order.update(

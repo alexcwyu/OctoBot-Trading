@@ -28,7 +28,7 @@ from tests.exchanges import backtesting_trader_with_historical_pf_value_manager,
 from tests import event_loop
 
 # All test coroutines will be treated as marked.
-pytestmark = pytest.mark.asyncio
+
 
 
 @pytest.fixture
@@ -37,6 +37,7 @@ def historical_portfolio_value_manager(backtesting_trader_with_historical_pf_val
     return exchange_manager.exchange_personal_data.portfolio_manager.historical_portfolio_value_manager
 
 
+@pytest.mark.asyncio
 async def test_constructor(historical_portfolio_value_manager):
     assert historical_portfolio_value_manager is not None
     assert historical_portfolio_value_manager.portfolio_manager is not None
@@ -48,6 +49,7 @@ async def test_constructor(historical_portfolio_value_manager):
     assert historical_portfolio_value_manager.ending_portfolio is None
 
 
+@pytest.mark.asyncio
 async def test_initialize(historical_portfolio_value_manager):
     # run_dbs_identifier is None: does nothing
     await historical_portfolio_value_manager.initialize()
@@ -69,6 +71,7 @@ async def test_initialize(historical_portfolio_value_manager):
             historical_portfolio_value_manager.portfolio_manager.exchange_manager.is_backtesting = True
 
 
+@pytest.mark.asyncio
 async def test_on_new_value(historical_portfolio_value_manager):
     timestamp = 1648462965  # Monday 28 March 2022 10:22:45 UTC
     exchange_time = timestamp + 10
@@ -186,6 +189,7 @@ async def test_on_new_value(historical_portfolio_value_manager):
                             new_day_timestamp, value_by_currency_4)
 
 
+@pytest.mark.asyncio
 async def test_on_new_value_with_max_size_reached(historical_portfolio_value_manager):
     timestamp = 1648462965  # Monday 28 March 2022 10:22:45 UTC
     exchange_time = timestamp + 10
@@ -254,6 +258,7 @@ async def test_on_new_value_with_max_size_reached(historical_portfolio_value_man
                             other_new_day_timestamp, float_value_by_currency_3)
 
 
+@pytest.mark.asyncio
 async def test_on_new_value_multiple_time_frames(historical_portfolio_value_manager):
     historical_portfolio_value_manager.saved_time_frames = [
         commons_enums.TimeFrames.ONE_DAY, commons_enums.TimeFrames.ONE_HOUR
@@ -327,6 +332,7 @@ async def test_on_new_value_multiple_time_frames(historical_portfolio_value_mana
                             tuesday_timestamp, value_by_currency_3)
 
 
+@pytest.mark.asyncio
 async def test_on_new_values(historical_portfolio_value_manager):
     timestamp = 1648462965  # Monday 28 March 2022 10:22:45 UTC
     exchange_time = timestamp + 10
@@ -417,6 +423,7 @@ async def test_on_new_values(historical_portfolio_value_manager):
                             sunday_timestamp, sunday_value_by_currency)
 
 
+@pytest.mark.asyncio
 async def test_get_historical_value(historical_portfolio_value_manager):
     timestamp = 1648462965  # Monday 28 March 2022 10:22:45 UTC
     exchange_time = timestamp + 10
@@ -463,6 +470,7 @@ async def test_get_historical_value(historical_portfolio_value_manager):
         historical_portfolio_value_manager.get_historical_value(1)
 
 
+@pytest.mark.asyncio
 async def test_get_historical_values(historical_portfolio_value_manager):
     timestamp = 1648462965  # Monday 28 March 2022 10:22:45 UTC
     exchange_time = timestamp + 10

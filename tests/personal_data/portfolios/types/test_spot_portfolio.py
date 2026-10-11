@@ -22,9 +22,10 @@ import octobot_trading.personal_data as personal_data
 from tests.exchanges import backtesting_trader, backtesting_config, backtesting_exchange_manager, fake_backtesting
 
 # All test coroutines will be treated as marked.
-pytestmark = pytest.mark.asyncio
 
 
+
+@pytest.mark.asyncio
 async def test_initial_portfolio(backtesting_trader):
     config, exchange_manager, trader = backtesting_trader
     portfolio_manager = exchange_manager.exchange_personal_data.portfolio_manager
@@ -32,12 +33,14 @@ async def test_initial_portfolio(backtesting_trader):
     assert isinstance(portfolio_manager.portfolio, personal_data.SpotPortfolio)
 
 
+@pytest.mark.asyncio
 async def test_update_portfolio_data_from_order(backtesting_trader):
     config, exchange_manager, trader = backtesting_trader
     portfolio_manager = exchange_manager.exchange_personal_data.portfolio_manager
     pass
 
 
+@pytest.mark.asyncio
 async def test_update_portfolio_available_from_order(backtesting_trader):
     config, exchange_manager, trader = backtesting_trader
     portfolio_manager = exchange_manager.exchange_personal_data.portfolio_manager
@@ -135,6 +138,7 @@ async def test_update_portfolio_available_from_order(backtesting_trader):
         assert portfolio_manager.portfolio.get_currency_portfolio("USDT").total == decimal.Decimal('1000')
 
 
+@pytest.mark.asyncio
 async def test_update_portfolio_available_from_partially_filled_orders(backtesting_trader):
     config, exchange_manager, trader = backtesting_trader
     portfolio_manager = exchange_manager.exchange_personal_data.portfolio_manager

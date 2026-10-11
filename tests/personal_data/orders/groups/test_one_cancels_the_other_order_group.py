@@ -32,7 +32,7 @@ import tests.test_utils.random_numbers as random_numbers
 
 
 # All test coroutines will be treated as marked.
-pytestmark = pytest.mark.asyncio
+
 
 
 @pytest.fixture
@@ -42,6 +42,7 @@ def oco_group():
     return personal_data.OneCancelsTheOtherOrderGroup("name",  orders_manager)
 
 
+@pytest.mark.asyncio
 async def test_on_fill(oco_group):
     order = order_mock()
     with mock.patch.object(oco_group.orders_manager, "get_order_from_group", mock.Mock(return_value=[])) \
@@ -68,6 +69,7 @@ async def test_on_fill(oco_group):
         get_order_from_group_mock.assert_called_once_with(oco_group.name)
 
 
+@pytest.mark.asyncio
 async def test_on_fill_no_mock(simulated_trader):
     _, exchange_manager, trader_instance = simulated_trader
     oco_group = personal_data.OneCancelsTheOtherOrderGroup("name",
@@ -112,6 +114,7 @@ async def test_on_fill_no_mock(simulated_trader):
     assert sell_limit.is_cancelled()
 
 
+@pytest.mark.asyncio
 async def test_on_cancel(oco_group):
     order = order_mock()
     with mock.patch.object(oco_group.orders_manager, "get_order_from_group", mock.Mock(return_value=[])) \
@@ -143,6 +146,7 @@ async def test_on_cancel(oco_group):
         get_order_from_group_mock.assert_called_once_with(oco_group.name)
 
 
+@pytest.mark.asyncio
 async def test_oco_adapt_before_order_becoming_active(simulated_trader):
     _, exchange_manager, trader_instance = simulated_trader
     trader_instance.allow_artificial_orders = False
@@ -200,6 +204,7 @@ async def test_oco_adapt_before_order_becoming_active(simulated_trader):
         assert stop_loss in inactive_orders and sell_limit in inactive_orders
 
 
+@pytest.mark.asyncio
 async def test_oco_reverse_active_swap(oco_group):
     order_1 = mock.Mock()
     order_2 = mock.Mock()

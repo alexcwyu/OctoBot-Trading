@@ -37,7 +37,7 @@ from tests.exchanges.traders import future_trader, future_trader_simulator_with_
     DEFAULT_FUTURE_SYMBOL_MARGIN_TYPE, DEFAULT_FUTURE_SYMBOL_LEVERAGE
 
 # All test coroutines will be treated as marked.
-pytestmark = pytest.mark.asyncio
+
 
 
 @pytest.fixture
@@ -45,6 +45,7 @@ def ccxt_connector(exchange_manager):
     yield exchange_connectors.CCXTConnector(exchange_manager.config, exchange_manager)
 
 
+@pytest.mark.asyncio
 async def test_initialize_impl_with_none_symbols_and_timeframes(ccxt_connector):
 
     class MockCCXT:
@@ -73,6 +74,7 @@ async def test_initialize_impl_with_none_symbols_and_timeframes(ccxt_connector):
         _ensure_auth_mock.assert_called_once()
 
 
+@pytest.mark.asyncio
 async def test_initialize_impl_with_empty_symbols_and_timeframes(ccxt_connector):
 
     class MockCCXT:
@@ -101,6 +103,7 @@ async def test_initialize_impl_with_empty_symbols_and_timeframes(ccxt_connector)
         _ensure_auth_mock.assert_called_once()
 
 
+@pytest.mark.asyncio
 async def test_initialize_impl(ccxt_connector):
 
     class MockCCXT:
@@ -144,12 +147,14 @@ async def test_initialize_impl(ccxt_connector):
         _ensure_auth_mock.assert_called_once()
 
 
+@pytest.mark.asyncio
 async def test_set_symbol_partial_take_profit_stop_loss(ccxt_connector):
     with pytest.raises(NotImplementedError):
         await ccxt_connector.set_symbol_partial_take_profit_stop_loss("BTC/USDT", False,
                                                                      enums.TakeProfitStopLossMode.PARTIAL)
 
 
+@pytest.mark.asyncio
 async def test_get_ccxt_order_type(ccxt_connector):
     with pytest.raises(RuntimeError):
         ccxt_connector.get_ccxt_order_type(None)
@@ -161,6 +166,7 @@ async def test_get_ccxt_order_type(ccxt_connector):
     assert ccxt_connector.get_ccxt_order_type(enums.TraderOrderType.SELL_MARKET) == enums.TradeOrderType.MARKET.value
 
 
+@pytest.mark.asyncio
 async def test_get_trade_fee(exchange_manager, future_trader_simulator_with_default_linear):
     spot_fees_value = 0.001
     future_symbol = "BTC/USDT:USDT"
@@ -209,6 +215,7 @@ async def test_get_trade_fee(exchange_manager, future_trader_simulator_with_defa
            _get_fees("taker", "BTC", future_fees_value, decimal.Decimal("0.00018"))
 
 
+@pytest.mark.asyncio
 async def test_error_describer(ccxt_connector):
     with pytest.raises(ZeroDivisionError, match="plop"):
         # random error is just forwarded
@@ -320,7 +327,7 @@ async def test_error_describer(ccxt_connector):
                 raise ccxt.AuthenticationError("plop")
         get_last_proxied_request_url_mock.assert_called_once()
         get_last_proxied_request_url_mock.reset_mock()
-        with pytest.raises(octobot_trading.errors.AuthenticationError, match="\[Proxied\] plop"):
+        with pytest.raises(octobot_trading.errors.AuthenticationError, match=r"\[Proxied\] plop"):
             # proxied request error: add prefix
             ccxt_connector.client.last_request_url = "https///plop.com/coucou"
             with ccxt_connector.error_describer():

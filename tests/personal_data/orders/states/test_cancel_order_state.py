@@ -24,9 +24,10 @@ from tests.exchanges import simulated_trader, simulated_exchange_manager
 from tests.personal_data.orders import sell_limit_order, buy_limit_order, buy_market_order, sell_market_order
 import tests.personal_data.orders.states as states
 
-pytestmark = pytest.mark.asyncio
 
 
+
+@pytest.mark.asyncio
 async def test_on_order_refresh_successful(sell_limit_order):
     sell_limit_order.status = enums.OrderStatus.CANCELED
     sell_limit_order.exchange_manager.is_backtesting = True
@@ -36,14 +37,17 @@ async def test_on_order_refresh_successful(sell_limit_order):
     sell_limit_order.clear()
 
 
+@pytest.mark.asyncio
 async def test_initialize_without_kwargs(sell_limit_order):
     await states.inner_test_initialize_without_kwargs(sell_limit_order, enums.OrderStatus.CANCELED, 'on_close')
 
 
+@pytest.mark.asyncio
 async def test_initialize_with_kwargs(sell_limit_order):
     await states.inner_test_initialize_with_kwargs(sell_limit_order, enums.OrderStatus.CANCELED, 'on_close')
 
 
+@pytest.mark.asyncio
 async def test_constructor_real_order_with_pending_cancel_status(buy_limit_order):
     # with PENDING_CANCEL status
     buy_limit_order.status = enums.OrderStatus.PENDING_CANCEL
@@ -57,6 +61,7 @@ async def test_constructor_real_order_with_pending_cancel_status(buy_limit_order
         assert not state.is_status_cancelled()
 
 
+@pytest.mark.asyncio
 async def test_constructor_simulated_order_with_pending_cancel_status(buy_limit_order):
     buy_limit_order.status = enums.OrderStatus.PENDING_CANCEL
     buy_limit_order.simulated = True
@@ -69,6 +74,7 @@ async def test_constructor_simulated_order_with_pending_cancel_status(buy_limit_
         assert state.is_status_cancelled()
 
 
+@pytest.mark.asyncio
 async def test_constructor_with_cancelled_status(sell_limit_order):
     # with CANCELED status
     sell_limit_order.status = enums.OrderStatus.CANCELED
@@ -81,6 +87,7 @@ async def test_constructor_with_cancelled_status(sell_limit_order):
         assert state.is_status_cancelled()
 
 
+@pytest.mark.asyncio
 async def test_constructor_with_expired_status(buy_market_order):
     # with EXPIRED status
     buy_market_order.status = enums.OrderStatus.EXPIRED
@@ -93,6 +100,7 @@ async def test_constructor_with_expired_status(buy_market_order):
         assert state.is_status_cancelled()
 
 
+@pytest.mark.asyncio
 async def test_constructor_with_rejected_status(sell_market_order):
     # with REJECTED status
     sell_market_order.status = enums.OrderStatus.REJECTED

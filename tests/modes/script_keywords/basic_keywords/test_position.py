@@ -29,10 +29,11 @@ from tests.exchanges import backtesting_trader, \
 
 
 # All test coroutines will be treated as marked.
-pytestmark = pytest.mark.asyncio
+
 
 
 @pytest.mark.parametrize("backtesting_config", ["USDT"], indirect=["backtesting_config"])
+@pytest.mark.asyncio
 async def test_average_open_pos_entry(mock_context):
     mock_context.exchange_manager.is_future = False
     with mock.patch.object(position, "get_position",

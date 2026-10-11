@@ -27,17 +27,19 @@ from tests.exchanges import backtesting_trader, backtesting_config, backtesting_
 from tests import event_loop
 
 # All test coroutines will be treated as marked.
-pytestmark = pytest.mark.asyncio
+
 
 TRANSACTION_SYMBOL = "BTC/USDT"
 TRANSACTION_CURRENCY = "BTC"
 
 
+@pytest.mark.asyncio
 async def test_initialized(backtesting_trader):
     _, exchange_manager, _ = backtesting_trader
     assert exchange_manager.exchange_personal_data.transactions_manager.is_initialized
 
 
+@pytest.mark.asyncio
 async def test_insert_transaction_instance(backtesting_trader):
     _, exchange_manager, _ = backtesting_trader
     assert len(exchange_manager.exchange_personal_data.transactions_manager.transactions) == 0
@@ -104,6 +106,7 @@ async def test_insert_transaction_instance(backtesting_trader):
     assert list(exchange_manager.exchange_personal_data.transactions_manager.transactions.values())[-1] is transaction
 
 
+@pytest.mark.asyncio
 async def test_get_transaction(backtesting_trader):
     _, exchange_manager, _ = backtesting_trader
     assert len(exchange_manager.exchange_personal_data.transactions_manager.transactions) == 0
@@ -161,6 +164,7 @@ async def test_get_transaction(backtesting_trader):
                get_transaction(transaction_2.transaction_id) is transaction_2
 
 
+@pytest.mark.asyncio
 async def test_update_transaction_id(backtesting_trader):
     _, exchange_manager, _ = backtesting_trader
     t_id = str(uuid.uuid4())

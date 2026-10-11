@@ -26,11 +26,12 @@ from tests.exchanges import backtesting_trader, backtesting_config, backtesting_
     DEFAULT_EXCHANGE_NAME
 
 # All test coroutines will be treated as marked.
-pytestmark = pytest.mark.asyncio
+
 
 
 @pytest.mark.parametrize("backtesting_exchange_manager", [(None, DEFAULT_EXCHANGE_NAME, False, True, False)],
                          indirect=["backtesting_exchange_manager"])
+@pytest.mark.asyncio
 async def test_initial_portfolio(backtesting_trader):
     config, exchange_manager, trader = backtesting_trader
     portfolio_manager = exchange_manager.exchange_personal_data.portfolio_manager

@@ -26,9 +26,10 @@ from tests import event_loop
 from tests.test_utils.random_numbers import decimal_random_recent_trade, decimal_random_price, random_timestamp
 
 # All test coroutines will be treated as marked.
-pytestmark = pytest.mark.asyncio
 
 
+
+@pytest.mark.asyncio
 async def test_reset(price_events_manager):
     if not os.getenv('CYTHON_IGNORE'):
         price_events_manager.events.append(None)
@@ -37,6 +38,7 @@ async def test_reset(price_events_manager):
         assert not price_events_manager.events
 
 
+@pytest.mark.asyncio
 async def test_new_event(price_events_manager):
     event = price_events_manager.new_event(decimal_random_price(), random_timestamp(), True)
     assert not event.is_set()
@@ -57,6 +59,7 @@ async def test_new_event(price_events_manager):
     assert not event.is_set()
 
 
+@pytest.mark.asyncio
 async def test_handle_recent_trades(price_events_manager):
     random_price_1 = decimal_random_price(min_value=decimal.Decimal(2))
     random_timestamp_1 = random_timestamp(min_value=2, max_value=1000)
@@ -81,6 +84,7 @@ async def test_handle_recent_trades(price_events_manager):
         price_event_1_set.assert_called_once()
 
 
+@pytest.mark.asyncio
 async def test_handle_recent_trades_multiple_events(price_events_manager):
     random_price_1 = decimal_random_price(min_value=decimal.Decimal(2))
     random_price_2 = decimal_random_price(min_value=random_price_1)
@@ -138,6 +142,7 @@ async def test_handle_recent_trades_multiple_events(price_events_manager):
         price_event_2_set.assert_not_called()
 
 
+@pytest.mark.asyncio
 async def test_handle_price(price_events_manager):
     random_price_1 = decimal_random_price()
     random_timestamp_1 = random_timestamp(min_value=2, max_value=1000)
@@ -158,6 +163,7 @@ async def test_handle_price(price_events_manager):
         price_event_1_set.assert_called_once()
 
 
+@pytest.mark.asyncio
 async def test_remove_event(price_events_manager):
     event_1 = price_events_manager.new_event(decimal_random_price(), random_timestamp(), True)
     event_2 = price_events_manager.new_event(decimal_random_price(), random_timestamp(), False)

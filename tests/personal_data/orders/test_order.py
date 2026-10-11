@@ -32,9 +32,10 @@ from tests.exchanges.traders import trader
 from tests.test_utils.random_numbers import random_price
 
 # All test coroutines will be treated as marked.
-pytestmark = pytest.mark.asyncio
 
 
+
+@pytest.mark.asyncio
 async def test_get_profitability(trader_simulator):
     config, exchange_manager_inst, trader_inst = trader_simulator
 
@@ -84,6 +85,7 @@ async def test_get_profitability(trader_simulator):
     assert order_filled_sup_side_sell_inst.get_profitability() == 0
 
 
+@pytest.mark.asyncio
 async def test_update(trader):
     config, exchange_manager_inst, trader_inst = trader
 
@@ -116,6 +118,7 @@ async def test_update(trader):
     assert order_inst.tag == "tag"
 
 
+@pytest.mark.asyncio
 async def test_simulated_update(trader_simulator):
     config, exchange_manager_inst, trader_inst = trader_simulator
     order_sim_inst = personal_data.Order(trader_inst)
@@ -133,6 +136,7 @@ async def test_simulated_update(trader_simulator):
     assert order_sim_inst.filled_quantity == 200
 
 
+@pytest.mark.asyncio
 async def test_initialize(trader_simulator):
     config, exchange_manager_inst, trader_inst = trader_simulator
     order_inst = personal_data.Order(trader_inst)
@@ -162,6 +166,7 @@ async def test_initialize(trader_simulator):
         _ensure_inactive_order_watcher_mock.assert_called_once()
 
 
+@pytest.mark.asyncio
 async def test_order_state_creation(trader_simulator):
     config, exchange_manager_inst, trader_inst = trader_simulator
     order_inst = personal_data.Order(trader_inst)
@@ -170,6 +175,7 @@ async def test_order_state_creation(trader_simulator):
         raise errors.InvalidOrderState()
 
 
+@pytest.mark.asyncio
 async def test_parse_order_type():
     untyped_raw_order = {
         enums.ExchangeConstantsOrderColumns.SIDE.value: enums.TradeOrderSide.BUY.value,
@@ -200,6 +206,7 @@ async def test_parse_order_type():
            (enums.TradeOrderSide.SELL, enums.TraderOrderType.SELL_LIMIT)
 
 
+@pytest.mark.asyncio
 async def test_update_from_raw(trader_simulator):
     config, exchange_manager_inst, trader_inst = trader_simulator
     order_inst = personal_data.Order(trader_inst)
@@ -307,6 +314,7 @@ async def test_update_from_raw(trader_simulator):
     }
 
 
+@pytest.mark.asyncio
 async def test_set_as_chained_order(trader_simulator):
     config, exchange_manager_inst, trader_inst = trader_simulator
 
@@ -333,6 +341,7 @@ async def test_set_as_chained_order(trader_simulator):
     assert isinstance(chained_order.state, personal_data.PendingCreationOrderState)
 
 
+@pytest.mark.asyncio
 async def test_trigger_chained_orders(trader_simulator):
     config, exchange_manager_inst, trader_inst = trader_simulator
 
@@ -429,6 +438,7 @@ async def test_trigger_chained_orders(trader_simulator):
         _create_triggered_chained_order_mock.assert_called_once_with(order_mock_2, True)
 
 
+@pytest.mark.asyncio
 async def test_create_triggered_chained_order_mock(trader_simulator):
     config, exchange_manager_inst, trader_inst = trader_simulator
 
@@ -491,6 +501,7 @@ async def test_create_triggered_chained_order_mock(trader_simulator):
         assert chained_order_1.is_cleared()
 
 
+@pytest.mark.asyncio
 async def test_are_simultaneously_triggered_grouped_orders_closed(trader_simulator):
     config, exchange_manager_inst, trader_inst = trader_simulator
     order = personal_data.Order(trader_inst)
@@ -534,6 +545,7 @@ async def test_are_simultaneously_triggered_grouped_orders_closed(trader_simulat
     assert order_mock_2._are_simultaneously_triggered_grouped_orders_closed() is True
 
 
+@pytest.mark.asyncio
 async def test_set_as_inactive(trader_simulator):
     config, exchange_manager_inst, trader_inst = trader_simulator
     base_order = personal_data.Order(trader_inst)
@@ -561,6 +573,7 @@ async def test_set_as_inactive(trader_simulator):
         _ensure_inactive_order_watcher_mock.assert_called_once()
 
 
+@pytest.mark.asyncio
 async def test_ensure_inactive_order_watcher_and_sub_functions(trader_simulator):
     config, exchange_manager_inst, trader_inst = trader_simulator
     base_order = personal_data.Order(trader_inst)
@@ -626,7 +639,8 @@ async def test_ensure_inactive_order_watcher_and_sub_functions(trader_simulator)
     assert len(exchange_manager_inst.exchange_symbols_data.get_exchange_symbol_data(base_order.symbol).price_events_manager.events) == 0
 
 
-def test_should_become_active(trader_simulator):
+@pytest.mark.asyncio
+async def test_should_become_active(trader_simulator):
     config, exchange_manager_inst, trader_inst = trader_simulator
     base_order = personal_data.Order(trader_inst)
     assert base_order.should_become_active(123, decimal.Decimal(1)) is False    # is active
@@ -644,6 +658,7 @@ def test_should_become_active(trader_simulator):
     assert base_order.should_become_active(123, decimal.Decimal("1.4")) is False
 
 
+@pytest.mark.asyncio
 async def test_on_active_trigger(trader_simulator):
     config, exchange_manager_inst, trader_inst = trader_simulator
     base_order = personal_data.Order(trader_inst)
@@ -657,6 +672,7 @@ async def test_on_active_trigger(trader_simulator):
         create_as_active_order_using_strategy_if_any_mock.assert_called_once_with(base_order, 123, "callback")
 
 
+@pytest.mark.asyncio
 async def test_on_inactive_from_active(trader_simulator):
     config, exchange_manager_inst, trader_inst = trader_simulator
     base_order = personal_data.Order(trader_inst)
@@ -679,6 +695,7 @@ async def test_on_inactive_from_active(trader_simulator):
         _ensure_inactive_order_watcher_mock.assert_called_once()
 
 
+@pytest.mark.asyncio
 async def test_on_active_from_inactive(trader_simulator):
     config, exchange_manager_inst, trader_inst = trader_simulator
     base_order = personal_data.Order(trader_inst)
@@ -689,6 +706,7 @@ async def test_on_active_from_inactive(trader_simulator):
         clear_mock.assert_called_once()
 
 
+@pytest.mark.asyncio
 async def test_create_on_filled_artificial_order(trader_simulator):
     config, exchange_manager_inst, trader_inst = trader_simulator
 
@@ -734,7 +752,8 @@ async def test_create_on_filled_artificial_order(trader_simulator):
         assert base_order.on_filled_artificial_order is triggered_artificial_order
 
 
-def test_update_quantity_with_order_fees(trader_simulator):
+@pytest.mark.asyncio
+async def test_update_quantity_with_order_fees(trader_simulator):
     config, exchange_manager_inst, trader_inst = trader_simulator
 
     base_order = personal_data.Order(trader_inst)
@@ -791,6 +810,7 @@ def test_update_quantity_with_order_fees(trader_simulator):
     other_order.origin_quantity = decimal.Decimal(1)
 
 
+@pytest.mark.asyncio
 async def test_update_from_order(trader_simulator):
     config, exchange_manager_inst, trader_inst = trader_simulator
 
@@ -831,6 +851,7 @@ async def test_update_from_order(trader_simulator):
     assert base_order_1.state.order is base_order_1
 
 
+@pytest.mark.asyncio
 async def test_update_from_order_storage(trader_simulator):
     config, exchange_manager_inst, trader_inst = trader_simulator
 
@@ -915,6 +936,7 @@ async def test_update_from_order_storage(trader_simulator):
     assert order.active_trigger.trigger_above is False
 
 
+@pytest.mark.asyncio
 async def test_is_counted_in_available_funds(trader_simulator):
     config, exchange_manager_inst, trader_inst = trader_simulator
 

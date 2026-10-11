@@ -24,7 +24,7 @@ from octobot_trading.exchange_data.kline.kline_manager import KlineManager
 from tests.test_utils.random_numbers import random_kline, random_price, random_timestamp, random_quantity
 from tests import event_loop
 
-pytestmark = pytest.mark.asyncio
+
 
 
 @pytest_asyncio.fixture()
@@ -34,10 +34,12 @@ async def kline_manager():
     return k_manager
 
 
+@pytest.mark.asyncio
 async def test_init(kline_manager):
     assert not kline_manager.kline == []
 
 
+@pytest.mark.asyncio
 async def test_reset_kline(kline_manager):
     kline_manager.kline = random_kline()
     assert len(kline_manager.kline) == 6
@@ -46,6 +48,7 @@ async def test_reset_kline(kline_manager):
         assert kline_manager.kline == [nan] * len(PriceIndexes)
 
 
+@pytest.mark.asyncio
 async def test_kline_update(kline_manager):
     rc_1 = random_kline()
     kline_manager.kline_update(rc_1)

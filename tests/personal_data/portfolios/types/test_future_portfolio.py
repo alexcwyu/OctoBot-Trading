@@ -33,7 +33,7 @@ from tests.exchanges.traders import future_trader, future_trader_simulator_with_
 from tests.test_utils.order_util import fill_market_order
 
 # All test coroutines will be treated as marked.
-pytestmark = pytest.mark.asyncio
+
 
 
 async def _update_position_mark_price(exchange_manager_inst, mark_price, symbol=DEFAULT_FUTURE_SYMBOL, side=None):
@@ -42,6 +42,7 @@ async def _update_position_mark_price(exchange_manager_inst, mark_price, symbol=
     await symbol_position.update(mark_price=mark_price)
 
 
+@pytest.mark.asyncio
 async def test_initial_portfolio(future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_linear
     portfolio_manager = exchange_manager_inst.exchange_personal_data.portfolio_manager
@@ -49,6 +50,7 @@ async def test_initial_portfolio(future_trader_simulator_with_default_linear):
     assert isinstance(portfolio_manager.portfolio, FuturePortfolio)
 
 
+@pytest.mark.asyncio
 async def test_update_future_portfolio_from_order(
         future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_linear
@@ -87,6 +89,7 @@ async def test_update_future_portfolio_from_order(
     assert portfolio_manager.portfolio.get_currency_portfolio("USDT").order_margin == constants.ZERO
 
 
+@pytest.mark.asyncio
 async def test_update_portfolio_available_from_order_with_market_buy_long_linear_contract(
         future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_linear
@@ -139,6 +142,7 @@ async def test_update_portfolio_available_from_order_with_market_buy_long_linear
     assert portfolio_manager.portfolio.get_currency_portfolio("BTC").total == decimal.Decimal(str(10))
 
 
+@pytest.mark.asyncio
 async def test_update_portfolio_available_from_order_with_market_buy_long_inverse_contract(
         future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_linear
@@ -197,6 +201,7 @@ async def test_update_portfolio_available_from_order_with_market_buy_long_invers
     assert portfolio_manager.portfolio.get_currency_portfolio("USDT").total == decimal.Decimal(str(1000))
 
 
+@pytest.mark.asyncio
 async def test_update_portfolio_data_from_order_with_market_buy_long_linear_contract(
         future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_linear
@@ -305,6 +310,7 @@ async def test_update_portfolio_data_from_order_with_market_buy_long_linear_cont
     assert portfolio_manager.portfolio.get_currency_portfolio("USDT").unrealized_pnl == constants.ZERO
 
 
+@pytest.mark.asyncio
 async def test_update_portfolio_data_from_order_that_triggers_negative_portfolio_linear_contract(
         future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_linear
@@ -325,6 +331,7 @@ async def test_update_portfolio_data_from_order_that_triggers_negative_portfolio
         portfolio_manager.portfolio.update_portfolio_available(market_buy, True)
 
 
+@pytest.mark.asyncio
 async def test_update_portfolio_data_from_order_with_cancelled_and_filled_orders_linear_contract(
         future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_linear
@@ -382,6 +389,7 @@ async def test_update_portfolio_data_from_order_with_cancelled_and_filled_orders
     assert portfolio_manager.portfolio.get_currency_portfolio("USDT").total == decimal.Decimal('999.616')
 
 
+@pytest.mark.asyncio
 async def test_update_portfolio_data_from_orders_with_max_long_size_linear_contract(
         future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_linear
@@ -493,6 +501,7 @@ async def test_update_portfolio_data_from_orders_with_max_long_size_linear_contr
     assert portfolio_manager.portfolio.get_currency_portfolio("USDT").unrealized_pnl == constants.ZERO
 
 
+@pytest.mark.asyncio
 async def test_update_portfolio_data_from_orders_with_max_short_size_linear_contract(
         future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_linear
@@ -594,6 +603,7 @@ async def test_update_portfolio_data_from_orders_with_max_short_size_linear_cont
     assert portfolio_manager.portfolio.get_currency_portfolio("USDT").position_margin == constants.ZERO
 
 
+@pytest.mark.asyncio
 async def test_update_portfolio_data_from_orders_with_max_long_size_inverse_contract(
         future_trader_simulator_with_default_inverse):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_inverse
@@ -701,6 +711,7 @@ async def test_update_portfolio_data_from_orders_with_max_long_size_inverse_cont
     assert portfolio_manager.portfolio.get_currency_portfolio("BTC").unrealized_pnl == constants.ZERO
 
 
+@pytest.mark.asyncio
 async def test_update_portfolio_data_from_orders_with_max_short_size_inverse_contract(
         future_trader_simulator_with_default_inverse):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_inverse
@@ -803,6 +814,7 @@ async def test_update_portfolio_data_from_orders_with_max_short_size_inverse_con
     assert portfolio_manager.portfolio.get_currency_portfolio("BTC").position_margin == constants.ZERO
 
 
+@pytest.mark.asyncio
 async def test_update_portfolio_data_from_order_with_huge_loss_on_filled_orders_linear_contract(
         future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_linear
@@ -869,6 +881,7 @@ async def test_update_portfolio_data_from_order_with_huge_loss_on_filled_orders_
     assert portfolio_manager.portfolio.get_currency_portfolio("USDT").position_margin == constants.ZERO
 
 
+@pytest.mark.asyncio
 async def test_update_portfolio_from_liquidated_position_with_orders_on_short_position_linear_contract(
         future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_linear
@@ -943,6 +956,7 @@ async def test_update_portfolio_from_liquidated_position_with_orders_on_short_po
     assert portfolio_manager.portfolio.get_currency_portfolio("BTC").total == decimal.Decimal('10')
 
 
+@pytest.mark.asyncio
 async def test_update_portfolio_from_funding_with_long_position(
         future_trader_simulator_with_default_inverse):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_inverse
@@ -1002,6 +1016,7 @@ async def test_update_portfolio_from_funding_with_long_position(
     assert portfolio_manager.portfolio.get_currency_portfolio("BTC").unrealized_pnl == constants.ZERO
 
 
+@pytest.mark.asyncio
 async def test_update_portfolio_from_funding_with_short_position(
         future_trader_simulator_with_default_inverse):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_inverse
@@ -1061,6 +1076,7 @@ async def test_update_portfolio_from_funding_with_short_position(
     assert portfolio_manager.portfolio.get_currency_portfolio("BTC").unrealized_pnl == constants.ZERO
 
 
+@pytest.mark.asyncio
 async def test_update_portfolio_data_with_fees(future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_linear
     set_future_exchange_fees(exchange_manager_inst.exchange.connector, default_contract.pair)
@@ -1096,6 +1112,7 @@ async def test_update_portfolio_data_with_fees(future_trader_simulator_with_defa
             assert portfolio_manager.portfolio.get_currency_portfolio("USDT").unrealized_pnl == constants.ZERO
 
 
+@pytest.mark.asyncio
 async def test_update_portfolio_data_with_fees_long_position(future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_linear
     set_future_exchange_fees(exchange_manager_inst.exchange.connector, default_contract.pair)
@@ -1195,6 +1212,7 @@ async def test_update_portfolio_data_with_fees_long_position(future_trader_simul
             assert position.quantity == constants.ZERO
 
 
+@pytest.mark.asyncio
 async def test_update_portfolio_reduce_size_with_market_sell_long_linear_contract(
         future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_linear
@@ -1235,6 +1253,7 @@ async def test_update_portfolio_reduce_size_with_market_sell_long_linear_contrac
     assert portfolio_manager.portfolio.get_currency_portfolio("BTC").total == decimal.Decimal(str(10))
 
 
+@pytest.mark.asyncio
 async def test_update_portfolio_reduce_size_with_market_buy_short_linear_contract(
         future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_linear
@@ -1290,6 +1309,7 @@ async def test_update_portfolio_reduce_size_with_market_buy_short_linear_contrac
     assert portfolio_manager.portfolio.get_currency_portfolio("BTC").total == decimal.Decimal(str(10))
 
 
+@pytest.mark.asyncio
 async def test_update_portfolio_from_pnl_with_long_inverse_contract(future_trader_simulator_with_default_inverse):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_inverse
     portfolio_manager = exchange_manager_inst.exchange_personal_data.portfolio_manager

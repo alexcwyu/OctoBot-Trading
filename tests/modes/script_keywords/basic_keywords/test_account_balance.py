@@ -30,9 +30,10 @@ from tests.exchanges import \
     backtesting_trader, backtesting_config, backtesting_exchange_manager, fake_backtesting
 
 # All test coroutines will be treated as marked.
-pytestmark = pytest.mark.asyncio
 
 
+
+@pytest.mark.asyncio
 async def test_total_account_balance(mock_context):
     mock_context.exchange_manager.exchange_personal_data. \
         portfolio_manager.portfolio_value_holder.portfolio_current_value = decimal.Decimal(999)
@@ -44,6 +45,7 @@ async def test_total_account_balance(mock_context):
                                                      timeout=trading_constants.ORDER_DATA_FETCHING_TIMEOUT)
 
 
+@pytest.mark.asyncio
 async def test_available_account_balance(mock_context):
     current_symbol_holding = decimal.Decimal("100")
     market_quantity = decimal.Decimal("50")
@@ -120,6 +122,7 @@ async def test_available_account_balance(mock_context):
         _get_locked_amount_in_stop_orders_mock.reset_mock()
 
 
+@pytest.mark.asyncio
 async def test_adapt_amount_to_holdings(null_context):
     with mock.patch.object(account_balance, "available_account_balance",
                            mock.AsyncMock(return_value=decimal.Decimal(1))) as available_account_balance_mock:
@@ -157,6 +160,7 @@ async def test_adapt_amount_to_holdings(null_context):
                                                               "is_stop_order") == decimal.Decimal(1)
 
 
+@pytest.mark.asyncio
 async def test_get_locked_amount_in_stop_orders(mock_context):
     mock_context.exchange_manager = mock.Mock()
     mock_context.exchange_manager.exchange_personal_data = mock.Mock()

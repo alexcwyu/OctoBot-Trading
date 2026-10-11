@@ -21,9 +21,10 @@ import octobot_trading.personal_data as personal_data
 from tests import event_loop
 
 # All test coroutines will be treated as marked.
-pytestmark = pytest.mark.asyncio
 
 
+
+@pytest.mark.asyncio
 async def test_adapt_price():
     # will use symbol market
     symbol_market = {Ecmsc.PRECISION.value: {Ecmsc.PRECISION_PRICE.value: 4}}
@@ -47,6 +48,7 @@ async def test_adapt_price():
     assert personal_data.adapt_price(symbol_market, 1251.0000014576121234854513) == 1251.00000145
 
 
+@pytest.mark.asyncio
 async def test_get_additional_dusts_to_quantity_if_necessary():
     symbol_market = {Ecmsc.LIMITS.value: {
         Ecmsc.LIMITS_AMOUNT.value: {
@@ -129,6 +131,7 @@ async def test_get_additional_dusts_to_quantity_if_necessary():
                                                             current_symbol_holding) == quantity
 
 
+@pytest.mark.asyncio
 async def test_check_and_adapt_order_details_if_necessary():
     symbol_market = {
         Ecmsc.LIMITS.value: {
@@ -346,6 +349,7 @@ async def test_check_and_adapt_order_details_if_necessary():
         (10, 4900000)]
 
 
+@pytest.mark.asyncio
 async def test_split_orders():
     symbol_market = {
         Ecmsc.LIMITS.value: {
@@ -437,6 +441,7 @@ async def test_split_orders():
                                           max_quantity, price, valid_quantity, symbol_market_without_max)
 
 
+@pytest.mark.asyncio
 async def test_adapt_quantity():
     # will use symbol market
     symbol_market = {Ecmsc.PRECISION.value: {Ecmsc.PRECISION_AMOUNT.value: 4}}
@@ -461,6 +466,7 @@ async def test_adapt_quantity():
     assert personal_data.adapt_quantity(symbol_market, 1251.0000014576121234854513) == 1251
 
 
+@pytest.mark.asyncio
 async def test_trunc_with_n_decimal_digits():
     assert personal_data.trunc_with_n_decimal_digits(1.00000000001, 10) == 1
     assert personal_data.trunc_with_n_decimal_digits(1.00000000001, 11) == 1.00000000001

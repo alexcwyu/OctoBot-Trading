@@ -25,9 +25,10 @@ import octobot_trading.enums as enums
 from tests import event_loop
 
 # All test coroutines will be treated as marked.
-pytestmark = pytest.mark.asyncio
 
 
+
+@pytest.mark.asyncio
 async def test_decimal_adapt_price():
     # will use symbol market
     symbol_market = {Ecmsc.PRECISION.value: {Ecmsc.PRECISION_PRICE.value: 4}}
@@ -78,6 +79,7 @@ async def test_decimal_adapt_price():
         str(1251.00000146))
 
 
+@pytest.mark.asyncio
 async def test_decimal_check_and_adapt_order_details_if_necessary():
     symbol_market = {
         Ecmsc.LIMITS.value: {
@@ -292,6 +294,7 @@ async def test_decimal_check_and_adapt_order_details_if_necessary():
                (decimal.Decimal(str(10)), decimal.Decimal(str(4900000)))]
 
 
+@pytest.mark.asyncio
 async def test_decimal_check_and_adapt_order_details_if_necessary_without_price_limit():
     # without price limit
     symbol_market = {
@@ -351,6 +354,7 @@ async def test_decimal_check_and_adapt_order_details_if_necessary_without_price_
     ]
 
 
+@pytest.mark.asyncio
 async def test_split_orders():
     symbol_market = {
         Ecmsc.LIMITS.value: {
@@ -446,6 +450,7 @@ async def test_split_orders():
                                                   max_quantity, price, valid_quantity, symbol_market_without_max)
 
 
+@pytest.mark.asyncio
 async def test_adapt_quantity():
     # will use symbol market
     symbol_market = {Ecmsc.PRECISION.value: {Ecmsc.PRECISION_AMOUNT.value: 4}}
@@ -489,6 +494,7 @@ async def test_adapt_quantity():
         str(1251))
 
 
+@pytest.mark.asyncio
 async def test_decimal_trunc_with_n_decimal_digits():
     assert personal_data.decimal_trunc_with_n_decimal_digits(decimal.Decimal(1.00000000001), 10) == decimal.Decimal(1)
     assert personal_data.decimal_trunc_with_n_decimal_digits(decimal.Decimal("1.01"), 1, True) == decimal.Decimal(1)
@@ -522,7 +528,8 @@ async def test_decimal_trunc_with_n_decimal_digits():
     assert math.isnan(personal_data.decimal_trunc_with_n_decimal_digits(decimal.Decimal(math.nan), 12))
 
 
-def test_decimal_adapt_order_quantity_because_fees_futures():
+@pytest.mark.asyncio
+async def test_decimal_adapt_order_quantity_because_fees_futures():
     """Test that futures orders are not modified by fees"""
     exchange_manager = mock.Mock()
     exchange_manager.is_future = True
@@ -540,7 +547,8 @@ def test_decimal_adapt_order_quantity_because_fees_futures():
     assert result == quantity
 
 
-def test_decimal_adapt_order_quantity_because_fees_spot_sell():
+@pytest.mark.asyncio
+async def test_decimal_adapt_order_quantity_because_fees_spot_sell():
     """Test that spot sell orders are not modified by fees"""
     exchange_manager = mock.Mock()
     exchange_manager.is_future = False
@@ -558,7 +566,8 @@ def test_decimal_adapt_order_quantity_because_fees_spot_sell():
     assert result == quantity
 
 
-def test_decimal_adapt_order_quantity_because_fees_spot_buy():
+@pytest.mark.asyncio
+async def test_decimal_adapt_order_quantity_because_fees_spot_buy():
     """Test spot buy order quantity adaptation with fees"""
     exchange_manager = mock.Mock()
     exchange_manager.is_future = False
@@ -636,7 +645,8 @@ def test_decimal_adapt_order_quantity_because_fees_spot_buy():
     assert result == quantity
 
 
-def test_decimal_adapt_order_quantity_because_fees_insufficient_funds():
+@pytest.mark.asyncio
+async def test_decimal_adapt_order_quantity_because_fees_insufficient_funds():
     """Test spot buy order with insufficient funds after fees"""
     exchange_manager = mock.Mock()
     exchange_manager.is_future = False
@@ -681,7 +691,8 @@ def test_decimal_adapt_order_quantity_because_fees_insufficient_funds():
     assert result == decimal.Decimal("100") - (fees_cost * constants.FEES_SAFETY_MARGIN) / price
 
 
-def test_decimal_adapt_order_quantity_because_fees_with_existing_orders():
+@pytest.mark.asyncio
+async def test_decimal_adapt_order_quantity_because_fees_with_existing_orders():
     """Test spot buy order adaptation with existing orders"""
     exchange_manager = mock.Mock()
     exchange_manager.is_future = False

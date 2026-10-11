@@ -24,9 +24,10 @@ from tests import event_loop
 
 
 # All test coroutines will be treated as marked.
-pytestmark = pytest.mark.asyncio
 
 
+
+@pytest.mark.asyncio
 async def test_build_trading_modes_if_required(exchange_manager):
     builder = exchanges.ExchangeBuilder({}, "binanceus")
     builder.exchange_manager = exchange_manager
@@ -77,6 +78,7 @@ async def test_build_trading_modes_if_required(exchange_manager):
         await builder._build_trading_modes_if_required(trading_mode_class, tentacles_setup_config)
 
 
+@pytest.mark.asyncio
 async def test_build_collector_exchange(exchange_manager):
     new_exchange_manager = await api.create_exchange_builder(exchange_manager.config, exchange_manager.exchange_name) \
         .is_simulated() \

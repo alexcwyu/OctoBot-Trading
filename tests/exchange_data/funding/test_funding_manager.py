@@ -23,7 +23,7 @@ from octobot_trading.exchange_data.funding.funding_manager import FundingManager
 from tests.test_utils.random_numbers import random_timestamp, random_funding_rate
 from tests import event_loop
 
-pytestmark = pytest.mark.asyncio
+
 
 
 @pytest_asyncio.fixture()
@@ -33,6 +33,7 @@ async def funding_manager():
     return fund_manager
 
 
+@pytest.mark.asyncio
 async def test_init(funding_manager):
     assert funding_manager.next_update == 0
     assert funding_manager.last_updated == 0
@@ -42,6 +43,7 @@ async def test_init(funding_manager):
     assert funding_manager.predicted_funding_rate is constants.NaN
 
 
+@pytest.mark.asyncio
 async def test_reset_funding(funding_manager):
     funding_manager.next_update = random_timestamp()
     funding_manager.last_updated = random_timestamp()
@@ -56,6 +58,7 @@ async def test_reset_funding(funding_manager):
     assert funding_manager.predicted_funding_rate is constants.NaN
 
 
+@pytest.mark.asyncio
 async def test_funding_update(funding_manager):
     last_updated = random_timestamp()
     next_updated = random_timestamp(last_updated)

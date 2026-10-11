@@ -26,7 +26,7 @@ import octobot_trading.enums as enums
 
 from tests.exchanges import simulated_exchange_manager, simulated_trader
 
-pytestmark = pytest.mark.asyncio
+
 
 
 DEFAULT_SYMBOL = "BTC/USDT"
@@ -136,6 +136,7 @@ def _get_raw_order(order, status=None):
     return order
 
 
+@pytest.mark.asyncio
 async def test_get_order(order_and_exchange_managers):
     orders_manager, exchange_manager = order_and_exchange_managers
     await reset_orders_manager(orders_manager)
@@ -143,6 +144,7 @@ async def test_get_order(order_and_exchange_managers):
     assert order.order_id == "2"
 
 
+@pytest.mark.asyncio
 async def test_get_all_orders(order_and_exchange_managers):
     orders_manager, exchange_manager = order_and_exchange_managers
     await reset_orders_manager(orders_manager)
@@ -210,6 +212,7 @@ async def test_get_all_orders(order_and_exchange_managers):
     # assert tagged_order[0].order_id == "4"
 
 
+@pytest.mark.asyncio
 async def test_get_pending_cancel_orders(order_and_exchange_managers):
     orders_manager, exchange_manager = order_and_exchange_managers
     await reset_orders_manager(
@@ -244,6 +247,7 @@ async def test_get_pending_cancel_orders(order_and_exchange_managers):
     assert orders[0] is selectable_order
 
 
+@pytest.mark.asyncio
 async def test_get_closed_orders(order_and_exchange_managers):
     orders_manager, exchange_manager = order_and_exchange_managers
     await reset_orders_manager(
@@ -277,6 +281,7 @@ async def test_get_closed_orders(order_and_exchange_managers):
     assert orders[0] is selectable_order
 
 
+@pytest.mark.asyncio
 async def test_get_open_orders(order_and_exchange_managers):
     orders_manager, exchange_manager = order_and_exchange_managers
     await reset_orders_manager(orders_manager, enums.OrderStatus.OPEN.value)
@@ -344,6 +349,7 @@ async def test_get_open_orders(order_and_exchange_managers):
     # assert tagged_order[0].order_id == "4"
 
 
+@pytest.mark.asyncio
 async def test_get_orders_to_cancel_from_policies(order_and_exchange_managers):
     orders_manager, exchange_manager = order_and_exchange_managers
     await reset_orders_manager(orders_manager, enums.OrderStatus.OPEN.value)

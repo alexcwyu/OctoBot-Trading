@@ -21,9 +21,10 @@ from tests.exchanges import backtesting_trader, backtesting_config, backtesting_
 from tests import event_loop
 
 # All test coroutines will be treated as marked.
-pytestmark = pytest.mark.asyncio
 
 
+
+@pytest.mark.asyncio
 async def test_init_profitability(backtesting_trader):
     config, exchange_manager, trader = backtesting_trader
     portfolio_manager = exchange_manager.exchange_personal_data.portfolio_manager
@@ -38,6 +39,7 @@ async def test_init_profitability(backtesting_trader):
     assert portfolio_value_holder.portfolio_current_value == 0
 
 
+@pytest.mark.asyncio
 async def test_simple_handle_balance_update(backtesting_trader):
     config, exchange_manager, trader = backtesting_trader
     portfolio_manager = exchange_manager.exchange_personal_data.portfolio_manager
@@ -64,6 +66,7 @@ async def test_simple_handle_balance_update(backtesting_trader):
     assert portfolio_value_holder.portfolio_current_value == 20
 
 
+@pytest.mark.asyncio
 async def test_random_quantity_handle_balance_update(backtesting_trader):
     config, exchange_manager, trader = backtesting_trader
     portfolio_manager = exchange_manager.exchange_personal_data.portfolio_manager

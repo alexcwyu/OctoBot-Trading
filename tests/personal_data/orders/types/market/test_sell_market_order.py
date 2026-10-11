@@ -24,9 +24,10 @@ from tests import event_loop
 from tests.exchanges import simulated_trader, simulated_exchange_manager
 from tests.personal_data.orders import sell_market_order
 
-pytestmark = pytest.mark.asyncio
 
 
+
+@pytest.mark.asyncio
 async def test_sell_market_order_trigger(sell_market_order):
     order_price = decimal_random_price()
     sell_market_order.update(

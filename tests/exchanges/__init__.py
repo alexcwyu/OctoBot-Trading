@@ -42,7 +42,7 @@ from octobot_trading.enums import FeePropertyColumns, ExchangeConstantsMarketPro
 
 import tests.exchanges.connectors.ccxt.mock_exchanges_data as mock_exchanges_data
 
-pytestmark = pytest.mark.asyncio
+
 
 TESTS_FOLDER = "tests"
 TESTS_STATIC_FOLDER = os.path.join(TESTS_FOLDER, "static")

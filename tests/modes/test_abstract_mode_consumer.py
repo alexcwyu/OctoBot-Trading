@@ -34,7 +34,7 @@ import octobot_trading.errors
 from tests import event_loop
 
 # All test coroutines will be treated as marked.
-pytestmark = pytest.mark.asyncio
+
 
 
 async def _get_tools():
@@ -64,6 +64,7 @@ async def _get_tools():
     return exchange_manager, symbol, consumer
 
 
+@pytest.mark.asyncio
 async def test_can_create_order():
     _, symbol, consumer = await _get_tools()
     # portfolio: "BTC": 10 "USD": 1000
@@ -100,6 +101,7 @@ async def test_can_create_order():
     assert await consumer.can_create_order(not_owned_symbol, octobot_trading.enums.EvaluatorStates.VERY_LONG.value)
 
 
+@pytest.mark.asyncio
 async def test_can_create_order_unknown_symbols():
     _, _, consumer = await _get_tools()
     unknown_symbol = "VI?/BTC"
@@ -124,6 +126,7 @@ async def test_can_create_order_unknown_symbols():
     assert await consumer.can_create_order(unknown_everything,  octobot_trading.enums.EvaluatorStates.NEUTRAL.value)
 
 
+@pytest.mark.asyncio
 async def test_valid_create_new_order():
     _, symbol, consumer = await _get_tools()
 
@@ -136,6 +139,7 @@ async def test_valid_create_new_order():
         await consumer.create_new_orders(symbol, -1, octobot_trading.enums.EvaluatorStates.LONG, xyz=1, aaa="bbb")
 
 
+@pytest.mark.asyncio
 async def test_get_number_of_traded_assets():
     exchange_manager, symbol, consumer = await _get_tools()
     exchange_manager.exchange_personal_data.portfolio_manager.portfolio_value_holder.\
@@ -147,6 +151,7 @@ async def test_get_number_of_traded_assets():
     assert consumer.get_number_of_traded_assets() == 3
 
 
+@pytest.mark.asyncio
 async def test_update_producer_last_activity():
     exchange_manager, symbol, consumer = await _get_tools()
     mode = consumer.trading_mode
@@ -165,6 +170,7 @@ async def test_update_producer_last_activity():
     )
 
 
+@pytest.mark.asyncio
 async def test_create_order_if_possible_ensure_no_deadlock_when_canceling_orders():
     exchange_manager, symbol, consumer = await _get_tools()
     with mock.patch.object(
@@ -558,7 +564,7 @@ async def test_create_order_if_possible_ensure_no_deadlock_when_canceling_orders
             exchange_manager.exchange, "cancel_order", mock.AsyncMock(side_effect=_cancel_order)
         ) as cancel_order_mock, \
         mock.patch.object(
-            exchange_manager.trader, "_ensure_probably_canceled_order", mock.AsyncMock(side_effect=origin_ensure_probably_canceled_order)
+            exchange_manager.trader, "_ensure_probably_canceled_order", mock.Mock(side_effect=origin_ensure_probably_canceled_order)
         ) as _ensure_probably_canceled_order_mock:
             # doesn't create a concurrent cancel order task let, it will be created from then on_cancel() call
             await asyncio.gather(_create_order_if_possible_task(), _timeout_task(timeout))

@@ -22,7 +22,7 @@ from octobot_trading.api.channels import subscribe_to_ohlcv_channel, subscribe_t
 from tests.exchanges import exchange_manager
 
 # All test coroutines will be treated as marked.
-pytestmark = pytest.mark.asyncio
+
 
 
 async def ohlcv_callback(
@@ -44,13 +44,16 @@ async def order_callback(self, exchange, exchange_id, cryptocurrency, symbol, or
     pass
 
 
+@pytest.mark.asyncio
 async def test_subscribe_to_ohlcv_channel(exchange_manager):
     await subscribe_to_ohlcv_channel(ohlcv_callback, exchange_manager.id)
 
 
+@pytest.mark.asyncio
 async def test_subscribe_to_trades_channel(exchange_manager):
     await subscribe_to_trades_channel(trades_callback, exchange_manager.id)
 
 
+@pytest.mark.asyncio
 async def test_subscribe_to_order_channel(exchange_manager):
     await subscribe_to_order_channel(order_callback, exchange_manager.id)

@@ -23,9 +23,10 @@ from tests.exchange_data import recent_trades_manager, price_events_manager
 from tests.test_utils.random_numbers import random_recent_trade, random_recent_trades
 from tests import event_loop
 
-pytestmark = pytest.mark.asyncio
 
 
+
+@pytest.mark.asyncio
 async def test_initialize(recent_trades_manager):
     assert not recent_trades_manager.recent_trades
     assert not recent_trades_manager.liquidations
@@ -35,6 +36,7 @@ async def test_initialize(recent_trades_manager):
         recent_trades_manager.liquidations[0]
 
 
+@pytest.mark.asyncio
 async def test_set_all_recent_trades(recent_trades_manager):
     # if setting no new trades
     recent_trades_manager.set_all_recent_trades([])
@@ -63,6 +65,7 @@ async def test_set_all_recent_trades(recent_trades_manager):
     assert recent_trades_manager.recent_trades[-3] == recent_trade_3
 
 
+@pytest.mark.asyncio
 async def test_add_new_trades(recent_trades_manager):
     # if adding no new trades
     recent_trades_manager.add_new_trades([])
@@ -104,6 +107,7 @@ async def test_add_new_trades(recent_trades_manager):
     assert recent_trades_manager.recent_trades[4] == recent_trade_5
 
 
+@pytest.mark.asyncio
 async def test_add_new_liquidations(recent_trades_manager):
     # if adding no new liquidations
     recent_trades_manager.add_new_liquidations([])
@@ -112,6 +116,7 @@ async def test_add_new_liquidations(recent_trades_manager):
     assert not recent_trades_manager.liquidations
 
 
+@pytest.mark.asyncio
 async def test_reset_recent_trades(recent_trades_manager):
     if not os.getenv('CYTHON_IGNORE'):
         recent_trades_manager.recent_trades.append(1)

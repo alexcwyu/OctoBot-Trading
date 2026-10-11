@@ -25,7 +25,7 @@ from octobot_trading.api.exchange import cancel_ccxt_throttle_task
 import octobot_trading.exchange_channel as exchange_channel
 import octobot_trading.constants as trading_constants
 
-pytestmark = pytest.mark.asyncio
+
 
 
 class TestExchangeConfig:
@@ -41,6 +41,7 @@ class TestExchangeConfig:
         await exchange_manager.initialize(exchange_config_by_exchange=None)
         return config, exchange_manager
 
+    @pytest.mark.asyncio
     async def test_traded_pairs(self):
         config = load_test_config()
         config[CONFIG_CRYPTO_CURRENCIES] = {
@@ -70,6 +71,7 @@ class TestExchangeConfig:
         finally:
             await exchange_manager.stop()
 
+    @pytest.mark.asyncio
     async def test_traded_pairs_with_wildcard(self):
         config = load_test_config()
         config[CONFIG_CRYPTO_CURRENCIES] = {
@@ -105,6 +107,7 @@ class TestExchangeConfig:
         finally:
             await exchange_manager.stop()
 
+    @pytest.mark.asyncio
     async def test_traded_pairs_with_invalid_wildcard(self):
         config = load_test_config()
 
@@ -134,6 +137,7 @@ class TestExchangeConfig:
         finally:
             await exchange_manager.stop()
 
+    @pytest.mark.asyncio
     async def test_traded_pairs_with_add(self):
         config = load_test_config()
         config[CONFIG_CRYPTO_CURRENCIES] = {
@@ -173,6 +177,7 @@ class TestExchangeConfig:
         finally:
             await exchange_manager.stop()
 
+    @pytest.mark.asyncio
     async def test_traded_pairs_with_redundancy(self):
         config = load_test_config()
         config[CONFIG_CRYPTO_CURRENCIES] = {
@@ -223,6 +228,7 @@ class TestExchangeConfig:
         (False, [], ["BTC/USDT"], [TimeFrames.ONE_MINUTE]),
         (True, [], ["BTC/USDT"], [TimeFrames.ONE_MINUTE]),
     ])
+    @pytest.mark.asyncio
     async def test_update_traded_symbol_pairs(self, watch_only, added_pairs, removed_pairs, added_time_frames):
         expected_watch_only_modified_channels = [trading_constants.TICKER_CHANNEL]
         expected_traded_modified_channels = [
@@ -366,6 +372,7 @@ class TestExchangeConfig:
         finally:
             await exchange_manager.stop()
         
+    @pytest.mark.asyncio
     async def test_update_traded_symbol_pairs_no_available_time_frames(self):
         config = load_test_config()
         config[CONFIG_CRYPTO_CURRENCIES] = {

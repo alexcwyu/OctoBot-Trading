@@ -9,3 +9,7 @@ OctoBot trading package.
 
 OctoBot trading is currently support exchange connections via CCXT. 
 If you wish to add new connectors, please contact the OctoBot team.
+
+## Development and architecture
+
+See the [source-linked architecture guide](docs/ayu-develop.md) ([offline HTML](docs/ayu-develop.html)), [uv development workflow](docs/development.md), and [validation evidence](docs/validation.md).

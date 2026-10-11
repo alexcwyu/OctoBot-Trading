@@ -24,14 +24,16 @@ import pytest
 import mock
 import tests.personal_data.orders.states as states
 
-pytestmark = pytest.mark.asyncio
 
 
+
+@pytest.mark.asyncio
 async def test_initialize_without_kwargs(buy_limit_order):
     with mock.patch.object(personal_data.OrderState, '_is_synchronization_enabled', mock.Mock(return_value=False)) as is_synchronization_enabled_mock:
         await states.inner_test_initialize_without_kwargs(buy_limit_order, enums.OrderStatus.PENDING_CREATION, None)
         assert is_synchronization_enabled_mock.call_count > 0
 
+@pytest.mark.asyncio
 async def test_initialize_with_kwargs(buy_limit_order):
     with mock.patch.object(personal_data.OrderState, '_is_synchronization_enabled', mock.Mock(return_value=False)) as is_synchronization_enabled_mock:
         await states.inner_test_initialize_with_kwargs(
@@ -39,6 +41,7 @@ async def test_initialize_with_kwargs(buy_limit_order):
         )
         assert is_synchronization_enabled_mock.call_count > 0
 
+@pytest.mark.asyncio
 async def test_on_order_refresh_successful(buy_limit_order):
     buy_limit_order.exchange_manager.is_backtesting = True
     buy_limit_order.status = OrderStatus.PENDING_CREATION

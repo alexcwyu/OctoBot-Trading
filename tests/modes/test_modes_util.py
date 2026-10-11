@@ -31,9 +31,10 @@ from tests.exchanges import backtesting_trader, backtesting_config, backtesting_
 from tests import event_loop
 
 # All test coroutines will be treated as marked.
-pytestmark = pytest.mark.asyncio
 
 
+
+@pytest.mark.asyncio
 async def test_get_assets_requiring_extra_price_data_to_convert(backtesting_trader):
     config, exchange_manager, trader = backtesting_trader
     assert modes_util.get_assets_requiring_extra_price_data_to_convert(exchange_manager, [], "USDT") == set()
@@ -66,6 +67,7 @@ async def test_get_assets_requiring_extra_price_data_to_convert(backtesting_trad
            == set()
 
 
+@pytest.mark.asyncio
 async def test_convert_assets_to_target_asset():
     trading_mode = "trading_mode"
     sellable_assets = ["USDT", "PLOP"]
@@ -112,6 +114,7 @@ async def test_convert_assets_to_target_asset():
             ])}
 
 
+@pytest.mark.asyncio
 async def test_convert_asset_to_target_asset(backtesting_trader):
     config, exchange_manager, trader = backtesting_trader
     trading_mode = _get_trading_mode(exchange_manager)
@@ -373,6 +376,7 @@ async def test_convert_asset_to_target_asset(backtesting_trader):
         trading_mode.create_order.reset_mock()
 
 
+@pytest.mark.asyncio
 async def test_enabled_trader_only(backtesting_trader):
     config, exchange_manager, trader = backtesting_trader
     

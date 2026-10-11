@@ -37,9 +37,10 @@ from tests.exchanges import backtesting_trader, backtesting_config, backtesting_
 from tests import event_loop
 
 # All test coroutines will be treated as marked.
-pytestmark = pytest.mark.asyncio
 
 
+
+@pytest.mark.asyncio
 async def test_load_portfolio(backtesting_trader):
     config, exchange_manager, trader = backtesting_trader
     portfolio_manager = exchange_manager.exchange_personal_data.portfolio_manager
@@ -49,6 +50,7 @@ async def test_load_portfolio(backtesting_trader):
     assert portfolio_manager.portfolio.portfolio['USDT'].total == decimal.Decimal('1000')
 
 
+@pytest.mark.asyncio
 async def test_copy_portfolio(backtesting_trader):
     config, exchange_manager, trader = backtesting_trader
     portfolio_manager = exchange_manager.exchange_personal_data.portfolio_manager
@@ -65,6 +67,7 @@ async def test_copy_portfolio(backtesting_trader):
     assert pf1 != pf2
 
 
+@pytest.mark.asyncio
 async def test_get_portfolio_from_amount_dict(backtesting_trader):
     config, exchange_manager, trader = backtesting_trader
     portfolio_manager = exchange_manager.exchange_personal_data.portfolio_manager
@@ -95,6 +98,7 @@ async def test_get_portfolio_from_amount_dict(backtesting_trader):
         portfolio_manager.portfolio.get_portfolio_from_amount_dict({"BTC":  '10'})
 
 
+@pytest.mark.asyncio
 async def test_get_currency_portfolio(backtesting_trader):
     config, exchange_manager, trader = backtesting_trader
     portfolio_manager = exchange_manager.exchange_personal_data.portfolio_manager
@@ -103,6 +107,7 @@ async def test_get_currency_portfolio(backtesting_trader):
     assert portfolio_manager.portfolio.get_currency_portfolio("DOT").total == decimal.Decimal('0')
 
 
+@pytest.mark.asyncio
 async def test_update_portfolio_from_balance(backtesting_trader):
     config, exchange_manager, trader = backtesting_trader
     portfolio_manager = exchange_manager.exchange_personal_data.portfolio_manager
@@ -125,6 +130,7 @@ async def test_update_portfolio_from_balance(backtesting_trader):
     assert not portfolio_manager.portfolio.update_portfolio_from_balance(test_portfolio, force_replace=False)
 
 
+@pytest.mark.asyncio
 async def test_update_portfolio_from_balance_with_deltas(backtesting_trader):
     config, exchange_manager, trader = backtesting_trader
     portfolio_manager = exchange_manager.exchange_personal_data.portfolio_manager
@@ -167,6 +173,7 @@ async def test_update_portfolio_from_balance_with_deltas(backtesting_trader):
     assert portfolio_manager.portfolio.portfolio['USDT'].total == decimal.Decimal('100')
 
 
+@pytest.mark.asyncio
 async def test_update_portfolio(backtesting_trader):
     config, exchange_manager, trader = backtesting_trader
     portfolio_manager = exchange_manager.exchange_personal_data.portfolio_manager
@@ -213,6 +220,7 @@ async def test_update_portfolio(backtesting_trader):
     assert portfolio_manager.portfolio.get_currency_portfolio("USDT").total == decimal.Decimal('940')
 
 
+@pytest.mark.asyncio
 async def test_update_portfolio_with_filled_orders(backtesting_trader):
     config, exchange_manager, trader = backtesting_trader
     portfolio_manager = exchange_manager.exchange_personal_data.portfolio_manager
@@ -317,6 +325,7 @@ async def test_update_portfolio_with_filled_orders(backtesting_trader):
     assert portfolio_manager.portfolio.get_currency_portfolio("USDT").total == decimal.Decimal('1009.74')
 
 
+@pytest.mark.asyncio
 async def test_update_portfolio_with_cancelled_orders(backtesting_trader):
     config, exchange_manager, trader = backtesting_trader
     portfolio_manager = exchange_manager.exchange_personal_data.portfolio_manager
@@ -403,6 +412,7 @@ async def test_update_portfolio_with_cancelled_orders(backtesting_trader):
         '1000')
 
 
+@pytest.mark.asyncio
 async def test_update_portfolio_with_stop_loss_sell_orders(backtesting_trader):
     config, exchange_manager, trader = backtesting_trader
     portfolio_manager = exchange_manager.exchange_personal_data.portfolio_manager
@@ -458,6 +468,7 @@ async def test_update_portfolio_with_stop_loss_sell_orders(backtesting_trader):
     assert portfolio_manager.portfolio.get_currency_portfolio("USDT").total == decimal.Decimal('1240')
 
 
+@pytest.mark.asyncio
 async def test_update_portfolio_with_stop_loss_buy_orders(backtesting_trader):
     config, exchange_manager, trader = backtesting_trader
     portfolio_manager = exchange_manager.exchange_personal_data.portfolio_manager
@@ -509,6 +520,7 @@ async def test_update_portfolio_with_stop_loss_buy_orders(backtesting_trader):
     assert portfolio_manager.portfolio.get_currency_portfolio("USDT").total == decimal.Decimal('760')
 
 
+@pytest.mark.asyncio
 async def test_update_portfolio_with_some_filled_orders(backtesting_trader):
     config, exchange_manager, trader = backtesting_trader
     portfolio_manager = exchange_manager.exchange_personal_data.portfolio_manager
@@ -644,6 +656,7 @@ async def test_update_portfolio_with_some_filled_orders(backtesting_trader):
         '1120')
 
 
+@pytest.mark.asyncio
 async def test_update_portfolio_with_multiple_filled_orders(backtesting_trader):
     config, exchange_manager, trader = backtesting_trader
     portfolio_manager = exchange_manager.exchange_personal_data.portfolio_manager
@@ -850,6 +863,7 @@ async def test_update_portfolio_with_multiple_filled_orders(backtesting_trader):
         assert portfolio_manager.portfolio.get_currency_portfolio("USDT").total == decimal.Decimal('673.9633')
 
 
+@pytest.mark.asyncio
 async def test_update_portfolio_with_multiple_symbols_orders(backtesting_trader):
     config, exchange_manager, trader = backtesting_trader
     portfolio_manager = exchange_manager.exchange_personal_data.portfolio_manager
@@ -921,6 +935,7 @@ async def test_update_portfolio_with_multiple_symbols_orders(backtesting_trader)
     assert portfolio_manager.portfolio.get_currency_portfolio("BTC").total == decimal.Decimal('8.64778')
 
 
+@pytest.mark.asyncio
 async def test_reset_portfolio_available(backtesting_trader):
     config, exchange_manager, trader = backtesting_trader
     portfolio_manager = exchange_manager.exchange_personal_data.portfolio_manager
@@ -1009,6 +1024,7 @@ async def test_reset_portfolio_available(backtesting_trader):
         '1000')
 
 
+@pytest.mark.asyncio
 async def test_default_impl(backtesting_trader):
     config, exchange_manager, trader = backtesting_trader
     portfolio_manager = exchange_manager.exchange_personal_data.portfolio_manager
@@ -1022,6 +1038,7 @@ async def test_default_impl(backtesting_trader):
     portfolio_manager.portfolio.log_portfolio_update_from_order(order)
 
 
+@pytest.mark.asyncio
 async def test_parse_currency_balance(backtesting_trader):
     config, exchange_manager, trader = backtesting_trader
     portfolio_manager = exchange_manager.exchange_personal_data.portfolio_manager
@@ -1078,6 +1095,7 @@ async def test_parse_currency_balance(backtesting_trader):
         assert parsed_portfolio_8.total == constants.ZERO
 
 
+@pytest.mark.asyncio
 async def test_update_portfolio_data(backtesting_trader):
     config, exchange_manager, trader = backtesting_trader
     portfolio_manager = exchange_manager.exchange_personal_data.portfolio_manager

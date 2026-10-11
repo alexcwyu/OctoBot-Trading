@@ -24,11 +24,12 @@ import octobot_trading.exchange_data.contracts as contracts
 
 from tests import event_loop
 
-pytestmark = pytest.mark.asyncio
+
 
 DEFAULT_SYMBOL = "BTC/USDT"
 
 
+@pytest.mark.asyncio
 async def test_is_isolated():
     contract = contracts.MarginContract(
         pair=DEFAULT_SYMBOL,
@@ -42,6 +43,7 @@ async def test_is_isolated():
     assert not contract.is_isolated()
 
 
+@pytest.mark.asyncio
 async def test_set_current_leverage():
     contract = contracts.MarginContract(
         pair=DEFAULT_SYMBOL,
@@ -62,6 +64,7 @@ async def test_set_current_leverage():
     assert contract.current_leverage == decimal.Decimal(50)
 
 
+@pytest.mark.asyncio
 async def test_set_margin_type():
     contract = contracts.MarginContract(
         pair=DEFAULT_SYMBOL,

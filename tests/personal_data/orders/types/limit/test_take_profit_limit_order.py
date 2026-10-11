@@ -27,9 +27,10 @@ from tests import event_loop
 from tests.exchanges import simulated_trader, simulated_exchange_manager
 from tests.personal_data.orders import take_profit_limit_order
 
-pytestmark = pytest.mark.asyncio
 
 
+
+@pytest.mark.asyncio
 async def test_take_profit_limit_order_trigger(take_profit_limit_order):
     order_price = decimal_random_price(min_value=2)
     take_profit_limit_order.limit_price = order_price + decimal.Decimal(10)

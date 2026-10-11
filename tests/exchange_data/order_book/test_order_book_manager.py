@@ -25,7 +25,7 @@ from tests.test_utils.random_numbers import random_price_list, random_price, ran
 from tests.test_utils.random_numbers import random_timestamp
 from tests import event_loop
 
-pytestmark = pytest.mark.asyncio
+
 
 
 @pytest_asyncio.fixture()
@@ -35,6 +35,7 @@ async def order_book_manager():
     return ob_manager
 
 
+@pytest.mark.asyncio
 async def test_init(order_book_manager):
     assert not order_book_manager.order_book_initialized
     assert order_book_manager.ask_quantity == 0
@@ -43,6 +44,7 @@ async def test_init(order_book_manager):
     assert order_book_manager.bid_price == 0
 
 
+@pytest.mark.asyncio
 async def test_reset(order_book_manager):
     order_book_manager.bids = random_price_list(10)
     order_book_manager.bid_price = random_price()
@@ -53,6 +55,7 @@ async def test_reset(order_book_manager):
     assert order_book_manager.bid_price == 0
 
 
+@pytest.mark.asyncio
 async def test_handle_new_books(order_book_manager):
     ts = random_timestamp()
     asks = random_order_book_side(count=100)
@@ -64,6 +67,7 @@ async def test_handle_new_books(order_book_manager):
     assert order_book_manager.get_bid()
 
 
+@pytest.mark.asyncio
 async def test_order_book_ticker_update(order_book_manager):
     b_price = random_price()
     a_price = random_price()
@@ -76,6 +80,7 @@ async def test_order_book_ticker_update(order_book_manager):
     assert order_book_manager.bid_price == b_price
 
 
+@pytest.mark.asyncio
 async def test_handle_new_book(order_book_manager):
     """
     Handle ccxt request
@@ -108,6 +113,7 @@ async def test_handle_new_book(order_book_manager):
     assert order_book_manager.get_bid()
 
 
+@pytest.mark.asyncio
 async def test_handle_book_adds(order_book_manager):
     order_book_manager.handle_book_adds([
         get_test_order(TradeOrderSide.BUY.value, "1"),
@@ -127,6 +133,7 @@ async def test_handle_book_adds(order_book_manager):
     assert not get_order_at_id_in_order_list("3", order_book_manager.asks)
 
 
+@pytest.mark.asyncio
 async def test_handle_book_deletes(order_book_manager):
     order_2 = get_test_order(TradeOrderSide.BUY.value, "2")
     order_3 = get_test_order(TradeOrderSide.SELL.value, "3")
@@ -154,6 +161,7 @@ async def test_handle_book_deletes(order_book_manager):
     assert not get_order_at_id_in_order_list("5", order_book_manager.asks)
 
 
+@pytest.mark.asyncio
 async def test_handle_book_updates(order_book_manager):
     order_3 = get_test_order(TradeOrderSide.BUY.value, "3")
     order_3_2 = get_test_order(TradeOrderSide.BUY.value, "3", order_price=order_3[ECOBIC.PRICE.value])

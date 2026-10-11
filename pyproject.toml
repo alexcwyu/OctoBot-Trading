@@ -21,24 +21,25 @@ classifiers = [
     "Operating System :: POSIX",
 ]
 dependencies = [
-    "numpy==1.26.3",
-    "octobot-backtesting>=1.10,<1.11",
-    "async-channel>=2.2,<2.3",
-    "octobot-commons>=1.10,<1.11",
-    "octobot-tentacles-manager>=2.10,<2.11",
-    "trading-backend>=1.2.35",
-    "ccxt==4.5.28",
+    "numpy",
+    "octobot-backtesting",
+    "async-channel",
+    "octobot-commons",
+    "octobot-tentacles-manager>=2.10.0",
+    "trading-backend>=1.2.43",
+    "ccxt",
     "cryptography",
-    "sortedcontainers==2.4.0",
-    "cachetools>=5.5.0,<6",
+    "ecdsa",
+    "sortedcontainers",
+    "cachetools",
 ]
 
 [project.optional-dependencies]
 full = [
-    "octobot-backtesting[full]>=1.10,<1.11",
-    "octobot-commons[full]>=1.10,<1.11",
-    "octobot-tentacles-manager[full]>=2.10,<2.11",
-    "tinydb==4.5.2",
+    "octobot-backtesting[full]",
+    "octobot-commons[full]",
+    "octobot-tentacles-manager[full]",
+    "tinydb",
 ]
 
 [project.urls]
@@ -46,10 +47,17 @@ Homepage = "https://github.com/Drakkar-Software/OctoBot-Trading"
 
 [dependency-groups]
 dev = [
-    "pytest>=9.0",
+    "pytest",
+    "pytest-asyncio",
+    "pytest-cov",
+    "pytest-timeout",
+    "pytest-xdist",
+    "mock",
+    "ruff",
 ]
 
 [tool.uv]
+override-dependencies = ["ccxt>=4.5.85", "aioboto3>=15", "aiofiles>=25"]
 default-groups = ["dev"]
 
 [tool.hatch.build.targets.wheel]
@@ -81,3 +89,9 @@ testpaths = ["tests"]
 pythonpath = ["src"]
 xfail_strict = true
 filterwarnings = ["error"]
+
+[tool.uv.sources]
+"octobot-commons" = { path = "../OctoBot-Commons", editable = true }
+"octobot-backtesting" = { path = "../OctoBot-Backtesting", editable = true }
+"trading-backend" = { path = "vendor/trading-backend", editable = true }
+"octobot-tentacles-manager" = { path = "../OctoBot-Evaluators/vendor/tentacles-manager", editable = true }

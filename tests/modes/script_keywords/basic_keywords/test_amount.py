@@ -30,9 +30,10 @@ from tests import event_loop
 from tests.modes.script_keywords import null_context
 
 # All test coroutines will be treated as marked.
-pytestmark = pytest.mark.asyncio
 
 
+
+@pytest.mark.asyncio
 async def test_get_amount_from_input_amount(null_context):
     null_context.exchange_manager = mock.Mock(
         exchange_personal_data=mock.Mock(
@@ -243,6 +244,7 @@ async def test_get_amount_from_input_amount(null_context):
             adapt_amount_to_holdings_mock.reset_mock()
 
 
+@pytest.mark.asyncio
 async def test_get_amount_from_input_amount_for_position(null_context):
     null_context.exchange_manager = mock.Mock(
         exchange_personal_data=mock.Mock(

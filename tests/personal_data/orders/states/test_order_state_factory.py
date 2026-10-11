@@ -23,8 +23,9 @@ from tests import event_loop
 from tests.exchanges import simulated_trader, simulated_exchange_manager
 from tests.personal_data.orders import buy_limit_order
 
-pytestmark = pytest.mark.asyncio
 
+
+@pytest.mark.asyncio
 async def test_create_order_state_pending_creation_disable_associated_orders_creation(buy_limit_order):
     buy_limit_order.status = OrderStatus.PENDING_CREATION
     with mock.patch.object(personal_data.PendingCreationOrderState, "_synchronize_with_exchange", mock.AsyncMock()) as \
@@ -36,6 +37,7 @@ async def test_create_order_state_pending_creation_disable_associated_orders_cre
         assert buy_limit_order.state.enable_associated_orders_creation is False
 
 
+@pytest.mark.asyncio
 async def test_create_order_state_pending_chained_creation(buy_limit_order):
     buy_limit_order.status = OrderStatus.PENDING_CREATION
     buy_limit_order.is_waiting_for_chained_trigger = True
@@ -45,6 +47,7 @@ async def test_create_order_state_pending_chained_creation(buy_limit_order):
     assert buy_limit_order.state.enable_associated_orders_creation is True  # default value
 
 
+@pytest.mark.asyncio
 async def test_create_order_state_open(buy_limit_order):
     buy_limit_order.status = OrderStatus.OPEN
     await create_order_state(buy_limit_order)
@@ -53,6 +56,7 @@ async def test_create_order_state_open(buy_limit_order):
     assert buy_limit_order.state.enable_associated_orders_creation is True  # default value
 
 
+@pytest.mark.asyncio
 async def test_create_order_state_open_disable_associated_orders_creation(buy_limit_order):
     buy_limit_order.status = OrderStatus.OPEN
     await create_order_state(buy_limit_order, enable_associated_orders_creation=False)
@@ -61,6 +65,7 @@ async def test_create_order_state_open_disable_associated_orders_creation(buy_li
     assert buy_limit_order.state.enable_associated_orders_creation is False
 
 
+@pytest.mark.asyncio
 async def test_create_order_state_cancel(buy_limit_order):
     buy_limit_order.status = OrderStatus.CANCELED
     await create_order_state(buy_limit_order, enable_associated_orders_creation=True)
@@ -70,6 +75,7 @@ async def test_create_order_state_cancel(buy_limit_order):
     assert buy_limit_order.state.enable_associated_orders_creation is True
 
 
+@pytest.mark.asyncio
 async def test_create_order_state_cancel_disable_associated_orders_creation(buy_limit_order):
     buy_limit_order.status = OrderStatus.CANCELED
     await create_order_state(buy_limit_order, enable_associated_orders_creation=False)
@@ -79,6 +85,7 @@ async def test_create_order_state_cancel_disable_associated_orders_creation(buy_
     assert buy_limit_order.state.enable_associated_orders_creation is False
 
 
+@pytest.mark.asyncio
 async def test_create_order_state_fill(buy_limit_order):
     buy_limit_order.status = OrderStatus.FILLED
     await create_order_state(buy_limit_order)
@@ -87,6 +94,7 @@ async def test_create_order_state_fill(buy_limit_order):
     assert buy_limit_order.state.state in [OrderStates.FILLED, States.CLOSED]
 
 
+@pytest.mark.asyncio
 async def test_create_order_state_fill_disable_associated_orders_creation(buy_limit_order):
     buy_limit_order.status = OrderStatus.FILLED
     await create_order_state(buy_limit_order, enable_associated_orders_creation=False)
@@ -96,6 +104,7 @@ async def test_create_order_state_fill_disable_associated_orders_creation(buy_li
     assert buy_limit_order.state.enable_associated_orders_creation is False
 
 
+@pytest.mark.asyncio
 async def test_create_order_state_close(buy_limit_order):
     buy_limit_order.status = OrderStatus.CLOSED
     await create_order_state(buy_limit_order)
@@ -104,6 +113,7 @@ async def test_create_order_state_close(buy_limit_order):
     assert buy_limit_order.state.enable_associated_orders_creation is True
 
 
+@pytest.mark.asyncio
 async def test_create_order_state_close_disable_associated_orders_creation(buy_limit_order):
     buy_limit_order.status = OrderStatus.CLOSED
     await create_order_state(buy_limit_order, enable_associated_orders_creation=False)
@@ -112,6 +122,7 @@ async def test_create_order_state_close_disable_associated_orders_creation(buy_l
     assert buy_limit_order.state.enable_associated_orders_creation is False
 
 
+@pytest.mark.asyncio
 async def test_create_order_state_fill_to_open_without_ignore(buy_limit_order):
     buy_limit_order.status = OrderStatus.FILLED
     await create_order_state(buy_limit_order)
@@ -122,6 +133,7 @@ async def test_create_order_state_fill_to_open_without_ignore(buy_limit_order):
     assert buy_limit_order.state.state is States.OPEN
 
 
+@pytest.mark.asyncio
 async def test_create_order_state_fill_to_open_with_ignore(buy_limit_order):
     buy_limit_order.status = OrderStatus.FILLED
     await create_order_state(buy_limit_order, enable_associated_orders_creation=True)
@@ -139,6 +151,7 @@ async def test_create_order_state_fill_to_open_with_ignore(buy_limit_order):
     assert isinstance(buy_limit_order.state, personal_data.CloseOrderState)
 
 
+@pytest.mark.asyncio
 async def test_create_order_state_cancel_to_open_with_ignore(buy_limit_order):
     buy_limit_order.status = OrderStatus.CANCELED
     await create_order_state(buy_limit_order)

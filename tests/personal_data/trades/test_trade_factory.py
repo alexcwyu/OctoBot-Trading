@@ -32,7 +32,7 @@ from octobot_trading.personal_data.trades import create_trade_instance_from_raw,
 # All test coroutines will be treated as marked.
 from octobot_trading.api.exchange import cancel_ccxt_throttle_task
 
-pytestmark = pytest.mark.asyncio
+
 
 
 class TestTradeFactory:
@@ -55,6 +55,7 @@ class TestTradeFactory:
         cancel_ccxt_throttle_task()
         await exchange_manager.stop()
 
+    @pytest.mark.asyncio
     async def test_create_trade_instance_from_raw(self):
         _, exchange_manager, trader = await self.init_default()
 
@@ -111,6 +112,7 @@ class TestTradeFactory:
 
         await self.stop(exchange_manager)
 
+    @pytest.mark.asyncio
     async def test_create_trade_from_order(self):
         _, exchange_manager, trader = await self.init_default()
 
@@ -215,6 +217,7 @@ class TestTradeFactory:
 
         await self.stop(exchange_manager)
 
+    @pytest.mark.asyncio
     async def test_create_trade_from_partially_filled_order(self):
         _, exchange_manager, trader = await self.init_default()
 

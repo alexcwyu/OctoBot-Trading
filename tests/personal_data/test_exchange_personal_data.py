@@ -27,9 +27,10 @@ import octobot_trading.personal_data as personal_data
 from tests.exchanges import backtesting_trader, backtesting_config, backtesting_exchange_manager, fake_backtesting
 from tests import event_loop
 
-pytestmark = pytest.mark.asyncio
 
 
+
+@pytest.mark.asyncio
 async def test_handle_portfolio_and_position_update_from_order(backtesting_trader):
     config, exchange_manager, trader = backtesting_trader
     exchange_personal_data = exchange_manager.exchange_personal_data
@@ -173,6 +174,7 @@ async def test_handle_portfolio_and_position_update_from_order(backtesting_trade
         assert result is False
 
 
+@pytest.mark.asyncio
 async def test_handle_portfolio_update_from_withdrawal(backtesting_trader):
     config, exchange_manager, trader = backtesting_trader
     exchange_personal_data = exchange_manager.exchange_personal_data
@@ -308,6 +310,7 @@ async def test_handle_portfolio_update_from_withdrawal(backtesting_trader):
         create_blockchain_transaction_mock.assert_called_once()  # Still creates transaction even if changed=False
 
 
+@pytest.mark.asyncio
 async def test_handle_portfolio_update(backtesting_trader):
     config, exchange_manager, trader = backtesting_trader
     exchange_personal_data = exchange_manager.exchange_personal_data

@@ -23,12 +23,13 @@ from tests.exchanges import simulated_exchange_manager
 from tests.exchanges.traders import trader_simulator
 
 # All test coroutines will be treated as marked.
-pytestmark = pytest.mark.asyncio
+
 
 
 class TestExpirationTimeOrderCancelPolicy:
     """Test the ExpirationTimeOrderCancelPolicy class"""
 
+    @pytest.mark.asyncio
     async def test_should_cancel_when_expiration_time_reached(self, trader_simulator):
         """Test that should_cancel returns True when expiration time is reached"""
         config, exchange_manager_inst, trader_inst = trader_simulator
@@ -52,6 +53,7 @@ class TestExpirationTimeOrderCancelPolicy:
         
         assert policy.should_cancel(order) is True
 
+    @pytest.mark.asyncio
     async def test_should_cancel_when_expiration_time_passed(self, trader_simulator):
         """Test that should_cancel returns True when expiration time has passed"""
         config, exchange_manager_inst, trader_inst = trader_simulator
@@ -76,6 +78,7 @@ class TestExpirationTimeOrderCancelPolicy:
         
         assert policy.should_cancel(order) is True
 
+    @pytest.mark.asyncio
     async def test_should_not_cancel_when_expiration_time_not_reached(self, trader_simulator):
         """Test that should_cancel returns False when expiration time has not been reached (expiration in future)"""
         config, exchange_manager_inst, trader_inst = trader_simulator
@@ -100,6 +103,7 @@ class TestExpirationTimeOrderCancelPolicy:
         
         assert policy.should_cancel(order) is False
 
+    @pytest.mark.asyncio
     async def test_should_not_cancel_when_order_cleared(self, trader_simulator):
         """Test that should_cancel returns False when order is cleared"""
         config, exchange_manager_inst, trader_inst = trader_simulator

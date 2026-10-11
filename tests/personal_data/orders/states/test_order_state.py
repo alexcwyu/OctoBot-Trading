@@ -26,9 +26,10 @@ from tests import event_loop
 from tests.exchanges import simulated_trader, simulated_exchange_manager
 from tests.personal_data.orders import buy_limit_order, stop_loss_limit_order
 
-pytestmark = pytest.mark.asyncio
 
 
+
+@pytest.mark.asyncio
 async def test_constructor(buy_limit_order):
     # with normal order
     state = octobot_trading.personal_data.OrderState(buy_limit_order, True)
@@ -41,6 +42,7 @@ async def test_constructor(buy_limit_order):
         octobot_trading.personal_data.OrderState(buy_limit_order, True)
 
 
+@pytest.mark.asyncio
 async def test_update_calls_synchronize_when_pending_for_buy_limit_order(buy_limit_order):
     buy_limit_order.order_type = enums.TraderOrderType.BUY_LIMIT
     state = octobot_trading.personal_data.OrderState(buy_limit_order, True)
@@ -53,6 +55,7 @@ async def test_update_calls_synchronize_when_pending_for_buy_limit_order(buy_lim
         order_state_terminate_mock.assert_not_called()
 
 
+@pytest.mark.asyncio
 async def test_update_calls_terminate_when_pending_for_stop_loss_limit_order(stop_loss_limit_order):
     stop_loss_limit_order.order_type = enums.TraderOrderType.STOP_LOSS_LIMIT
     state = octobot_trading.personal_data.OrderState(stop_loss_limit_order, True)
@@ -65,6 +68,7 @@ async def test_update_calls_terminate_when_pending_for_stop_loss_limit_order(sto
         order_state_terminate_mock.assert_called_once()
 
 
+@pytest.mark.asyncio
 async def test_update_calls_nothing_when_refreshing(buy_limit_order):
     buy_limit_order.order_type = enums.TraderOrderType.BUY_LIMIT
     state = octobot_trading.personal_data.OrderState(buy_limit_order, True)
@@ -78,12 +82,14 @@ async def test_update_calls_nothing_when_refreshing(buy_limit_order):
         order_state_terminate_mock.assert_not_called()
 
 
+@pytest.mark.asyncio
 async def test_is_created(buy_limit_order):
     buy_limit_order.order_type = enums.TraderOrderType.BUY_LIMIT
     state = octobot_trading.personal_data.OrderState(buy_limit_order, True)
     assert state.is_created() is True
 
 
+@pytest.mark.asyncio
 async def test_replace_order(buy_limit_order, stop_loss_limit_order):
     buy_limit_order.order_type = enums.TraderOrderType.BUY_LIMIT
     state = octobot_trading.personal_data.OrderState(buy_limit_order, True)

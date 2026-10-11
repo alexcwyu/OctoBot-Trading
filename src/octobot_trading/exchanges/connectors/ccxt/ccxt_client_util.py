@@ -14,6 +14,7 @@
 #  You should have received a copy of the GNU Lesser General Public
 #  License along with this library.
 import asyncio
+import sys
 import contextlib
 try:
     from aiohttp_socks import ProxyConnectionError
@@ -150,6 +151,16 @@ def instantiate_exchange(
     allow_request_counter: bool = True
 ) -> async_ccxt.Exchange:
     client = exchange_class(config)
+    original_open = client.open
+
+    def open_with_current_transport(*args, **kwargs):
+        lazy = kwargs.get("lazy", args[0] if args else False)
+        if lazy and client.closed_by_user:
+            return original_open(*args, **kwargs)
+        _init_ccxt_client_session(client)
+        return original_open(*args, **kwargs)
+
+    client.open = open_with_current_transport
     _use_proxy_if_necessary(client, proxy_config)
     if constants.ENABLE_CCXT_REQUESTS_COUNTER and allow_request_counter:
         if proxy_config.socks_proxy or proxy_config.socks_proxy_callback:
@@ -362,7 +373,7 @@ def _use_proxy_if_necessary(client, proxy_config: proxy_config_import.ProxyConfi
                     # extra args copied from self.open()
                     ssl=client.ssl_context,
                     loop=client.asyncio_loop,
-                    enable_cleanup_closed=True
+                    enable_cleanup_closed=sys.version_info < (3, 12, 7)
                 )
                 client.socks_proxy_sessions[proxy_url] = aiohttp.ClientSession(
                     loop=client.asyncio_loop, connector=client.aiohttp_socks_connector,
@@ -375,6 +386,20 @@ def _use_proxy_if_necessary(client, proxy_config: proxy_config_import.ProxyConfi
                 raise ImportError(
                     "The aiohttp_socks python library is not installed and is required to use a socks proxy"
                 ) from err
+
+
+def _init_ccxt_client_session(client):
+    """Create the owned transport using current CPython's TLS cleanup behavior."""
+    _init_ccxt_client_session_requirements(client)
+    if client.session is None and client.own_session:
+        client.tcp_connector = aiohttp.TCPConnector(
+            ssl=client.ssl_context, loop=client.asyncio_loop,
+            enable_cleanup_closed=sys.version_info < (3, 12, 7),
+        )
+        client.session = aiohttp.ClientSession(
+            loop=client.asyncio_loop, connector=client.tcp_connector,
+            trust_env=client.aiohttp_trust_env,
+        )
 
 
 def _init_ccxt_client_session_requirements(client):
@@ -478,15 +503,16 @@ def _use_request_counter(
     # use session with request counter
     try:
         # 1. create ssl context and other required elements if necessary
+        _init_ccxt_client_session(ccxt_client)
         ccxt_client.open()
         previous_session = ccxt_client.session
         previous_connector = ccxt_client.tcp_connector
         # 2. create patched session using the same params as a normal one
         # same as in ccxt.async_support.exchange.py#open()
-        # connector = aiohttp.TCPConnector(ssl=self.ssl_context, loop=self.asyncio_loop, enable_cleanup_closed=True)
+        # connector = aiohttp.TCPConnector(ssl=self.ssl_context, loop=self.asyncio_loop, enable_cleanup_closed=sys.version_info < (3, 12, 7))
         ccxt_client.tcp_connector = aiohttp.TCPConnector(
             ssl=ccxt_client.ssl_context, loop=ccxt_client.asyncio_loop,
-            enable_cleanup_closed=True
+            enable_cleanup_closed=sys.version_info < (3, 12, 7)
         )
         counter_session = aiohttp_util.CounterClientSession(
             identifier,

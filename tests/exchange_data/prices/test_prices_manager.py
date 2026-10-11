@@ -31,9 +31,10 @@ from tests import event_loop
 # All test coroutines will be treated as marked.
 from tests.test_utils.random_numbers import decimal_random_price
 
-pytestmark = pytest.mark.asyncio
 
 
+
+@pytest.mark.asyncio
 async def test_initialize(prices_manager):
     assert prices_manager.mark_price == octobot_trading.constants.ZERO
     assert prices_manager.mark_price_set_time == 0
@@ -50,12 +51,14 @@ async def test_initialize(prices_manager):
     assert not prices_manager.valid_price_received_event.is_set()
 
 
+@pytest.mark.asyncio
 async def test_set_mark_price(prices_manager):
     prices_manager.set_mark_price(decimal.Decimal(10), MarkPriceSources.EXCHANGE_MARK_PRICE.value)
     assert prices_manager.mark_price == decimal.Decimal(10)
     check_event_is_set(prices_manager)
 
 
+@pytest.mark.asyncio
 async def test_set_mark_price_for_exchange_source(prices_manager):
     prices_manager.set_mark_price(decimal.Decimal(10), MarkPriceSources.EXCHANGE_MARK_PRICE.value)
     assert prices_manager.mark_price == decimal.Decimal(10)
@@ -70,12 +73,14 @@ async def test_set_mark_price_for_exchange_source(prices_manager):
     assert prices_manager.mark_price == decimal.Decimal(15)
 
 
+@pytest.mark.asyncio
 async def test_set_mark_price_for_ticker_source_only(prices_manager):
     assert prices_manager.set_mark_price(decimal.Decimal(10), MarkPriceSources.TICKER_CLOSE_PRICE.value) is True
     assert prices_manager.mark_price == decimal.Decimal(10)
     check_event_is_set(prices_manager)
 
 
+@pytest.mark.asyncio
 async def test_set_mark_price_for_rt_source_only(prices_manager):
     assert prices_manager.set_mark_price(decimal.Decimal(10), MarkPriceSources.RECENT_TRADE_AVERAGE.value) is False
     assert prices_manager.mark_price == decimal.Decimal(0)  # drop first RT mark price
@@ -84,6 +89,7 @@ async def test_set_mark_price_for_rt_source_only(prices_manager):
     check_event_is_set(prices_manager)
 
 
+@pytest.mark.asyncio
 async def test_set_mark_price_for_ticker_with_rt_source_outdated(prices_manager):
     prices_manager.set_mark_price(decimal.Decimal(5), MarkPriceSources.RECENT_TRADE_AVERAGE.value)
     assert prices_manager.mark_price == decimal.Decimal(0)  # Drop first RT update
@@ -124,6 +130,7 @@ async def test_set_mark_price_for_ticker_with_rt_source_outdated(prices_manager)
         check_event_is_set(prices_manager)
 
 
+@pytest.mark.asyncio
 async def test_get_mark_price(prices_manager):
     # without a set price
     with pytest.raises(asyncio.TimeoutError):
@@ -165,6 +172,7 @@ async def test_get_mark_price(prices_manager):
     assert prices_manager.valid_price_received_event.is_set()
 
 
+@pytest.mark.asyncio
 async def test_calculate_mark_price_from_recent_trade_prices():
     assert calculate_mark_price_from_recent_trade_prices([10, 5, 7]) == decimal.Decimal('7.333333333333333333333333333')
     assert calculate_mark_price_from_recent_trade_prices([10, 20]) == decimal.Decimal(15)

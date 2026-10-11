@@ -22,7 +22,7 @@ from octobot_trading.exchange_data.exchange_symbols_data import ExchangeSymbolsD
 from tests import event_loop
 from tests.exchanges import exchange_manager
 
-pytestmark = pytest.mark.asyncio
+
 
 
 @pytest_asyncio.fixture(scope="function")
@@ -30,12 +30,14 @@ async def exchange_symbols_data(exchange_manager):
     return ExchangeSymbolsData(exchange_manager)
 
 
+@pytest.mark.asyncio
 async def test_get_exchange_symbol_data(exchange_symbols_data):
     new_symbols_data = exchange_symbols_data.get_exchange_symbol_data("BTC/USDT")
     assert new_symbols_data is not None
     assert exchange_symbols_data.get_exchange_symbol_data("BTC/USDT") is new_symbols_data
 
 
+@pytest.mark.asyncio
 async def test_get_exchange_symbol_data_without_creation(exchange_symbols_data):
     with pytest.raises(KeyError):
         exchange_symbols_data.get_exchange_symbol_data("BTC/USDT", allow_creation=False)

@@ -19,10 +19,11 @@ from mock import patch, Mock, AsyncMock
 from tests.exchanges import backtesting_trader, backtesting_config, backtesting_exchange_manager, fake_backtesting
 from tests import event_loop
 
-pytestmark = pytest.mark.asyncio
+
 
 
 class TestBalanceUpdater:
+    @pytest.mark.asyncio
     async def test_start(self, backtesting_trader):
         config, exchange_manager, trader = backtesting_trader
         import octobot_trading.exchange_channel as exchange_channel
@@ -56,6 +57,7 @@ class TestBalanceUpdater:
         # Verify temporary_expected_portfolio_update_job is still not started after start()
         assert not updater.temporary_expected_portfolio_update_job.is_started
     
+    @pytest.mark.asyncio
     async def test_set_expected_portfolio_update(self, backtesting_trader):
         config, exchange_manager, trader = backtesting_trader
         import octobot_trading.exchange_channel as exchange_channel

@@ -30,7 +30,7 @@ from tests import event_loop
 
 
 # All test coroutines will be treated as marked.
-pytestmark = pytest.mark.asyncio
+
 
 
 @pytest.fixture
@@ -54,6 +54,7 @@ async def symbol_data(time_frame):
     return symbol_data
 
 
+@pytest.mark.asyncio
 async def test_get_symbol_close_candles(symbol_data, time_frame):
     # default selector
     assert np.array_equal(get_symbol_close_candles(symbol_data, time_frame, 10, False),
@@ -65,6 +66,7 @@ async def test_get_symbol_close_candles(symbol_data, time_frame):
                                    dtype=float))
 
 
+@pytest.mark.asyncio
 async def test_get_symbol_open_candles(symbol_data, time_frame):
     # default selector
     assert np.array_equal(get_symbol_open_candles(symbol_data, time_frame, 10, False),
@@ -76,6 +78,7 @@ async def test_get_symbol_open_candles(symbol_data, time_frame):
                                    dtype=float))
 
 
+@pytest.mark.asyncio
 async def test_get_symbol_low_candles(symbol_data, time_frame):
     # default selector
     assert np.array_equal(get_symbol_low_candles(symbol_data, time_frame, 10, False),
@@ -87,6 +90,7 @@ async def test_get_symbol_low_candles(symbol_data, time_frame):
                                    dtype=float))
 
 
+@pytest.mark.asyncio
 async def test_get_symbol_high_candles(symbol_data, time_frame):
     # default selector
     assert np.array_equal(get_symbol_high_candles(symbol_data, time_frame, 10, False),
@@ -98,6 +102,7 @@ async def test_get_symbol_high_candles(symbol_data, time_frame):
                                    dtype=float))
 
 
+@pytest.mark.asyncio
 async def test_get_symbol_time_candles(symbol_data, time_frame):
     # default selector
     assert np.array_equal(get_symbol_time_candles(symbol_data, time_frame, 10, False),
@@ -109,6 +114,7 @@ async def test_get_symbol_time_candles(symbol_data, time_frame):
                                    dtype=float))
 
 
+@pytest.mark.asyncio
 async def test_get_symbol_volume_candles(symbol_data, time_frame):
     # default selector
     assert np.array_equal(get_symbol_volume_candles(symbol_data, time_frame, 10, False),
@@ -120,6 +126,7 @@ async def test_get_symbol_volume_candles(symbol_data, time_frame):
                                    dtype=float))
 
 
+@pytest.mark.asyncio
 async def test_get_candle_as_list(symbol_data, time_frame):
     row_candles = _get_candles()
     candles = get_symbol_candles_manager(symbol_data, time_frame).get_symbol_prices()

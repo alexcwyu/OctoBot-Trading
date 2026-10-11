@@ -33,7 +33,7 @@ from tests.exchanges.traders import future_trader_simulator_with_default_linear,
 from tests.test_utils.random_numbers import decimal_random_price, decimal_random_quantity
 
 # All test coroutines will be treated as marked.
-pytestmark = pytest.mark.asyncio
+
 
 
 @pytest_asyncio.fixture
@@ -55,6 +55,7 @@ async def btc_usdt_future_trader_simulator_with_default_inverse(future_trader_si
     return config, exchange_manager_inst, trader_inst, default_contract, position_inst
 
 
+@pytest.mark.asyncio
 async def test_update_entry_price(btc_usdt_future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract, position_inst \
         = btc_usdt_future_trader_simulator_with_default_linear
@@ -68,6 +69,7 @@ async def test_update_entry_price(btc_usdt_future_trader_simulator_with_default_
     assert position_inst.mark_price == mark_price
 
 
+@pytest.mark.asyncio
 async def test_update_margin_linear(btc_usdt_future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract, position_inst \
         = btc_usdt_future_trader_simulator_with_default_linear
@@ -104,6 +106,7 @@ async def test_update_margin_linear(btc_usdt_future_trader_simulator_with_defaul
     assert updated_creation_time == position_inst.creation_time
 
 
+@pytest.mark.asyncio
 async def test_update_margin_inverse(btc_usdt_future_trader_simulator_with_default_inverse):
     config, exchange_manager_inst, trader_inst, default_contract, position_inst = btc_usdt_future_trader_simulator_with_default_inverse
 
@@ -136,6 +139,7 @@ async def test_update_margin_inverse(btc_usdt_future_trader_simulator_with_defau
     assert position_inst.size == decimal.Decimal('0.3')
 
 
+@pytest.mark.asyncio
 async def test_update_entry_price_when_switching_side_on_one_way(btc_usdt_future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract, position_inst = btc_usdt_future_trader_simulator_with_default_linear
 
@@ -177,6 +181,7 @@ async def test_update_entry_price_when_switching_side_on_one_way(btc_usdt_future
     assert position_inst.entry_price == mark_price
 
 
+@pytest.mark.asyncio
 async def test_update_update_quantity(btc_usdt_future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract, position_inst = btc_usdt_future_trader_simulator_with_default_linear
 
@@ -187,6 +192,7 @@ async def test_update_update_quantity(btc_usdt_future_trader_simulator_with_defa
     assert position_inst.quantity == quantity
 
 
+@pytest.mark.asyncio
 async def test_invalid_update(btc_usdt_future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract, position_inst = btc_usdt_future_trader_simulator_with_default_linear
     portfolio = exchange_manager_inst.exchange_personal_data.portfolio_manager.portfolio.get_currency_portfolio("BTC")
@@ -209,6 +215,7 @@ async def test_invalid_update(btc_usdt_future_trader_simulator_with_default_line
     await _ensure_no_position_change(decimal.Decimal(50), decimal.Decimal(-100000))
 
 
+@pytest.mark.asyncio
 async def test__check_and_update_size_with_one_way_position_mode(btc_usdt_future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract, position_inst = btc_usdt_future_trader_simulator_with_default_linear
 
@@ -238,6 +245,7 @@ async def test__check_and_update_size_with_one_way_position_mode(btc_usdt_future
         assert position_inst.size == decimal.Decimal(50)
 
 
+@pytest.mark.asyncio
 async def test__check_and_update_size_with_hedge_position_mode(btc_usdt_future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract, position_inst = btc_usdt_future_trader_simulator_with_default_linear
 
@@ -267,6 +275,7 @@ async def test__check_and_update_size_with_hedge_position_mode(btc_usdt_future_t
         assert position_inst.size == constants.ZERO  # position should be closed
 
 
+@pytest.mark.asyncio
 async def test__is_update_increasing_size(btc_usdt_future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract, position_inst = btc_usdt_future_trader_simulator_with_default_linear
 
@@ -293,6 +302,7 @@ async def test__is_update_increasing_size(btc_usdt_future_trader_simulator_with_
         assert not position_inst._is_update_increasing_size(decimal.Decimal(5))
 
 
+@pytest.mark.asyncio
 async def test__is_update_closing(btc_usdt_future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract, position_inst = btc_usdt_future_trader_simulator_with_default_linear
 
@@ -331,6 +341,7 @@ async def test__is_update_closing(btc_usdt_future_trader_simulator_with_default_
         assert not position_inst._is_update_closing(decimal.Decimal(-500))
 
 
+@pytest.mark.asyncio
 async def test_get_quantity_to_close(btc_usdt_future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract, position_inst = btc_usdt_future_trader_simulator_with_default_linear
 
@@ -345,6 +356,7 @@ async def test_get_quantity_to_close(btc_usdt_future_trader_simulator_with_defau
     assert position_inst.get_quantity_to_close() == -quantity
 
 
+@pytest.mark.asyncio
 async def test_update_size_from_order_with_long_one_way_position(btc_usdt_future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract, position_inst = btc_usdt_future_trader_simulator_with_default_linear
 
@@ -364,6 +376,7 @@ async def test_update_size_from_order_with_long_one_way_position(btc_usdt_future
     assert position_inst.is_long()
 
 
+@pytest.mark.asyncio
 async def test_update_size_from_reversing_order_with_long_one_way_position(btc_usdt_future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract, position_inst = btc_usdt_future_trader_simulator_with_default_linear
 
@@ -393,6 +406,7 @@ async def test_update_size_from_reversing_order_with_long_one_way_position(btc_u
     ] == [decimal.Decimal(1000)]
 
 
+@pytest.mark.asyncio
 async def test_update_size_from_order_with_long_close_position_one_way_position(
         btc_usdt_future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract, position_inst = btc_usdt_future_trader_simulator_with_default_linear
@@ -412,6 +426,7 @@ async def test_update_size_from_order_with_long_close_position_one_way_position(
     assert position_inst.size == constants.ZERO
 
 
+@pytest.mark.asyncio
 async def test_update_size_from_order_with_long_reduce_only_one_way_position(
         btc_usdt_future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract, position_inst = btc_usdt_future_trader_simulator_with_default_linear
@@ -446,6 +461,7 @@ async def test_update_size_from_order_with_long_reduce_only_one_way_position(
     assert position_inst.size == constants.ZERO
 
 
+@pytest.mark.asyncio
 async def test_update_size_from_order_with_long_oversold_one_way_position(
         btc_usdt_future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract, position_inst = btc_usdt_future_trader_simulator_with_default_linear
@@ -465,6 +481,7 @@ async def test_update_size_from_order_with_long_oversold_one_way_position(
     assert not position_inst.is_long()
 
 
+@pytest.mark.asyncio
 async def test_update_size_from_order_with_short_one_way_position(btc_usdt_future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract, position_inst = btc_usdt_future_trader_simulator_with_default_linear
     symbol_contract = default_contract
@@ -482,6 +499,7 @@ async def test_update_size_from_order_with_short_one_way_position(btc_usdt_futur
     assert position_inst.size == decimal.Decimal(-98)
 
 
+@pytest.mark.asyncio
 async def test_update_size_from_reversing_order_with_short_one_way_position(btc_usdt_future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract, position_inst = btc_usdt_future_trader_simulator_with_default_linear
     symbol_contract = default_contract
@@ -510,6 +528,7 @@ async def test_update_size_from_reversing_order_with_short_one_way_position(btc_
     ] == [decimal.Decimal(1000)]
 
 
+@pytest.mark.asyncio
 async def test_update_size_from_order_with_short_close_position_one_way_position(
         btc_usdt_future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract, position_inst = btc_usdt_future_trader_simulator_with_default_linear
@@ -529,6 +548,7 @@ async def test_update_size_from_order_with_short_close_position_one_way_position
     assert position_inst.size == constants.ZERO
 
 
+@pytest.mark.asyncio
 async def test_update_size_from_order_with_short_reduce_only_one_way_position(
         btc_usdt_future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract, position_inst = btc_usdt_future_trader_simulator_with_default_linear
@@ -563,6 +583,7 @@ async def test_update_size_from_order_with_short_reduce_only_one_way_position(
     assert position_inst.size == constants.ZERO
 
 
+@pytest.mark.asyncio
 async def test_update_size_from_order_realized_pnl_position(btc_usdt_future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract, position_inst = btc_usdt_future_trader_simulator_with_default_linear
     symbol_contract = default_contract
@@ -588,6 +609,7 @@ async def test_update_size_from_order_realized_pnl_position(btc_usdt_future_trad
         assert position_inst.realised_pnl == decimal.Decimal("-5")
 
 
+@pytest.mark.asyncio
 async def test_update_size_from_order_with_short_overbought_one_way_position(
         btc_usdt_future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract, position_inst = btc_usdt_future_trader_simulator_with_default_linear
@@ -607,6 +629,7 @@ async def test_update_size_from_order_with_short_overbought_one_way_position(
     assert not position_inst.is_short()
 
 
+@pytest.mark.asyncio
 async def test_update_size_from_order_with_long_oversold_hedge_position(
         btc_usdt_future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract, position_inst = btc_usdt_future_trader_simulator_with_default_linear
@@ -627,6 +650,7 @@ async def test_update_size_from_order_with_long_oversold_hedge_position(
     assert position_inst.is_idle()
 
 
+@pytest.mark.asyncio
 async def test_update_size_from_order_with_short_overbought_hedge_position(
         btc_usdt_future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract, position_inst = btc_usdt_future_trader_simulator_with_default_linear
@@ -647,6 +671,7 @@ async def test_update_size_from_order_with_short_overbought_hedge_position(
     assert position_inst.is_idle()
 
 
+@pytest.mark.asyncio
 async def test__calculates_size_update_from_filled_order_long_increasing_one_way(
         btc_usdt_future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract, position_inst = btc_usdt_future_trader_simulator_with_default_linear
@@ -666,6 +691,7 @@ async def test__calculates_size_update_from_filled_order_long_increasing_one_way
         market_buy, position_inst.get_quantity_to_close()) == decimal.Decimal(5)
 
 
+@pytest.mark.asyncio
 async def test__calculates_size_update_from_filled_order_long_increasing_one_way_reduce_only(
         btc_usdt_future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract, position_inst = btc_usdt_future_trader_simulator_with_default_linear
@@ -686,6 +712,7 @@ async def test__calculates_size_update_from_filled_order_long_increasing_one_way
         market_buy, position_inst.get_quantity_to_close()) == constants.ZERO
 
 
+@pytest.mark.asyncio
 async def test__calculates_size_update_from_filled_order_long_decreasing_one_way(
         btc_usdt_future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract, position_inst = btc_usdt_future_trader_simulator_with_default_linear
@@ -705,6 +732,7 @@ async def test__calculates_size_update_from_filled_order_long_decreasing_one_way
         market_sell, position_inst.get_quantity_to_close()) == -decimal.Decimal(5)
 
 
+@pytest.mark.asyncio
 async def test__calculates_size_update_from_filled_order_long_decreasing_reduce_only_one_way(
         btc_usdt_future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract, position_inst = btc_usdt_future_trader_simulator_with_default_linear
@@ -725,6 +753,7 @@ async def test__calculates_size_update_from_filled_order_long_decreasing_reduce_
         market_sell, position_inst.get_quantity_to_close()) == -decimal.Decimal(5)
 
 
+@pytest.mark.asyncio
 async def test__calculates_size_update_from_filled_order_long_switching_one_way(
         btc_usdt_future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract, position_inst = btc_usdt_future_trader_simulator_with_default_linear
@@ -744,6 +773,7 @@ async def test__calculates_size_update_from_filled_order_long_switching_one_way(
         market_sell, position_inst.get_quantity_to_close()) == -decimal.Decimal(20)
 
 
+@pytest.mark.asyncio
 async def test__calculates_size_update_from_filled_order_long_switching_reduce_only_one_way(
         btc_usdt_future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract, position_inst = btc_usdt_future_trader_simulator_with_default_linear
@@ -764,6 +794,7 @@ async def test__calculates_size_update_from_filled_order_long_switching_reduce_o
         market_sell, position_inst.get_quantity_to_close()) == -decimal.Decimal(10)
 
 
+@pytest.mark.asyncio
 async def test__calculates_size_update_from_filled_order_short_increasing_one_way(
         btc_usdt_future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract, position_inst = btc_usdt_future_trader_simulator_with_default_linear
@@ -783,6 +814,7 @@ async def test__calculates_size_update_from_filled_order_short_increasing_one_wa
         market_sell, position_inst.get_quantity_to_close()) == -decimal.Decimal(5)
 
 
+@pytest.mark.asyncio
 async def test__calculates_size_update_from_filled_order_short_increasing_one_way_reduce_only(
         btc_usdt_future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract, position_inst = btc_usdt_future_trader_simulator_with_default_linear
@@ -803,6 +835,7 @@ async def test__calculates_size_update_from_filled_order_short_increasing_one_wa
         market_sell, position_inst.get_quantity_to_close()) == constants.ZERO
 
 
+@pytest.mark.asyncio
 async def test__calculates_size_update_from_filled_order_short_decreasing_one_way(
         btc_usdt_future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract, position_inst = btc_usdt_future_trader_simulator_with_default_linear
@@ -822,6 +855,7 @@ async def test__calculates_size_update_from_filled_order_short_decreasing_one_wa
         market_buy, position_inst.get_quantity_to_close()) == decimal.Decimal(5)
 
 
+@pytest.mark.asyncio
 async def test__calculates_size_update_from_filled_order_short_decreasing_reduce_only_one_way(
         btc_usdt_future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract, position_inst = btc_usdt_future_trader_simulator_with_default_linear
@@ -842,6 +876,7 @@ async def test__calculates_size_update_from_filled_order_short_decreasing_reduce
         market_buy, position_inst.get_quantity_to_close()) == decimal.Decimal(5)
 
 
+@pytest.mark.asyncio
 async def test__calculates_size_update_from_filled_order_short_switching_one_way(
         btc_usdt_future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract, position_inst = btc_usdt_future_trader_simulator_with_default_linear
@@ -861,6 +896,7 @@ async def test__calculates_size_update_from_filled_order_short_switching_one_way
         market_buy, position_inst.get_quantity_to_close()) == decimal.Decimal(30)
 
 
+@pytest.mark.asyncio
 async def test__calculates_size_update_from_filled_order_short_switching_reduce_only_one_way(
         btc_usdt_future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract, position_inst = btc_usdt_future_trader_simulator_with_default_linear
@@ -881,6 +917,7 @@ async def test__calculates_size_update_from_filled_order_short_switching_reduce_
         market_buy, position_inst.get_quantity_to_close()) == decimal.Decimal(10)
 
 
+@pytest.mark.asyncio
 async def test__calculates_size_update_from_filled_order_long_increasing_hedge(
         btc_usdt_future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract, position_inst = btc_usdt_future_trader_simulator_with_default_linear
@@ -900,6 +937,7 @@ async def test__calculates_size_update_from_filled_order_long_increasing_hedge(
         market_buy, position_inst.get_quantity_to_close()) == decimal.Decimal(5)
 
 
+@pytest.mark.asyncio
 async def test__calculates_size_update_from_filled_order_long_increasing_one_way_reduce_only(
         btc_usdt_future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract, position_inst = btc_usdt_future_trader_simulator_with_default_linear
@@ -920,6 +958,7 @@ async def test__calculates_size_update_from_filled_order_long_increasing_one_way
         market_buy, position_inst.get_quantity_to_close()) == constants.ZERO
 
 
+@pytest.mark.asyncio
 async def test__calculates_size_update_from_filled_order_long_decreasing_one_way_reduce_only(
         btc_usdt_future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract, position_inst = btc_usdt_future_trader_simulator_with_default_linear
@@ -940,6 +979,7 @@ async def test__calculates_size_update_from_filled_order_long_decreasing_one_way
         market_buy, position_inst.get_quantity_to_close()) == decimal.Decimal(-10)
 
 
+@pytest.mark.asyncio
 async def test__calculates_size_update_from_filled_order_long_decreasing_hedge(
         btc_usdt_future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract, position_inst = btc_usdt_future_trader_simulator_with_default_linear
@@ -959,6 +999,7 @@ async def test__calculates_size_update_from_filled_order_long_decreasing_hedge(
         market_sell, position_inst.get_quantity_to_close()) == -decimal.Decimal(5)
 
 
+@pytest.mark.asyncio
 async def test__calculates_size_update_from_filled_order_long_decreasing_reduce_only_hedge(
         btc_usdt_future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract, position_inst = btc_usdt_future_trader_simulator_with_default_linear
@@ -979,6 +1020,7 @@ async def test__calculates_size_update_from_filled_order_long_decreasing_reduce_
         market_sell, position_inst.get_quantity_to_close()) == -decimal.Decimal(5)
 
 
+@pytest.mark.asyncio
 async def test__calculates_size_update_from_filled_order_long_switching_hedge(
         btc_usdt_future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract, position_inst = btc_usdt_future_trader_simulator_with_default_linear
@@ -998,6 +1040,7 @@ async def test__calculates_size_update_from_filled_order_long_switching_hedge(
         market_sell, position_inst.get_quantity_to_close()) == -decimal.Decimal(10)
 
 
+@pytest.mark.asyncio
 async def test__calculates_size_update_from_filled_order_long_switching_reduce_only_hedge(
         btc_usdt_future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract, position_inst = btc_usdt_future_trader_simulator_with_default_linear
@@ -1018,6 +1061,7 @@ async def test__calculates_size_update_from_filled_order_long_switching_reduce_o
         market_sell, position_inst.get_quantity_to_close()) == -decimal.Decimal(10)
 
 
+@pytest.mark.asyncio
 async def test__calculates_size_update_from_filled_order_short_increasing_hedge(
         btc_usdt_future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract, position_inst = btc_usdt_future_trader_simulator_with_default_linear
@@ -1037,6 +1081,7 @@ async def test__calculates_size_update_from_filled_order_short_increasing_hedge(
         market_sell, position_inst.get_quantity_to_close()) == -decimal.Decimal(5)
 
 
+@pytest.mark.asyncio
 async def test__calculates_size_update_from_filled_order_short_increasing_one_way_reduce_only(
         btc_usdt_future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract, position_inst = btc_usdt_future_trader_simulator_with_default_linear
@@ -1057,6 +1102,7 @@ async def test__calculates_size_update_from_filled_order_short_increasing_one_wa
         market_sell, position_inst.get_quantity_to_close()) == constants.ZERO
 
 
+@pytest.mark.asyncio
 async def test__calculates_size_update_from_filled_order_short_decreasing_hedge(
         btc_usdt_future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract, position_inst = btc_usdt_future_trader_simulator_with_default_linear
@@ -1076,6 +1122,7 @@ async def test__calculates_size_update_from_filled_order_short_decreasing_hedge(
         market_buy, position_inst.get_quantity_to_close()) == decimal.Decimal(5)
 
 
+@pytest.mark.asyncio
 async def test__calculates_size_update_from_filled_order_short_decreasing_reduce_only_hedge(
         btc_usdt_future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract, position_inst = btc_usdt_future_trader_simulator_with_default_linear
@@ -1096,6 +1143,7 @@ async def test__calculates_size_update_from_filled_order_short_decreasing_reduce
         market_buy, position_inst.get_quantity_to_close()) == decimal.Decimal(5)
 
 
+@pytest.mark.asyncio
 async def test__calculates_size_update_from_filled_order_short_switching_hedge(
         btc_usdt_future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract, position_inst = btc_usdt_future_trader_simulator_with_default_linear
@@ -1116,6 +1164,7 @@ async def test__calculates_size_update_from_filled_order_short_switching_hedge(
     ) == decimal.Decimal(10)
 
 
+@pytest.mark.asyncio
 async def test__calculates_size_update_from_filled_order_short_switching_reduce_only_hedge(
         btc_usdt_future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract, position_inst = btc_usdt_future_trader_simulator_with_default_linear
@@ -1136,6 +1185,7 @@ async def test__calculates_size_update_from_filled_order_short_switching_reduce_
         market_buy, position_inst.get_quantity_to_close()) == decimal.Decimal(10)
 
 
+@pytest.mark.asyncio
 async def test_is_order_increasing_size_one_way(
         btc_usdt_future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract, position_inst = btc_usdt_future_trader_simulator_with_default_linear
@@ -1182,6 +1232,7 @@ async def test_is_order_increasing_size_one_way(
     assert not position_inst.is_order_increasing_size(close_sell_market)
 
 
+@pytest.mark.asyncio
 async def test_is_order_increasing_size_hedge(
         btc_usdt_future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract, position_inst = btc_usdt_future_trader_simulator_with_default_linear
@@ -1240,6 +1291,7 @@ async def test_is_order_increasing_size_hedge(
     assert not position_inst.is_order_increasing_size(close_sell_market)
 
 
+@pytest.mark.asyncio
 async def test__update_realized_pnl_from_size_update_long(btc_usdt_future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract, position_inst = btc_usdt_future_trader_simulator_with_default_linear
 
@@ -1287,6 +1339,7 @@ async def test__update_realized_pnl_from_size_update_long(btc_usdt_future_trader
     assert len(tm.transactions) == 2
 
 
+@pytest.mark.asyncio
 async def test__update_realized_pnl_from_size_update_short(btc_usdt_future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract, position_inst = btc_usdt_future_trader_simulator_with_default_linear
 
@@ -1330,6 +1383,7 @@ async def test__update_realized_pnl_from_size_update_short(btc_usdt_future_trade
     assert len(tm.transactions) == 2
 
 
+@pytest.mark.asyncio
 async def test_update_position_when_overliquidated_position_with_long_position_inverse_contract(
         btc_usdt_future_trader_simulator_with_default_inverse):
     config, exchange_manager_inst, trader_inst, default_contract, position_inst = btc_usdt_future_trader_simulator_with_default_inverse

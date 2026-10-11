@@ -33,9 +33,10 @@ from tests import event_loop
 from tests.personal_data import DEFAULT_MARKET_QUANTITY
 from tests.test_utils.random_numbers import decimal_random_price, decimal_random_quantity
 
-pytestmark = pytest.mark.asyncio
 
 
+
+@pytest.mark.asyncio
 async def test_handle_balance_update(backtesting_trader):
     config, exchange_manager, trader = backtesting_trader
     portfolio_manager = exchange_manager.exchange_personal_data.portfolio_manager
@@ -61,6 +62,7 @@ async def test_handle_balance_update(backtesting_trader):
             can_trade_if_not_paused_mock.assert_called_once()
 
 
+@pytest.mark.asyncio
 async def test_handle_balance_update_from_order(backtesting_trader):
     config, exchange_manager, trader = backtesting_trader
     portfolio_manager = exchange_manager.exchange_personal_data.portfolio_manager
@@ -150,6 +152,7 @@ async def test_handle_balance_update_from_order(backtesting_trader):
         _refresh_real_trader_portfolio_and_init_event_checker_if_needed_mock.assert_not_called()
 
 
+@pytest.mark.asyncio
 async def test_handle_balance_update_from_withdrawal(backtesting_trader):
     config, exchange_manager, trader = backtesting_trader
     portfolio_manager = exchange_manager.exchange_personal_data.portfolio_manager
@@ -224,6 +227,7 @@ async def test_handle_balance_update_from_withdrawal(backtesting_trader):
         assert call_args[0][1] is True
 
 
+@pytest.mark.asyncio
 async def test_refresh_real_trader_portfolio_and_init_event_checker_if_needed(backtesting_trader):
     config, exchange_manager, trader = backtesting_trader
     portfolio_manager = exchange_manager.exchange_personal_data.portfolio_manager
@@ -292,6 +296,7 @@ async def test_refresh_real_trader_portfolio_and_init_event_checker_if_needed(ba
         start_expected_portfolio_update_checker_mock.assert_not_called()
 
 
+@pytest.mark.asyncio
 async def test_resolve_pending_portfolio_update_events_if_any(backtesting_trader):
     config, exchange_manager, trader = backtesting_trader
     portfolio_manager = exchange_manager.exchange_personal_data.portfolio_manager
@@ -382,6 +387,7 @@ async def test_resolve_pending_portfolio_update_events_if_any(backtesting_trader
         stop_expected_portfolio_update_checker_mock.assert_not_called()
 
 
+@pytest.mark.asyncio
 async def test_handle_balance_update_from_deposit(backtesting_trader):
     config, exchange_manager, trader = backtesting_trader
     portfolio_manager = exchange_manager.exchange_personal_data.portfolio_manager
@@ -412,6 +418,7 @@ async def test_handle_balance_update_from_deposit(backtesting_trader):
         await portfolio_manager.handle_balance_update_from_deposit(amount, currency)
 
 
+@pytest.mark.asyncio
 async def test_refresh_simulated_trader_portfolio_from_order(backtesting_trader):
     config, exchange_manager, trader = backtesting_trader
     portfolio_manager = exchange_manager.exchange_personal_data.portfolio_manager
@@ -461,6 +468,7 @@ async def test_refresh_simulated_trader_portfolio_from_order(backtesting_trader)
         portfolio_manager.enable_portfolio_available_update_from_order = True
 
 
+@pytest.mark.asyncio
 async def test_load_simulated_portfolio_from_history(backtesting_trader):
     config, exchange_manager, trader = backtesting_trader
     portfolio_manager = exchange_manager.exchange_personal_data.portfolio_manager

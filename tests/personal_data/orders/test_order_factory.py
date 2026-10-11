@@ -27,7 +27,7 @@ from octobot_trading.exchanges.exchange_manager import ExchangeManager
 from octobot_trading.exchanges.traders.trader_simulator import TraderSimulator
 from octobot_trading.api.exchange import cancel_ccxt_throttle_task
 
-pytestmark = pytest.mark.asyncio
+
 
 
 class TestOrderFactory:
@@ -50,6 +50,7 @@ class TestOrderFactory:
         cancel_ccxt_throttle_task()
         await exchange_manager.stop()
 
+    @pytest.mark.asyncio
     async def test_parse_order_type(self):
         _, exchange_manager, trader_inst = await self.init_default()
 
@@ -102,6 +103,7 @@ class TestOrderFactory:
 
         await self.stop(exchange_manager)
 
+    @pytest.mark.asyncio
     async def test_create_order_from_dict(self):
         price = decimal.Decimal("100")
         quantity = decimal.Decimal("2")
@@ -181,6 +183,7 @@ class TestOrderFactory:
 
         await self.stop(exchange_manager)
 
+    @pytest.mark.asyncio
     async def test_create_order_from_order_storage_details_with_simple_order(self):
         _, exchange_manager, trader_inst = await self.init_default()
         try:
@@ -240,6 +243,7 @@ class TestOrderFactory:
         finally:
             await self.stop(exchange_manager)
 
+    @pytest.mark.asyncio
     async def test_create_order_from_order_storage_details_with_trailing_profile(self):
         _, exchange_manager, trader_inst = await self.init_default()
 
@@ -263,6 +267,7 @@ class TestOrderFactory:
         assert created_order.trailing_profile == trailing_profile
         await self.stop(exchange_manager)
 
+    @pytest.mark.asyncio
     async def test_create_order_from_order_storage_details_with_cancel_policy(self):
         _, exchange_manager, trader_inst = await self.init_default()
 
@@ -288,6 +293,7 @@ class TestOrderFactory:
         assert created_order.cancel_policy == cancel_policy
         await self.stop(exchange_manager)
     
+    @pytest.mark.asyncio
     async def test_create_order_from_order_storage_details_with_groups(self):
         _, exchange_manager, trader_inst = await self.init_default()  
         
@@ -319,6 +325,7 @@ class TestOrderFactory:
         assert pending_groups["plop2"].active_order_swap_strategy == personal_data.StopFirstActiveOrderSwapStrategy(123)
         await self.stop(exchange_manager)
 
+    @pytest.mark.asyncio
     async def test_create_order_from_order_storage_details_with_chained_orders_with_group_and_trailing_profile_and_cancel_policy(self):
         _, exchange_manager, trader_inst = await self.init_default()
     

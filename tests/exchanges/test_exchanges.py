@@ -30,10 +30,10 @@ from tests import event_loop
 
 from tests.exchanges import cached_markets_exchange_manager
 
-pytestmark = pytest.mark.asyncio
 
 
-MS_TIMESTAMP = round((datetime.utcnow() - datetime(1970, 1, 1)).total_seconds() * 1000)
+
+MS_TIMESTAMP = round((datetime.now(__import__("datetime").UTC).replace(tzinfo=None) - datetime(1970, 1, 1)).total_seconds() * 1000)
 
 
 def get_constant_ms_timestamp():
@@ -45,6 +45,7 @@ class TestExchanges:
     async def init_default():
         return load_test_config()
 
+    @pytest.mark.asyncio
     async def test_add_exchange(self):
         config = await self.init_default()
 
@@ -58,6 +59,7 @@ class TestExchanges:
         # let updaters gracefully shutdown
         await wait_asyncio_next_cycle()
 
+    @pytest.mark.asyncio
     async def test_get_exchange(self):
         config = await self.init_default()
 
@@ -74,6 +76,7 @@ class TestExchanges:
         # let updaters gracefully shutdown
         await wait_asyncio_next_cycle()
 
+    @pytest.mark.asyncio
     async def test_del_exchange(self):
         config = await self.init_default()
 
@@ -92,6 +95,7 @@ class TestExchanges:
         # let updaters gracefully shutdown
         await wait_asyncio_next_cycle()
 
+    @pytest.mark.asyncio
     async def test_get_all_exchanges(self):
         config = await self.init_default()
 
@@ -106,6 +110,7 @@ class TestExchanges:
         # let updaters gracefully shutdown
         await wait_asyncio_next_cycle()
 
+    @pytest.mark.asyncio
     async def test_ms_timestamp_operations(self):
         config = await self.init_default()
         async with cached_markets_exchange_manager(config, "bybit") as exchange_manager_bybit:

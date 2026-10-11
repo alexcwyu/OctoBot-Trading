@@ -29,9 +29,10 @@ from tests.personal_data.orders import sell_limit_order
 from tests.test_utils.random_numbers import decimal_random_price, decimal_random_quantity, \
     decimal_random_recent_trade
 
-pytestmark = pytest.mark.asyncio
 
 
+
+@pytest.mark.asyncio
 async def test_sell_limit_order_trigger(sell_limit_order):
     order_price = decimal_random_price(min_value=2)
     sell_limit_order.update(
@@ -64,6 +65,7 @@ async def test_sell_limit_order_trigger(sell_limit_order):
     assert sell_limit_order.is_filled()
 
 
+@pytest.mark.asyncio
 async def test_sell_limit_order_on_origin_price_change(sell_limit_order):
     order_price = decimal.Decimal(100)
     group = personal_data.OneCancelsTheOtherOrderGroup("name", sell_limit_order.exchange_manager.exchange_personal_data.orders_manager)

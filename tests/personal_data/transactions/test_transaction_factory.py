@@ -28,12 +28,13 @@ from tests.exchanges import backtesting_trader, backtesting_config, backtesting_
 from tests import event_loop
 
 # All test coroutines will be treated as marked.
-pytestmark = pytest.mark.asyncio
+
 
 TRANSACTION_SYMBOL = "BTC/USDT"
 TRANSACTION_CURRENCY = "BTC"
 
 
+@pytest.mark.asyncio
 async def test_create_blockchain_transaction(backtesting_trader):
     _, exchange_manager, _ = backtesting_trader
     assert len(exchange_manager.exchange_personal_data.transactions_manager.transactions) == 0
@@ -66,6 +67,7 @@ async def test_create_blockchain_transaction(backtesting_trader):
     assert len(exchange_manager.exchange_personal_data.transactions_manager.transactions) == 1
 
 
+@pytest.mark.asyncio
 async def test_create_realised_pnl_transaction(backtesting_trader):
     _, exchange_manager, _ = backtesting_trader
     transaction = transaction_factory.create_realised_pnl_transaction(
@@ -100,6 +102,7 @@ async def test_create_realised_pnl_transaction(backtesting_trader):
     assert len(exchange_manager.exchange_personal_data.transactions_manager.transactions) == 1
 
 
+@pytest.mark.asyncio
 async def test_create_fee_transaction(backtesting_trader):
     _, exchange_manager, _ = backtesting_trader
     o_id = str(uuid.uuid4())
@@ -119,6 +122,7 @@ async def test_create_fee_transaction(backtesting_trader):
     assert len(exchange_manager.exchange_personal_data.transactions_manager.transactions) == 1
 
 
+@pytest.mark.asyncio
 async def test_create_fee_transaction_funding_fee(backtesting_trader):
     _, exchange_manager, _ = backtesting_trader
     transaction = transaction_factory.create_fee_transaction(
@@ -137,6 +141,7 @@ async def test_create_fee_transaction_funding_fee(backtesting_trader):
     assert len(exchange_manager.exchange_personal_data.transactions_manager.transactions) == 1
 
 
+@pytest.mark.asyncio
 async def test_create_realised_pnl_transaction_closed_pnl(backtesting_trader):
     _, exchange_manager, _ = backtesting_trader
     transaction = transaction_factory.create_realised_pnl_transaction(
@@ -154,6 +159,7 @@ async def test_create_realised_pnl_transaction_closed_pnl(backtesting_trader):
     assert len(exchange_manager.exchange_personal_data.transactions_manager.transactions) == 1
 
 
+@pytest.mark.asyncio
 async def test_create_blockchain_transaction_withdrawal(backtesting_trader):
     _, exchange_manager, _ = backtesting_trader
     t_id = str(uuid.uuid4())
@@ -177,6 +183,7 @@ async def test_create_blockchain_transaction_withdrawal(backtesting_trader):
     assert len(exchange_manager.exchange_personal_data.transactions_manager.transactions) == 1
 
 
+@pytest.mark.asyncio
 async def test_create_transfer_transaction(backtesting_trader):
     _, exchange_manager, _ = backtesting_trader
     transaction = transaction_factory.create_transfer_transaction(exchange_manager,

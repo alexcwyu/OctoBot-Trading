@@ -29,9 +29,10 @@ from tests import event_loop
 from tests.modes.script_keywords import null_context
 
 # All test coroutines will be treated as marked.
-pytestmark = pytest.mark.asyncio
 
 
+
+@pytest.mark.asyncio
 async def test_get_price_with_offset(null_context):
     null_context.symbol = "blop/plop"
     null_context.exchange_manager = mock.Mock(

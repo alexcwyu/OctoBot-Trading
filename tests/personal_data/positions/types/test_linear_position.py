@@ -31,7 +31,7 @@ from tests.exchanges.traders import future_trader_simulator_with_default_linear,
 from tests.test_utils.random_numbers import decimal_random_price, decimal_random_quantity
 
 # All test coroutines will be treated as marked.
-pytestmark = pytest.mark.asyncio
+
 
 
 FORTY = decimal.Decimal(40)
@@ -40,12 +40,14 @@ TWENTY_FIVE = decimal.Decimal(25)
 TWELVE_DOT_FIVE = decimal.Decimal('12.5')
 
 
+@pytest.mark.asyncio
 async def test_constructor(future_trader_simulator_with_default_inverse):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_inverse
     with pytest.raises(errors.InvalidPosition):
         personal_data.LinearPosition(trader_inst, default_contract)
 
 
+@pytest.mark.asyncio
 async def test_update_value(future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_linear
     position_inst = personal_data.LinearPosition(trader_inst, default_contract)
@@ -60,6 +62,7 @@ async def test_update_value(future_trader_simulator_with_default_linear):
     assert position_inst.value == decimal.Decimal("10000")
 
 
+@pytest.mark.asyncio
 async def test_update_pnl_with_long_linear_position(future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_linear
     position_inst = personal_data.LinearPosition(trader_inst, default_contract)
@@ -77,6 +80,7 @@ async def test_update_pnl_with_long_linear_position(future_trader_simulator_with
     assert position_inst.unrealized_pnl == decimal.Decimal("2000")
 
 
+@pytest.mark.asyncio
 async def test_update_pnl_with_short_linear_position(future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_linear
     position_inst = personal_data.LinearPosition(trader_inst, default_contract)
@@ -94,6 +98,7 @@ async def test_update_pnl_with_short_linear_position(future_trader_simulator_wit
     assert position_inst.unrealized_pnl == decimal.Decimal("900")
 
 
+@pytest.mark.asyncio
 async def test_update_pnl_with_loss_with_long_linear_position_inc_position(future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_linear
     position_inst = personal_data.LinearPosition(trader_inst, default_contract)
@@ -111,6 +116,7 @@ async def test_update_pnl_with_loss_with_long_linear_position_inc_position(futur
     assert position_inst.unrealized_pnl == decimal.Decimal("-605.5981400008282439059982608")
 
 
+@pytest.mark.asyncio
 async def test_update_pnl_with_loss_with_long_linear_position_red_position(future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_linear
     position_inst = personal_data.LinearPosition(trader_inst, default_contract)
@@ -128,6 +134,7 @@ async def test_update_pnl_with_loss_with_long_linear_position_red_position(futur
     assert position_inst.unrealized_pnl == decimal.Decimal("-557.1502888007619843935183999")
 
 
+@pytest.mark.asyncio
 async def test_update_pnl_with_loss_with_short_inc_position(future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_linear
     position_inst = personal_data.LinearPosition(trader_inst, default_contract)
@@ -145,6 +152,7 @@ async def test_update_pnl_with_loss_with_short_inc_position(future_trader_simula
     assert position_inst.unrealized_pnl == decimal.Decimal("-95.4")
 
 
+@pytest.mark.asyncio
 async def test_update_pnl_with_loss_with_short_red_position(future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_linear
     position_inst = personal_data.LinearPosition(trader_inst, default_contract)
@@ -162,6 +170,7 @@ async def test_update_pnl_with_loss_with_short_red_position(future_trader_simula
     assert position_inst.unrealized_pnl == decimal.Decimal("-87.768")
 
 
+@pytest.mark.asyncio
 async def test_update_pnl_with_loss_with_too_big_positions(future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_linear
     position_inst = personal_data.LinearPosition(trader_inst, default_contract)
@@ -191,6 +200,7 @@ async def test_update_pnl_with_loss_with_too_big_positions(future_trader_simulat
     assert portfolio.get_currency_portfolio("USDT").total == decimal.Decimal('1000')
 
 
+@pytest.mark.asyncio
 async def test_update_pnl_with_loss_with_full_long_position(future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_linear
     position_inst = personal_data.LinearPosition(trader_inst, default_contract)
@@ -229,6 +239,7 @@ async def test_update_pnl_with_loss_with_full_long_position(future_trader_simula
     assert portfolio.get_currency_portfolio("USDT").total == decimal.Decimal('955.816000')
 
 
+@pytest.mark.asyncio
 async def test_update_pnl_with_loss_with_full_short_position(future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_linear
     position_inst = personal_data.LinearPosition(trader_inst, default_contract)
@@ -267,6 +278,7 @@ async def test_update_pnl_with_loss_with_full_short_position(future_trader_simul
     assert portfolio.get_currency_portfolio("USDT").total == decimal.Decimal('1044.184')
 
 
+@pytest.mark.asyncio
 async def test_update_initial_margin(future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_linear
     position_inst = personal_data.LinearPosition(trader_inst, default_contract)
@@ -284,6 +296,7 @@ async def test_update_initial_margin(future_trader_simulator_with_default_linear
         assert position_inst.initial_margin == decimal.Decimal("10")
 
 
+@pytest.mark.asyncio
 async def test_get_margin_from_size(future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_linear
     position_inst = personal_data.LinearPosition(trader_inst, default_contract)
@@ -299,6 +312,7 @@ async def test_get_margin_from_size(future_trader_simulator_with_default_linear)
     assert position_inst.get_margin_from_size(decimal.Decimal('1')) == decimal.Decimal('40')
 
 
+@pytest.mark.asyncio
 async def test_get_size_from_margin(future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_linear
     position_inst = personal_data.LinearPosition(trader_inst, default_contract)
@@ -314,6 +328,7 @@ async def test_get_size_from_margin(future_trader_simulator_with_default_linear)
     assert position_inst.get_size_from_margin(decimal.Decimal('1')) == decimal.Decimal('0.025')
 
 
+@pytest.mark.asyncio
 async def test_calculate_maintenance_margin(future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_linear
     position_inst = personal_data.LinearPosition(trader_inst, default_contract)
@@ -330,6 +345,7 @@ async def test_calculate_maintenance_margin(future_trader_simulator_with_default
     assert position_inst.calculate_maintenance_margin() == decimal.Decimal('10')
 
 
+@pytest.mark.asyncio
 async def test_update_isolated_liquidation_price_with_long(future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_linear
     position_inst = personal_data.LinearPosition(trader_inst, default_contract)
@@ -349,6 +365,7 @@ async def test_update_isolated_liquidation_price_with_long(future_trader_simulat
     assert position_inst.liquidation_price == constants.ZERO
 
 
+@pytest.mark.asyncio
 async def test_update_isolated_liquidation_price_with_short(
         future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_linear
@@ -368,6 +385,7 @@ async def test_update_isolated_liquidation_price_with_short(
     assert position_inst.liquidation_price == decimal.Decimal("32.40")
 
 
+@pytest.mark.asyncio
 async def test_get_bankruptcy_price_with_long(future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_linear
     position_inst = personal_data.LinearPosition(trader_inst, default_contract)
@@ -392,6 +410,7 @@ async def test_get_bankruptcy_price_with_long(future_trader_simulator_with_defau
         == decimal.Decimal("101")
 
 
+@pytest.mark.asyncio
 async def test_get_bankruptcy_price_with_short(future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_linear
     position_inst = personal_data.LinearPosition(trader_inst, default_contract)
@@ -418,6 +437,7 @@ async def test_get_bankruptcy_price_with_short(future_trader_simulator_with_defa
         == decimal.Decimal("50")
 
 
+@pytest.mark.asyncio
 async def test_get_order_cost(future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_linear
     set_future_exchange_fees(exchange_manager_inst.exchange.connector, default_contract.pair)
@@ -430,6 +450,7 @@ async def test_get_order_cost(future_trader_simulator_with_default_linear):
     assert position_inst.get_order_cost() == decimal.Decimal("1000.8")
 
 
+@pytest.mark.asyncio
 async def test_get_fee_to_open(future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_linear
     set_future_exchange_fees(exchange_manager_inst.exchange.connector, default_contract.pair)
@@ -446,6 +467,7 @@ async def test_get_fee_to_open(future_trader_simulator_with_default_linear):
            decimal.Decimal("0.0016")
 
 
+@pytest.mark.asyncio
 async def test_update_fee_to_close(future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_linear
     set_future_exchange_fees(exchange_manager_inst.exchange.connector, default_contract.pair)
@@ -460,6 +482,7 @@ async def test_update_fee_to_close(future_trader_simulator_with_default_linear):
     assert position_inst.fee_to_close == decimal.Decimal("0.4")
 
 
+@pytest.mark.asyncio
 async def test_get_two_way_taker_fee_for_quantity_and_price(future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_linear
     set_future_exchange_fees(exchange_manager_inst.exchange.connector, default_contract.pair)
@@ -492,6 +515,7 @@ async def test_get_two_way_taker_fee_for_quantity_and_price(future_trader_simula
     ) == decimal.Decimal("80.400000")     # open fees + closing fees in case of liquidation
 
 
+@pytest.mark.asyncio
 async def test_update_average_entry_price_increased_long(future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_linear
     position_inst = personal_data.LinearPosition(trader_inst, default_contract)
@@ -507,6 +531,7 @@ async def test_update_average_entry_price_increased_long(future_trader_simulator
     assert position_inst.entry_price == decimal.Decimal("99.62121212121212121212121217")
 
 
+@pytest.mark.asyncio
 async def test_update_average_entry_price_increased_short(future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_linear
     position_inst = personal_data.LinearPosition(trader_inst, default_contract)
@@ -522,6 +547,7 @@ async def test_update_average_entry_price_increased_short(future_trader_simulato
     assert position_inst.entry_price == decimal.Decimal("2.100000000000000000925185854")
 
 
+@pytest.mark.asyncio
 async def test_update_average_entry_price_decreased_long(future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_linear
     position_inst = personal_data.LinearPosition(trader_inst, default_contract)
@@ -537,6 +563,7 @@ async def test_update_average_entry_price_decreased_long(future_trader_simulator
     assert position_inst.entry_price == constants.ZERO
 
 
+@pytest.mark.asyncio
 async def test_update_average_entry_price_decreased_short(future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_linear
     position_inst = personal_data.LinearPosition(trader_inst, default_contract)
@@ -552,6 +579,7 @@ async def test_update_average_entry_price_decreased_short(future_trader_simulato
     assert position_inst.entry_price == decimal.Decimal("2733.582766439857403174603174")
 
 
+@pytest.mark.asyncio
 async def test_update_average_exit_price_and_transactions_long(future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_linear
     position_inst = personal_data.LinearPosition(trader_inst, default_contract)
@@ -644,6 +672,7 @@ async def test_update_average_exit_price_and_transactions_long(future_trader_sim
     assert get_latest_transaction(exchange_manager_inst).average_exit_price == decimal.Decimal("52.775")
 
 
+@pytest.mark.asyncio
 async def test_update_average_exit_price_and_transactions_short(future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_linear
     position_inst = personal_data.LinearPosition(trader_inst, default_contract)

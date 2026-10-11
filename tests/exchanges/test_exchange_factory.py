@@ -23,28 +23,32 @@ from tests.exchanges import exchange_builder
 from octobot_trading.api.exchange import cancel_ccxt_throttle_task
 
 # All test coroutines will be treated as marked.
-pytestmark = pytest.mark.asyncio
+
 
 
 @pytest.mark.usefixtures("event_loop", "exchange_builder")
+@pytest.mark.asyncio
 async def test_create_without_trading_config(exchange_builder):
     with pytest.raises(ConfigTradingError):
         await exchange_builder.build()
 
 
 @pytest.mark.usefixtures("event_loop", "exchange_builder")
+@pytest.mark.asyncio
 async def test_create_without_installed_trading_mode(exchange_builder):
     with pytest.raises(ConfigTradingError):
         await exchange_builder.build()
 
 
 @pytest.mark.usefixtures("event_loop", "exchange_builder", "install_tentacles")
+@pytest.mark.asyncio
 async def test_create_without_installed_trading_mode(exchange_builder):
     with pytest.raises(ConfigTradingError):
         await exchange_builder.build()
 
 
 @pytest.mark.usefixtures("event_loop", "exchange_builder", "install_tentacles")
+@pytest.mark.asyncio
 async def test_create(exchange_builder):
     # await exchange_builder.build() # TODO
     pass
@@ -52,6 +56,7 @@ async def test_create(exchange_builder):
 
 @pytest.mark.usefixtures("event_loop", "exchange_builder")
 @pytest.mark.parametrize("exchange_builder", [(None, "binanceus")], indirect=["exchange_builder"])
+@pytest.mark.asyncio
 async def test_create_basic(exchange_builder):
     exchange_builder.disable_trading_mode()
     exchange_manager = await exchange_builder.build()

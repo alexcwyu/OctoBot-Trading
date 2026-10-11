@@ -28,7 +28,7 @@ from tests.exchanges.traders import trader_simulator
 from tests.exchanges.traders import trader
 
 # All test coroutines will be treated as marked.
-pytestmark = pytest.mark.asyncio
+
 
 
 @pytest_asyncio.fixture
@@ -41,6 +41,7 @@ def initialized_mocked_order_storage(trader_simulator):
     yield mocked_order_storage, exchange_manager_inst, trader_inst
 
 
+@pytest.mark.asyncio
 async def test_apply_order_storage_details_if_any(initialized_mocked_order_storage):
     mocked_order_storage, exchange_manager_inst, trader_inst = initialized_mocked_order_storage
     mocked_order_storage.get_startup_order_details = mock.AsyncMock(return_value={})

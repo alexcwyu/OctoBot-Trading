@@ -28,9 +28,10 @@ from tests import event_loop
 from tests.exchanges import backtesting_trader, backtesting_config, backtesting_exchange_manager, fake_backtesting
 from tests.personal_data.orders import backtesting_buy_and_sell_limit_orders
 
-pytestmark = pytest.mark.asyncio
 
 
+
+@pytest.mark.asyncio
 async def test_update_price_if_outdated(backtesting_buy_and_sell_limit_orders):
     buy_limit_order, sell_limit_order = backtesting_buy_and_sell_limit_orders
     buy_order_price = decimal.Decimal("100")
@@ -117,6 +118,7 @@ async def test_update_price_if_outdated(backtesting_buy_and_sell_limit_orders):
             )
         )
 
+@pytest.mark.asyncio
 async def test_filled_maker_or_taker(backtesting_buy_and_sell_limit_orders):
     buy_limit_order, sell_limit_order = backtesting_buy_and_sell_limit_orders
     buy_order_price = decimal.Decimal("100")

@@ -27,9 +27,10 @@ from tests import event_loop
 from tests.exchanges import simulated_trader, simulated_exchange_manager
 from tests.personal_data.orders import take_profit_sell_order, take_profit_buy_order
 
-pytestmark = pytest.mark.asyncio
 
 
+
+@pytest.mark.asyncio
 async def test_take_profit_sell_order_trigger(take_profit_sell_order):
     order_price = decimal_random_price(min_value=2)
     take_profit_sell_order.update(
@@ -64,6 +65,7 @@ async def test_take_profit_sell_order_trigger(take_profit_sell_order):
     assert take_profit_sell_order.is_filled()
 
 
+@pytest.mark.asyncio
 async def test_take_profit_buy_order_trigger(take_profit_buy_order):
     order_price = decimal_random_price()
     take_profit_buy_order.update(

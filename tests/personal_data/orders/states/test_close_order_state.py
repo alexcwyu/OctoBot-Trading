@@ -22,17 +22,20 @@ import tests.personal_data.orders.states as states
 
 import pytest
 
-pytestmark = pytest.mark.asyncio
 
 
+
+@pytest.mark.asyncio
 async def test_initialize_without_kwargs(sell_limit_order):
     await states.inner_test_initialize_without_kwargs(sell_limit_order, enums.OrderStatus.CLOSED, 'on_close')
 
 
+@pytest.mark.asyncio
 async def test_initialize_with_kwargs(sell_limit_order):
     await states.inner_test_initialize_with_kwargs(sell_limit_order, enums.OrderStatus.CLOSED, 'on_close')
 
 
+@pytest.mark.asyncio
 async def test_on_order_refresh_successful(sell_limit_order):
     sell_limit_order.status = enums.OrderStatus.CLOSED
     sell_limit_order.exchange_manager.is_backtesting = True

@@ -19,7 +19,7 @@ import pytest_asyncio
 from octobot_trading.exchange_data.markets.markets_manager import MarketsManager
 from tests import event_loop
 
-pytestmark = pytest.mark.asyncio
+
 
 
 @pytest_asyncio.fixture()
@@ -29,5 +29,6 @@ async def markets_manager():
     return markets_manager
 
 
+@pytest.mark.asyncio
 async def test_init(markets_manager):
     assert not markets_manager.markets == []

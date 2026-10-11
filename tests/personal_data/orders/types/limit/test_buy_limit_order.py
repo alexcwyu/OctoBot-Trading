@@ -27,9 +27,10 @@ from tests import event_loop
 from tests.exchanges import simulated_trader, simulated_exchange_manager
 from tests.personal_data.orders import buy_limit_order
 
-pytestmark = pytest.mark.asyncio
 
 
+
+@pytest.mark.asyncio
 async def test_buy_limit_order_trigger(buy_limit_order):
     order_price = decimal_random_price()
     buy_limit_order.update(

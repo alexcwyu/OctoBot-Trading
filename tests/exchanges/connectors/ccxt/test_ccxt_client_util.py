@@ -26,9 +26,21 @@ import octobot_trading.exchanges.connectors.ccxt.ccxt_client_util as ccxt_client
 import octobot_trading.constants as constants
 
 
+def _http_response():
+    response = mock.MagicMock(spec=aiohttp.ClientResponse)
+    response.text = mock.AsyncMock(return_value='{"error": [], "result": {}}')
+    response.status = 200
+    response.reason = "OK"
+    response.headers = {}
+    response.wait_for_close = mock.AsyncMock()
+    response.__aenter__ = mock.AsyncMock(return_value=response)
+    response.__aexit__ = mock.AsyncMock(return_value=False)
+    return response
+
+
 @pytest.mark.asyncio
 async def test_proxies():
-    with mock.patch.object(aiohttp.ClientSession, "_request", mock.AsyncMock()) as _request_mock:
+    with mock.patch.object(aiohttp.ClientSession, "_request", mock.AsyncMock(return_value=_http_response())) as _request_mock:
 
         # no proxy
         proxy_config = exchanges.ProxyConfig()
@@ -115,7 +127,7 @@ async def test_proxies():
 
 @pytest.mark.asyncio
 async def test_request_counter():
-    with mock.patch.object(aiohttp.ClientSession, "_request", mock.AsyncMock()) as _request_mock:
+    with mock.patch.object(aiohttp.ClientSession, "_request", mock.AsyncMock(return_value=_http_response())) as _request_mock:
         # without proxy
         proxy_config = exchanges.ProxyConfig()
         with mock.patch.object(constants, "ENABLE_CCXT_REQUESTS_COUNTER", True):

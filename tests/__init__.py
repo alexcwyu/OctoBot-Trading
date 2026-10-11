@@ -54,8 +54,10 @@ async def config():
 @pytest_asyncio.fixture
 async def install_tentacles():
     def _download_tentacles():
-        r = requests.get(TENTACLES_LATEST_URL, stream=True)
-        open(_tentacles_local_path(), 'wb').write(r.content)
+        with requests.get(TENTACLES_LATEST_URL, stream=True) as response:
+            response.raise_for_status()
+            with open(_tentacles_local_path(), 'wb') as archive:
+                archive.write(response.content)
 
     def _cleanup(raises=True):
         if os.path.exists(TENTACLES_PATH):

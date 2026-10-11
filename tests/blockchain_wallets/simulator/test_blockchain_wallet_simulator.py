@@ -29,7 +29,7 @@ from tests.blockchain_wallets import blockchain_descriptor_simulated, wallet_des
 from tests.exchanges import backtesting_trader, backtesting_config, backtesting_exchange_manager, fake_backtesting
 
 
-pytestmark = pytest.mark.asyncio
+
 
 
 @pytest.fixture
@@ -57,6 +57,7 @@ async def wallet_simulator(blockchain_descriptor_simulated, wallet_descriptor, b
     return octobot_trading.blockchain_wallets.BlockchainWalletSimulator(parameters, trader)
 
 
+@pytest.mark.asyncio
 async def test_init_with_simulated_network(blockchain_descriptor_simulated, wallet_descriptor, backtesting_trader):
     config, exchange_manager, trader = backtesting_trader
     parameters = octobot_trading.blockchain_wallets.BlockchainWalletParameters(
@@ -72,6 +73,7 @@ async def test_init_with_simulated_network(blockchain_descriptor_simulated, wall
     assert wallet._readonly_configured_simulated_assets["ETH"].free == decimal.Decimal(0)
 
 
+@pytest.mark.asyncio
 async def test_init_with_wrong_network(blockchain_descriptor_simulated, wallet_descriptor, backtesting_trader):
     config, exchange_manager, trader = backtesting_trader
     # Create a descriptor with wrong network
@@ -89,6 +91,7 @@ async def test_init_with_wrong_network(blockchain_descriptor_simulated, wallet_d
         octobot_trading.blockchain_wallets.BlockchainWalletSimulator(parameters, trader)
 
 
+@pytest.mark.asyncio
 async def test_init_without_native_coin(wallet_descriptor, backtesting_trader):
     config, exchange_manager, trader = backtesting_trader
     descriptor_no_native = octobot_trading.blockchain_wallets.BlockchainDescriptor(
@@ -105,6 +108,7 @@ async def test_init_without_native_coin(wallet_descriptor, backtesting_trader):
     assert wallet._readonly_configured_simulated_assets == {}
 
 
+@pytest.mark.asyncio
 async def test_get_native_coin_balance(wallet_simulator):
     balance = await wallet_simulator.get_native_coin_balance()
     assert balance == octobot_trading.blockchain_wallets.Balance(
@@ -114,6 +118,7 @@ async def test_get_native_coin_balance(wallet_simulator):
     )
 
 
+@pytest.mark.asyncio
 async def test_get_native_coin_balance_with_config(wallet_simulator):
     # Configure some initial balance
     config = {
@@ -134,6 +139,7 @@ async def test_get_native_coin_balance_with_config(wallet_simulator):
     )
 
 
+@pytest.mark.asyncio
 async def test_get_native_coin_balance_no_native_coin(wallet_descriptor, backtesting_trader):
     config, exchange_manager, trader = backtesting_trader
     descriptor_no_native = octobot_trading.blockchain_wallets.BlockchainDescriptor(
@@ -151,6 +157,7 @@ async def test_get_native_coin_balance_no_native_coin(wallet_descriptor, backtes
         await wallet.get_native_coin_balance()
 
 
+@pytest.mark.asyncio
 async def test_get_custom_token_balance(wallet_descriptor, blockchain_descriptor_with_tokens, backtesting_trader):
     config, exchange_manager, trader = backtesting_trader
     parameters = octobot_trading.blockchain_wallets.BlockchainWalletParameters(
@@ -169,6 +176,7 @@ async def test_get_custom_token_balance(wallet_descriptor, blockchain_descriptor
     )
 
 
+@pytest.mark.asyncio
 async def test_get_custom_token_balance_with_config(wallet_descriptor, blockchain_descriptor_with_tokens, backtesting_trader):
     config, exchange_manager, trader = backtesting_trader
     parameters = octobot_trading.blockchain_wallets.BlockchainWalletParameters(
@@ -197,6 +205,7 @@ async def test_get_custom_token_balance_with_config(wallet_descriptor, blockchai
     )
 
 
+@pytest.mark.asyncio
 async def test_get_balance_with_withdrawals(wallet_simulator, backtesting_trader):
     config, exchange_manager, trader = backtesting_trader
     # Configure initial balance
@@ -239,6 +248,7 @@ async def test_get_balance_with_withdrawals(wallet_simulator, backtesting_trader
     )
 
 
+@pytest.mark.asyncio
 async def test_get_balance_with_deposits(wallet_simulator, backtesting_trader):
     config, exchange_manager, trader = backtesting_trader
     # Configure initial balance
@@ -277,6 +287,7 @@ async def test_get_balance_with_deposits(wallet_simulator, backtesting_trader):
     )
 
 
+@pytest.mark.asyncio
 async def test_transfer_native_coin(wallet_simulator):
     # Configure initial balance
     config = {
@@ -304,6 +315,7 @@ async def test_transfer_native_coin(wallet_simulator):
     assert uuid.UUID(result.txid)  # Verify it's a valid UUID
 
 
+@pytest.mark.asyncio
 async def test_transfer_native_coin_to_trader_deposit_address(wallet_simulator, backtesting_trader):
     config, exchange_manager, trader = backtesting_trader
     # Configure initial balance
@@ -343,6 +355,7 @@ async def test_transfer_native_coin_to_trader_deposit_address(wallet_simulator, 
     assert final_total == initial_total + amount
 
 
+@pytest.mark.asyncio
 async def test_transfer_native_coin_insufficient_funds(wallet_simulator):
     # Configure initial balance
     config = {
@@ -365,6 +378,7 @@ async def test_transfer_native_coin_insufficient_funds(wallet_simulator):
     assert "required: 20" in str(exc_info.value)
 
 
+@pytest.mark.asyncio
 async def test_transfer_custom_token(wallet_descriptor, blockchain_descriptor_with_tokens, backtesting_trader):
     config, exchange_manager, trader = backtesting_trader
     parameters = octobot_trading.blockchain_wallets.BlockchainWalletParameters(
@@ -397,6 +411,7 @@ async def test_transfer_custom_token(wallet_descriptor, blockchain_descriptor_wi
     assert result.address_to == to_address
 
 
+@pytest.mark.asyncio
 async def test_transfer_custom_token_insufficient_funds(wallet_descriptor, blockchain_descriptor_with_tokens, backtesting_trader):
     config, exchange_manager, trader = backtesting_trader
     parameters = octobot_trading.blockchain_wallets.BlockchainWalletParameters(
@@ -424,7 +439,8 @@ async def test_transfer_custom_token_insufficient_funds(wallet_descriptor, block
         await wallet.transfer_custom_token(token_descriptor, amount, to_address)
 
 
-def test_apply_blockchain_wallet_specific_config(wallet_simulator):
+@pytest.mark.asyncio
+async def test_apply_blockchain_wallet_specific_config(wallet_simulator):
     config = {
         blockchain_wallet_simulator.BlockchainWalletSimulatorConfigurationKeys.ASSETS.value: [
             {
@@ -454,6 +470,7 @@ def test_apply_blockchain_wallet_specific_config(wallet_simulator):
     )
 
 
+@pytest.mark.asyncio
 async def test_withdraw_native_coin(wallet_simulator, backtesting_trader):
     config, exchange_manager, trader = backtesting_trader
     # Configure initial balance
@@ -476,12 +493,14 @@ async def test_withdraw_native_coin(wallet_simulator, backtesting_trader):
         assert result[enums.ExchangeConstantsTransactionColumns.ADDRESS_FROM.value] == wallet_simulator.wallet_descriptor.address
 
 
+@pytest.mark.asyncio
 async def test_withdraw_disabled_funds_transfer(wallet_simulator):
     with mock.patch('octobot_trading.constants.ALLOW_FUNDS_TRANSFER', False):
         with pytest.raises(errors.DisabledFundsTransferError, match="Funds transfer is not enabled"):
             await wallet_simulator.withdraw("ETH", decimal.Decimal("1.0"), constants.SIMULATED_BLOCKCHAIN_NETWORK, "0xrecipient")
 
 
+@pytest.mark.asyncio
 async def test_get_balance_with_withdrawals_and_deposits(wallet_simulator, backtesting_trader):
     config, exchange_manager, trader = backtesting_trader
     # Configure initial balance
@@ -517,6 +536,7 @@ async def test_get_balance_with_withdrawals_and_deposits(wallet_simulator, backt
     assert balance.free == decimal.Decimal("11.0")
 
 
+@pytest.mark.asyncio
 async def test_get_deposit_address(wallet_simulator):
     result = await wallet_simulator.get_deposit_address("ETH")
     

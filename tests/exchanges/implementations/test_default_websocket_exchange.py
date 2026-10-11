@@ -25,7 +25,7 @@ from tests.exchanges import liquid_exchange_manager as liquid_exchange_manager_f
 from tests import skipped_on_github_CI
 
 # All test coroutines will be treated as marked.
-pytestmark = pytest.mark.asyncio
+
 
 
 class FeedCallback:

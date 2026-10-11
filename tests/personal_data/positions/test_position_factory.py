@@ -24,9 +24,10 @@ from tests.exchanges.traders import future_trader, future_trader_simulator_with_
 from tests.test_utils.random_numbers import decimal_random_int, decimal_random_quantity
 
 # All test coroutines will be treated as marked.
-pytestmark = pytest.mark.asyncio
 
 
+
+@pytest.mark.asyncio
 async def test_create_position_instance_from_raw(future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_linear
 
@@ -54,6 +55,7 @@ async def test_create_position_instance_from_raw(future_trader_simulator_with_de
     assert isinstance(inverse_position_open, personal_data.InversePosition)
 
 
+@pytest.mark.asyncio
 async def test_create_symbol_position(future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_linear
     position = personal_data.create_symbol_position(trader_inst, DEFAULT_FUTURE_SYMBOL)

@@ -21,7 +21,7 @@ import pytest
 from tests.exchanges import exchange_manager, DEFAULT_EXCHANGE_NAME, MockedRestExchange
 
 # All test coroutines will be treated as marked.
-pytestmark = pytest.mark.asyncio
+
 
 
 @pytest.fixture
@@ -29,6 +29,7 @@ def default_rest_exchange(exchange_manager):
     return MockedRestExchange(exchange_manager.config, exchange_manager, None)
 
 
+@pytest.mark.asyncio
 async def test_start_request_data_and_stop(default_rest_exchange):
     await default_rest_exchange.initialize()
     symbol = "BTC/USDT"

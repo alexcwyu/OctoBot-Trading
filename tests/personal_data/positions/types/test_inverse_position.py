@@ -30,15 +30,17 @@ from tests.exchanges.traders import future_trader_simulator_with_default_inverse
 from tests.test_utils.random_numbers import decimal_random_price, decimal_random_quantity
 
 # All test coroutines will be treated as marked.
-pytestmark = pytest.mark.asyncio
 
 
+
+@pytest.mark.asyncio
 async def test_constructor(future_trader_simulator_with_default_linear):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_linear
     with pytest.raises(errors.InvalidPosition):
         personal_data.InversePosition(trader_inst, default_contract)
 
 
+@pytest.mark.asyncio
 async def test_update_value(future_trader_simulator_with_default_inverse):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_inverse
     position_inst = personal_data.InversePosition(trader_inst, default_contract)
@@ -53,6 +55,7 @@ async def test_update_value(future_trader_simulator_with_default_inverse):
     assert position_inst.value == constants.ONE
 
 
+@pytest.mark.asyncio
 async def test_update_pnl_with_long(future_trader_simulator_with_default_inverse):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_inverse
     position_inst = personal_data.InversePosition(trader_inst, default_contract)
@@ -68,6 +71,7 @@ async def test_update_pnl_with_long(future_trader_simulator_with_default_inverse
     assert position_inst.unrealized_pnl == constants.ONE
 
 
+@pytest.mark.asyncio
 async def test_update_pnl_with_short(future_trader_simulator_with_default_inverse):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_inverse
 
@@ -83,6 +87,7 @@ async def test_update_pnl_with_short(future_trader_simulator_with_default_invers
     assert position_inst.unrealized_pnl == decimal.Decimal("18.00")
 
 
+@pytest.mark.asyncio
 async def test_update_pnl_with_loss_with_long(future_trader_simulator_with_default_inverse):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_inverse
 
@@ -98,6 +103,7 @@ async def test_update_pnl_with_loss_with_long(future_trader_simulator_with_defau
     assert position_inst.unrealized_pnl == decimal.Decimal("-0.3078698361412415355738660840")
 
 
+@pytest.mark.asyncio
 async def test_update_pnl_with_loss_with_short(future_trader_simulator_with_default_inverse):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_inverse
 
@@ -113,6 +119,7 @@ async def test_update_pnl_with_loss_with_short(future_trader_simulator_with_defa
     assert position_inst.unrealized_pnl == decimal.Decimal("-1.801126572227443130874085649")
 
 
+@pytest.mark.asyncio
 async def test_update_initial_margin(future_trader_simulator_with_default_inverse):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_inverse
     position_inst = personal_data.InversePosition(trader_inst, default_contract)
@@ -130,6 +137,7 @@ async def test_update_initial_margin(future_trader_simulator_with_default_invers
         assert position_inst.initial_margin == decimal.Decimal("0.01")
 
 
+@pytest.mark.asyncio
 async def test_get_margin_from_size(future_trader_simulator_with_default_inverse):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_inverse
     position_inst = personal_data.InversePosition(trader_inst, default_contract)
@@ -144,6 +152,7 @@ async def test_get_margin_from_size(future_trader_simulator_with_default_inverse
     assert position_inst.get_margin_from_size(decimal.Decimal('1')) == decimal.Decimal('0.01')
 
 
+@pytest.mark.asyncio
 async def test_get_size_from_margin(future_trader_simulator_with_default_inverse):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_inverse
     position_inst = personal_data.InversePosition(trader_inst, default_contract)
@@ -158,6 +167,7 @@ async def test_get_size_from_margin(future_trader_simulator_with_default_inverse
     assert position_inst.get_size_from_margin(decimal.Decimal('1')) == decimal.Decimal('100')
 
 
+@pytest.mark.asyncio
 async def test_calculate_maintenance_margin(future_trader_simulator_with_default_inverse):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_inverse
     position_inst = personal_data.InversePosition(trader_inst, default_contract)
@@ -173,6 +183,7 @@ async def test_calculate_maintenance_margin(future_trader_simulator_with_default
     assert position_inst.calculate_maintenance_margin() == decimal.Decimal("0.02")
 
 
+@pytest.mark.asyncio
 async def test_update_isolated_liquidation_price_with_long(future_trader_simulator_with_default_inverse):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_inverse
     exchange_manager_inst.exchange_symbols_data.get_exchange_symbol_data(
@@ -190,6 +201,7 @@ async def test_update_isolated_liquidation_price_with_long(future_trader_simulat
     assert position_inst.liquidation_price == decimal.Decimal("1E+2")
 
 
+@pytest.mark.asyncio
 async def test_update_isolated_liquidation_price_with_short(future_trader_simulator_with_default_inverse):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_inverse
     exchange_manager_inst.exchange_symbols_data.get_exchange_symbol_data(
@@ -207,6 +219,7 @@ async def test_update_isolated_liquidation_price_with_short(future_trader_simula
     assert position_inst.liquidation_price == decimal.Decimal("1E+2")
 
 
+@pytest.mark.asyncio
 async def test_get_bankruptcy_price_with_long(future_trader_simulator_with_default_inverse):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_inverse
     position_inst = personal_data.InversePosition(trader_inst, default_contract)
@@ -227,6 +240,7 @@ async def test_get_bankruptcy_price_with_long(future_trader_simulator_with_defau
         == decimal.Decimal("202.0202020202020202020202020")
 
 
+@pytest.mark.asyncio
 async def test_get_bankruptcy_price_with_short(future_trader_simulator_with_default_inverse):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_inverse
     position_inst = personal_data.InversePosition(trader_inst, default_contract)
@@ -253,6 +267,7 @@ async def test_get_bankruptcy_price_with_short(future_trader_simulator_with_defa
         == decimal.Decimal("87.5")
 
 
+@pytest.mark.asyncio
 async def test_get_order_cost(future_trader_simulator_with_default_inverse):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_inverse
     set_future_exchange_fees(exchange_manager_inst.exchange.connector, default_contract.pair)
@@ -264,6 +279,7 @@ async def test_get_order_cost(future_trader_simulator_with_default_inverse):
     assert position_inst.get_order_cost() == decimal.Decimal("1.0012")
 
 
+@pytest.mark.asyncio
 async def test_get_fee_to_open(future_trader_simulator_with_default_inverse):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_inverse
     set_future_exchange_fees(exchange_manager_inst.exchange.connector, default_contract.pair)
@@ -283,6 +299,7 @@ async def test_get_fee_to_open(future_trader_simulator_with_default_inverse):
            decimal.Decimal("0.0001333333333333333333333333333")
 
 
+@pytest.mark.asyncio
 async def test_update_fee_to_close(future_trader_simulator_with_default_inverse):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_inverse
     set_future_exchange_fees(exchange_manager_inst.exchange.connector, default_contract.pair)
@@ -296,6 +313,7 @@ async def test_update_fee_to_close(future_trader_simulator_with_default_inverse)
     assert position_inst.fee_to_close == decimal.Decimal("0.0008")
 
 
+@pytest.mark.asyncio
 async def test_get_two_way_taker_fee_for_quantity_and_price(future_trader_simulator_with_default_inverse):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_inverse
     set_future_exchange_fees(exchange_manager_inst.exchange.connector, default_contract.pair)
@@ -328,6 +346,7 @@ async def test_get_two_way_taker_fee_for_quantity_and_price(future_trader_simula
     ) == decimal.Decimal("0.007960")     # open fees + closing fees in case of liquidation
 
 
+@pytest.mark.asyncio
 async def test_update_average_entry_price_increased_long(future_trader_simulator_with_default_inverse):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_inverse
     position_inst = personal_data.InversePosition(trader_inst, default_contract)
@@ -342,6 +361,7 @@ async def test_update_average_entry_price_increased_long(future_trader_simulator
     assert position_inst.entry_price == decimal.Decimal("22.78218847083189506385916465")
 
 
+@pytest.mark.asyncio
 async def test_update_average_entry_price_increased_short(future_trader_simulator_with_default_inverse):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_inverse
     position_inst = personal_data.InversePosition(trader_inst, default_contract)
@@ -356,6 +376,7 @@ async def test_update_average_entry_price_increased_short(future_trader_simulato
     assert position_inst.entry_price == decimal.Decimal("0.4861878453038674251843327502")
 
 
+@pytest.mark.asyncio
 async def test_update_average_entry_price_decreased_long(future_trader_simulator_with_default_inverse):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_inverse
     position_inst = personal_data.InversePosition(trader_inst, default_contract)
@@ -370,6 +391,7 @@ async def test_update_average_entry_price_decreased_long(future_trader_simulator
     assert position_inst.entry_price == constants.ZERO
 
 
+@pytest.mark.asyncio
 async def test_update_average_entry_price_decreased_short(future_trader_simulator_with_default_inverse):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_inverse
     position_inst = personal_data.InversePosition(trader_inst, default_contract)
@@ -384,6 +406,7 @@ async def test_update_average_entry_price_decreased_short(future_trader_simulato
     assert position_inst.entry_price == constants.ZERO
 
 
+@pytest.mark.asyncio
 async def test_update_average_exit_price_and_transactions_long(future_trader_simulator_with_default_inverse):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_inverse
     position_inst = personal_data.InversePosition(trader_inst, default_contract)
@@ -479,6 +502,7 @@ async def test_update_average_exit_price_and_transactions_long(future_trader_sim
     assert get_latest_transaction(exchange_manager_inst).average_exit_price == decimal.Decimal("8.410934214478822469209972964")
 
 
+@pytest.mark.asyncio
 async def test_update_average_exit_price_and_transactions_short(future_trader_simulator_with_default_inverse):
     config, exchange_manager_inst, trader_inst, default_contract = future_trader_simulator_with_default_inverse
     position_inst = personal_data.InversePosition(trader_inst, default_contract)

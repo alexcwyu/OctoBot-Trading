@@ -31,7 +31,7 @@ from tests.exchanges import simulated_trader, simulated_exchange_manager
 
 
 # All test coroutines will be treated as marked.
-pytestmark = pytest.mark.asyncio
+
 
 
 @pytest.fixture
@@ -46,6 +46,7 @@ def side_balance():
     return balanced_take_profit_and_stop_order_group.SideBalance(None, False)
 
 
+@pytest.mark.asyncio
 async def test_on_fill(btps_group):
     order = order_mock()
     # mock btps_group.orders_manager instead of btps_group._balance_orders to allow cythonized class tests
@@ -60,6 +61,7 @@ async def test_on_fill(btps_group):
         get_order_from_group_mock.reset_mock()
 
 
+@pytest.mark.asyncio
 async def test_on_cancel(btps_group):
     order = order_mock()
     with mock.patch.object(btps_group.orders_manager, "get_order_from_group", mock.Mock(return_value=[])) \
@@ -73,6 +75,7 @@ async def test_on_cancel(btps_group):
         get_order_from_group_mock.reset_mock()
 
 
+@pytest.mark.asyncio
 async def test_enable(btps_group):
     with mock.patch.object(btps_group.orders_manager, "get_order_from_group", mock.Mock(return_value=[])) \
             as get_order_from_group_mock:
@@ -85,6 +88,7 @@ async def test_enable(btps_group):
         get_order_from_group_mock.assert_called_once()
 
 
+@pytest.mark.asyncio
 async def test_can_create_order(btps_group):
     order_1 = order_mock(origin_quantity=decimal.Decimal(1), order_type=enums.TraderOrderType.SELL_LIMIT,
                          origin_price=decimal.Decimal(1), created_last_price=decimal.Decimal(2))
@@ -121,6 +125,7 @@ async def test_can_create_order(btps_group):
         get_order_from_group_mock.reset_mock()
 
 
+@pytest.mark.asyncio
 async def test_get_max_order_quantity(btps_group):
     order_1 = order_mock(origin_quantity=decimal.Decimal(1), order_type=enums.TraderOrderType.SELL_LIMIT,
                          origin_price=decimal.Decimal(1), created_last_price=decimal.Decimal(2))
@@ -145,6 +150,7 @@ async def test_get_max_order_quantity(btps_group):
         get_order_from_group_mock.reset_mock()
 
 
+@pytest.mark.asyncio
 async def test_balance_orders(btps_group):
     order_1 = order_mock(origin_price=decimal.Decimal(1), created_last_price=decimal.Decimal(10),
                          order_type=enums.TraderOrderType.SELL_LIMIT, origin_quantity=decimal.Decimal("1.5"))
@@ -240,6 +246,7 @@ async def test_balance_orders(btps_group):
             assert btps_group.balancing_orders is not base_balancing_order  # changed list during orders registration
 
 
+@pytest.mark.asyncio
 async def test_get_balance(btps_group):
     order_1 = order_mock(order_type="order_type", origin_price=decimal.Decimal(1),
                          created_last_price=decimal.Decimal(2))
@@ -282,6 +289,7 @@ async def test_get_balance(btps_group):
             is_stop_order_mock.reset_mock()
 
 
+@pytest.mark.asyncio
 async def test_balanced_adapt_before_order_becoming_active_and_reverse_swap(simulated_trader):
     _, exchange_manager, trader_instance = simulated_trader
     trader_instance.allow_artificial_orders = False
@@ -470,6 +478,7 @@ async def test_balanced_adapt_before_order_becoming_active_and_reverse_swap(simu
         assert sell_limit_2.is_active is False
 
 
+@pytest.mark.asyncio
 async def test_SideBalance_add_order(side_balance):
     assert side_balance.orders == []
     order_1 = order_mock(origin_price=decimal.Decimal(1), created_last_price=decimal.Decimal(2))
@@ -483,6 +492,7 @@ async def test_SideBalance_add_order(side_balance):
     assert side_balance.orders == [order_2, order_3, order_1]
 
 
+@pytest.mark.asyncio
 async def test_SideBalance_get_actions_to_balance_special_inputs(side_balance):
     with mock.patch.object(side_balance, "get_balance", mock.Mock(return_value=decimal.Decimal("-1"))):
         # target balance can't be negative (order quantity is always positive). value treated as abs()
@@ -510,6 +520,7 @@ async def test_SideBalance_get_actions_to_balance_special_inputs(side_balance):
         }
 
 
+@pytest.mark.asyncio
 async def test_SideBalance_get_actions_to_balance_normal_inputs(side_balance):
     order_0_1 = order_mock(origin_quantity=decimal.Decimal("2.899999"))
     order_0_2 = order_mock(origin_quantity=decimal.Decimal("0.111111"))
@@ -586,6 +597,7 @@ async def test_SideBalance_get_actions_to_balance_normal_inputs(side_balance):
     }
 
 
+@pytest.mark.asyncio
 async def test_SideBalance_get_balance(side_balance):
     assert side_balance.get_balance() is constants.ZERO
     order_1 = order_mock(origin_quantity=decimal.Decimal(1))

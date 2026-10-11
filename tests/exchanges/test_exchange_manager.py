@@ -25,7 +25,7 @@ from octobot_trading.exchanges.implementations import ExchangeSimulator
 from tests import event_loop
 
 # All test coroutines will be treated as marked.
-pytestmark = pytest.mark.asyncio
+
 
 
 class TestExchangeManager:
@@ -46,6 +46,7 @@ class TestExchangeManager:
         await exchange_manager.initialize(exchange_config_by_exchange=None)
         return config, exchange_manager
 
+    @pytest.mark.asyncio
     async def test_create_exchange(self):
         # simulated
         config, exchange_manager = await self.init_default(simulated=True, backtesting=True)
@@ -72,6 +73,7 @@ class TestExchangeManager:
         cancel_ccxt_throttle_task()
         await exchange_manager.stop()
 
+    @pytest.mark.asyncio
     async def test_get_is_overloaded(self):
         # simulated
         config, exchange_manager = await self.init_default(simulated=True, backtesting=True)
@@ -108,6 +110,7 @@ class TestExchangeManager:
         cancel_ccxt_throttle_task()
         await exchange_manager.stop()
 
+    @pytest.mark.asyncio
     async def test_ready(self):
         _, exchange_manager = await self.init_default()
 
