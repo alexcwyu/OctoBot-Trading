@@ -1,308 +1,40 @@
 {
-  "repo": "OctoBot-Trading",
-  "checks": [
-    {
-      "command": [
-        "uv",
-        "lock",
-        "--upgrade",
-        "--python",
-        "3.15"
-      ],
-      "label": "lock-3.15",
-      "exit_code": 0,
-      "seconds": 6.15,
-      "log": "OctoBot-Trading-lock-3.15.log"
-    },
-    {
-      "command": [
-        "uv",
-        "sync",
-        "--all-extras",
-        "--python",
-        "3.15"
-      ],
-      "label": "sync-3.15",
-      "exit_code": 1,
-      "seconds": 63.71,
-      "log": "OctoBot-Trading-sync-3.15.log"
-    },
-    {
-      "command": [
-        "uv",
-        "lock",
-        "--upgrade",
-        "--python",
-        "3.14"
-      ],
-      "label": "lock-3.14",
-      "exit_code": 0,
-      "seconds": 0.46,
-      "log": "OctoBot-Trading-lock-3.14.log"
-    },
-    {
-      "command": [
-        "uv",
-        "sync",
-        "--all-extras",
-        "--python",
-        "3.14"
-      ],
-      "label": "sync-3.14",
-      "exit_code": 0,
-      "seconds": 0.3,
-      "log": "OctoBot-Trading-sync-3.14.log"
-    },
-    {
-      "command": [
-        "uv",
-        "build",
-        "--python",
-        "3.14"
-      ],
-      "label": "build",
-      "exit_code": 0,
-      "seconds": 2.28,
-      "log": "OctoBot-Trading-build.log"
-    },
-    {
-      "command": [
-        "/Users/alex/workspaces/trading/OctoBot-Trading/.venv/bin/python",
-        "-m",
-        "compileall",
-        "-q",
-        "src"
-      ],
-      "label": "compile",
-      "exit_code": 0,
-      "seconds": 1.03,
-      "log": "OctoBot-Trading-compile.log"
-    },
-    {
-      "command": [
-        "/Users/alex/workspaces/trading/OctoBot-Trading/.venv/bin/python",
-        "-m",
-        "pytest",
-        "tests"
-      ],
-      "label": "tests",
-      "exit_code": 2,
-      "seconds": 18.96,
-      "log": "OctoBot-Trading-tests.log"
-    },
-    {
-      "command": [
-        "uv",
-        "sync",
-        "--all-extras",
-        "--python",
-        "3.14"
-      ],
-      "label": "updated-manager-sync",
-      "exit_code": 0,
-      "seconds": 1.32,
-      "log": "OctoBot-Trading-updated-manager-sync.log"
-    },
-    {
-      "command": [
-        "uv",
-        "sync",
-        "--all-extras",
-        "--python",
-        "3.14"
-      ],
-      "label": "public-manager-sync",
-      "exit_code": 0,
-      "seconds": 1.6,
-      "log": "OctoBot-Trading-public-manager-sync.log"
-    },
+  "repository": "OctoBot-Trading",
+  "source_commit_before_documentation_commit": "2fd210985efc2e10d38f38f1d4d336575a9697de",
+  "recorded_on": "2026-10-12",
+  "records": [
     {
       "command": [
         ".venv/bin/python",
         "-m",
         "pytest",
-        "tests"
+        "-s",
+        "tests/exchanges/traders/test_trader.py::TestTrader::test_init_paused",
+        "tests/exchanges/traders/test_trader.py::TestTrader::test_enabled"
       ],
-      "label": "tests-2",
-      "exit_code": 2,
-      "seconds": 8.94,
-      "log": "OctoBot-Trading-tests-2.log"
-    },
-    {
-      "command": [
-        ".venv/bin/python",
-        "-m",
-        "pytest",
-        "tests"
-      ],
-      "label": "tests-3",
       "exit_code": 1,
-      "seconds": 113.46,
-      "log": "OctoBot-Trading-tests-3.log"
-    },
-    {
-      "command": [
-        ".venv/bin/python",
-        "-m",
-        "pytest",
-        "tests"
-      ],
-      "label": "tests-4",
-      "exit_code": 1,
-      "seconds": 137.25,
-      "log": "OctoBot-Trading-tests-4.log"
+      "seconds": 2.69,
+      "check": "allocation-diagnosis-tests",
+      "original_log": "OctoBot-Trading-allocation-diagnosis-tests.log",
+      "log_sha256": "dd3345fb2a1ad2149c390f5bb4afb48c4cc7765571efac5f73bc33abbf007732",
+      "outcomes": [
+        "1 failed, 1 passed in 1.28s"
+      ]
     },
     {
       "command": [
         "uv",
         "sync",
         "--all-extras",
-        "--python",
-        "3.14"
-      ],
-      "label": "current-sync",
-      "exit_code": 0,
-      "seconds": 32.8,
-      "log": "OctoBot-Trading-current-sync.log"
-    },
-    {
-      "command": [
-        ".venv/bin/python",
-        "-m",
-        "pytest",
-        "tests"
-      ],
-      "label": "tests-5",
-      "exit_code": 2,
-      "seconds": 23.83,
-      "log": "OctoBot-Trading-tests-5.log"
-    },
-    {
-      "command": [
-        "uv",
-        "sync",
-        "--all-extras",
-        "--python",
-        "3.14"
-      ],
-      "label": "current-sync-2",
-      "exit_code": 1,
-      "seconds": 0.05,
-      "log": "OctoBot-Trading-current-sync-2.log"
-    },
-    {
-      "command": [
-        "uv",
-        "sync",
-        "--all-extras",
-        "--python",
-        "3.14"
-      ],
-      "label": "current-sync-3",
-      "exit_code": 1,
-      "seconds": 0.09,
-      "log": "OctoBot-Trading-current-sync-3.log"
-    },
-    {
-      "command": [
-        "uv",
-        "sync",
-        "--all-extras",
-        "--python",
-        "3.14"
-      ],
-      "label": "current-sync-4",
-      "exit_code": 1,
-      "seconds": 0.08,
-      "log": "OctoBot-Trading-current-sync-4.log"
-    },
-    {
-      "command": [
-        "uv",
-        "sync",
-        "--all-extras",
-        "--python",
-        "3.14"
-      ],
-      "label": "current-sync-5",
-      "exit_code": 0,
-      "seconds": 0.88,
-      "log": "OctoBot-Trading-current-sync-5.log"
-    },
-    {
-      "command": [
-        ".venv/bin/python",
-        "-m",
-        "pytest",
-        "tests"
-      ],
-      "label": "tests-6",
-      "exit_code": 2,
-      "seconds": 20.81,
-      "log": "OctoBot-Trading-tests-6.log"
-    },
-    {
-      "command": [
-        "uv",
-        "lock",
-        "--upgrade"
-      ],
-      "label": "final-lock",
-      "exit_code": 0,
-      "seconds": 0.24,
-      "log": "OctoBot-Trading-final-lock.log"
-    },
-    {
-      "command": [
-        "uv",
-        "sync",
-        "--all-extras",
-        "--frozen",
         "--python",
         "3.14.8"
       ],
-      "label": "final-sync",
-      "exit_code": 0,
-      "seconds": 0.05,
-      "log": "OctoBot-Trading-final-sync.log"
-    },
-    {
-      "command": [
-        "uv",
-        "build",
-        "--python",
-        "3.14.8"
-      ],
-      "label": "final-build",
-      "exit_code": 0,
-      "seconds": 2.99,
-      "log": "OctoBot-Trading-final-build.log"
-    },
-    {
-      "command": [
-        ".venv/bin/python",
-        "-m",
-        "compileall",
-        "-q",
-        "src"
-      ],
-      "label": "final-compile",
-      "exit_code": 0,
-      "seconds": 0.19,
-      "log": "OctoBot-Trading-final-compile.log"
-    },
-    {
-      "command": [
-        "uv",
-        "sync",
-        "--all-extras",
-        "--python",
-        "3.14"
-      ],
-      "label": "current-sync-6",
       "exit_code": 0,
       "seconds": 0.78,
-      "log": "OctoBot-Trading-current-sync-6.log"
+      "check": "backend-compat-sync",
+      "original_log": "OctoBot-Trading-backend-compat-sync.log",
+      "log_sha256": "61aaa73bd35c35df5a23117f3584da7e1e89626e4185b8a7c923a6cac04b28dd",
+      "outcomes": []
     },
     {
       "command": [
@@ -311,35 +43,31 @@
         "pytest",
         "tests"
       ],
-      "label": "tests-7",
-      "exit_code": 2,
-      "seconds": 11.76,
-      "log": "OctoBot-Trading-tests-7.log"
-    },
-    {
-      "command": [
-        "uv",
-        "sync",
-        "--all-extras",
-        "--python",
-        "3.14.8"
-      ],
-      "label": "backend-compat-sync",
-      "exit_code": 0,
-      "seconds": 0.78,
-      "log": "OctoBot-Trading-backend-compat-sync.log"
-    },
-    {
-      "command": [
-        ".venv/bin/python",
-        "-m",
-        "pytest",
-        "tests"
-      ],
-      "label": "backend-compat-tests",
       "exit_code": 1,
       "seconds": 58.41,
-      "log": "OctoBot-Trading-backend-compat-tests.log"
+      "check": "backend-compat-tests",
+      "original_log": "OctoBot-Trading-backend-compat-tests.log",
+      "log_sha256": "dc5f65a34fe4189a37540810db7582bf940979d75ce08466c7674bb10d0077a3",
+      "outcomes": [
+        "8 failed, 897 passed in 57.54s"
+      ]
+    },
+    {
+      "command": [
+        "uv",
+        "build",
+        "--python",
+        "3.14"
+      ],
+      "exit_code": 0,
+      "seconds": 2.28,
+      "check": "build",
+      "original_log": "OctoBot-Trading-build.log",
+      "log_sha256": "785209f0008bae5cfbb590b0589411d74d153404f8d84b26fc4033f222368471",
+      "outcomes": [
+        "Successfully built dist/octobot_trading-2.5.13.tar.gz",
+        "Successfully built dist/octobot_trading-2.5.13-py3-none-any.whl"
+      ]
     },
     {
       "command": [
@@ -348,22 +76,47 @@
         "pytest",
         "tests"
       ],
-      "label": "ccxt-current-tests",
       "exit_code": 1,
       "seconds": 60.83,
-      "log": "OctoBot-Trading-ccxt-current-tests.log"
+      "check": "ccxt-current-tests",
+      "original_log": "OctoBot-Trading-ccxt-current-tests.log",
+      "log_sha256": "c2e1cdef9497c0caf4baf9f9ae91584c951615b259e80334b204a435ee225afc",
+      "outcomes": [
+        "8 failed, 888 passed, 10 errors in 59.93s"
+      ]
+    },
+    {
+      "command": [
+        "<workspace>/OctoBot-Trading/.venv/bin/python",
+        "-m",
+        "compileall",
+        "-q",
+        "src"
+      ],
+      "exit_code": 0,
+      "seconds": 1.03,
+      "check": "compile",
+      "original_log": "OctoBot-Trading-compile.log",
+      "log_sha256": "8d1124be78ed031fd59ace62acb5025a6237a35ce30887c36c399499ec39a81b",
+      "outcomes": []
     },
     {
       "command": [
         ".venv/bin/python",
         "-m",
         "pytest",
-        "tests"
+        "-s",
+        "tests/exchanges/traders/test_trader.py::TestTrader::test_init_paused",
+        "tests/exchanges/traders/test_trader.py::TestTrader::test_enabled"
       ],
-      "label": "transport-lazy-tests",
       "exit_code": 1,
-      "seconds": 66.04,
-      "log": "OctoBot-Trading-transport-lazy-tests.log"
+      "seconds": 1.97,
+      "check": "connection-diagnosis-tests",
+      "original_log": "OctoBot-Trading-connection-diagnosis-tests.log",
+      "log_sha256": "c49cf534bc26cef62cf5e4c4321d22efe7697d82cafc91a7e5faa608af9e13d4",
+      "outcomes": [
+        "1 failed, 1 passed in 1.04s"
+      ]
     },
     {
       "command": [
@@ -375,10 +128,12 @@
         "tests/modes/test_abstract_mode_consumer.py",
         "-x"
       ],
-      "label": "counter-focused-tests",
       "exit_code": 1,
       "seconds": 49.62,
-      "log": "OctoBot-Trading-counter-focused-tests.log"
+      "check": "counter-focused-tests",
+      "original_log": "OctoBot-Trading-counter-focused-tests.log",
+      "log_sha256": "3d835968548bce46a097c9bc09f317f63e2c452f9b62c17fa880bf32d6e461f6",
+      "outcomes": []
     },
     {
       "command": [
@@ -390,10 +145,12 @@
         "tests/modes/test_abstract_mode_consumer.py",
         "-x"
       ],
-      "label": "counter-focused-tests-2",
       "exit_code": 1,
       "seconds": 2.54,
-      "log": "OctoBot-Trading-counter-focused-tests-2.log"
+      "check": "counter-focused-tests-2",
+      "original_log": "OctoBot-Trading-counter-focused-tests-2.log",
+      "log_sha256": "e74f5e9fb94b007a7d7e7870f9b50bc78c79628a27dd2f4227312e5f5639d1f1",
+      "outcomes": []
     },
     {
       "command": [
@@ -405,10 +162,104 @@
         "tests/modes/test_abstract_mode_consumer.py",
         "-x"
       ],
-      "label": "counter-focused-tests-3",
       "exit_code": 1,
       "seconds": 6.07,
-      "log": "OctoBot-Trading-counter-focused-tests-3.log"
+      "check": "counter-focused-tests-3",
+      "original_log": "OctoBot-Trading-counter-focused-tests-3.log",
+      "log_sha256": "5d1b357b16d0f06ab8ad2d32e867f7f015d96fad375a6aec6e6f7fdfb7240b3b",
+      "outcomes": [
+        "1 failed, 16 passed in 5.23s"
+      ]
+    },
+    {
+      "command": [
+        "uv",
+        "sync",
+        "--all-extras",
+        "--python",
+        "3.14"
+      ],
+      "exit_code": 0,
+      "seconds": 32.8,
+      "check": "current-sync",
+      "original_log": "OctoBot-Trading-current-sync.log",
+      "log_sha256": "721f2d09869e55b18636b1bd947777a945a0a1a7ee74b084241e0ffb52754cc9",
+      "outcomes": []
+    },
+    {
+      "command": [
+        "uv",
+        "sync",
+        "--all-extras",
+        "--python",
+        "3.14"
+      ],
+      "exit_code": 1,
+      "seconds": 0.05,
+      "check": "current-sync-2",
+      "original_log": "OctoBot-Trading-current-sync-2.log",
+      "log_sha256": "61db6dafb43edec991fdff83a6e9dd259774dad42b97514f5feff990a8ef8c00",
+      "outcomes": []
+    },
+    {
+      "command": [
+        "uv",
+        "sync",
+        "--all-extras",
+        "--python",
+        "3.14"
+      ],
+      "exit_code": 1,
+      "seconds": 0.09,
+      "check": "current-sync-3",
+      "original_log": "OctoBot-Trading-current-sync-3.log",
+      "log_sha256": "7682bc33df1bdc58ff3777c8e4177018ae8bd6139cdd1e2353ae94004eaa13d7",
+      "outcomes": []
+    },
+    {
+      "command": [
+        "uv",
+        "sync",
+        "--all-extras",
+        "--python",
+        "3.14"
+      ],
+      "exit_code": 1,
+      "seconds": 0.08,
+      "check": "current-sync-4",
+      "original_log": "OctoBot-Trading-current-sync-4.log",
+      "log_sha256": "94de904d1457bdb02057b971d4b7756bba15e650f3d02266aa12465fe45f0716",
+      "outcomes": []
+    },
+    {
+      "command": [
+        "uv",
+        "sync",
+        "--all-extras",
+        "--python",
+        "3.14"
+      ],
+      "exit_code": 0,
+      "seconds": 0.88,
+      "check": "current-sync-5",
+      "original_log": "OctoBot-Trading-current-sync-5.log",
+      "log_sha256": "3baa514ea83ca1adac00d7426a4c3832464a1fff4efbed2670ab2ca6b780278d",
+      "outcomes": []
+    },
+    {
+      "command": [
+        "uv",
+        "sync",
+        "--all-extras",
+        "--python",
+        "3.14"
+      ],
+      "exit_code": 0,
+      "seconds": 0.78,
+      "check": "current-sync-6",
+      "original_log": "OctoBot-Trading-current-sync-6.log",
+      "log_sha256": "4f11d8bb88ade47aecc6aaa1fcec47e3ff82da1e4bbc0e2df72be7ec8ce0e495",
+      "outcomes": []
     },
     {
       "command": [
@@ -417,34 +268,12 @@
         "pytest",
         "tests/modes/test_abstract_mode_consumer.py::test_create_order_if_possible_ensure_no_deadlock_when_canceling_orders"
       ],
-      "label": "deadlock-diagnostic",
       "exit_code": 1,
       "seconds": 18.05,
-      "log": "OctoBot-Trading-deadlock-diagnostic.log"
-    },
-    {
-      "command": [
-        ".venv/bin/python",
-        "-m",
-        "pytest",
-        "tests"
-      ],
-      "label": "full-current-tests",
-      "exit_code": 1,
-      "seconds": 68.65,
-      "log": "OctoBot-Trading-full-current-tests.log"
-    },
-    {
-      "command": [
-        ".venv/bin/python",
-        "-m",
-        "pytest",
-        "tests"
-      ],
-      "label": "final-existing-tests",
-      "exit_code": 1,
-      "seconds": 66.7,
-      "log": "OctoBot-Trading-final-existing-tests.log"
+      "check": "deadlock-diagnostic",
+      "original_log": "OctoBot-Trading-deadlock-diagnostic.log",
+      "log_sha256": "6f1a396e189a0c3f8b4751305c49f777bc82958c50217ea4a335b8bbce128da0",
+      "outcomes": []
     },
     {
       "command": [
@@ -454,10 +283,109 @@
         "--python",
         "3.14.8"
       ],
-      "label": "directory-resource-sync",
       "exit_code": 0,
       "seconds": 1.15,
-      "log": "OctoBot-Trading-directory-resource-sync.log"
+      "check": "directory-resource-sync",
+      "original_log": "OctoBot-Trading-directory-resource-sync.log",
+      "log_sha256": "9aada34b802ba64f1d291af966715da1fdd70907d9e6152352ce274d164d207b",
+      "outcomes": []
+    },
+    {
+      "command": [
+        "uv",
+        "build",
+        "--python",
+        "3.14.8"
+      ],
+      "exit_code": 0,
+      "seconds": 2.99,
+      "check": "final-build",
+      "original_log": "OctoBot-Trading-final-build.log",
+      "log_sha256": "7ae1287e796f33481a947ec462907916b621fa6cb009efeab3da5ea77064da7e",
+      "outcomes": [
+        "Successfully built dist/octobot_trading-2.5.13.tar.gz",
+        "Successfully built dist/octobot_trading-2.5.13-py3-none-any.whl"
+      ]
+    },
+    {
+      "command": [
+        "uv",
+        "build",
+        "--python",
+        "3.14.8"
+      ],
+      "exit_code": 0,
+      "seconds": 1.55,
+      "check": "final-build-2",
+      "original_log": "OctoBot-Trading-final-build-2.log",
+      "log_sha256": "7ae1287e796f33481a947ec462907916b621fa6cb009efeab3da5ea77064da7e",
+      "outcomes": [
+        "Successfully built dist/octobot_trading-2.5.13.tar.gz",
+        "Successfully built dist/octobot_trading-2.5.13-py3-none-any.whl"
+      ]
+    },
+    {
+      "command": [
+        "uv",
+        "build",
+        "--python",
+        "3.14.8"
+      ],
+      "exit_code": 0,
+      "seconds": 1.41,
+      "check": "final-build-current",
+      "original_log": "OctoBot-Trading-final-build-current.log",
+      "log_sha256": "7ae1287e796f33481a947ec462907916b621fa6cb009efeab3da5ea77064da7e",
+      "outcomes": [
+        "Successfully built dist/octobot_trading-2.5.13.tar.gz",
+        "Successfully built dist/octobot_trading-2.5.13-py3-none-any.whl"
+      ]
+    },
+    {
+      "command": [
+        ".venv/bin/python",
+        "-m",
+        "compileall",
+        "-q",
+        "src"
+      ],
+      "exit_code": 0,
+      "seconds": 0.19,
+      "check": "final-compile",
+      "original_log": "OctoBot-Trading-final-compile.log",
+      "log_sha256": "4dabb76013caec51c3f56da271eb0a58b695f2bfcf5327d2708624abfe11fb50",
+      "outcomes": []
+    },
+    {
+      "command": [
+        ".venv/bin/python",
+        "-m",
+        "compileall",
+        "-q",
+        "src"
+      ],
+      "exit_code": 0,
+      "seconds": 0.12,
+      "check": "final-compile-2",
+      "original_log": "OctoBot-Trading-final-compile-2.log",
+      "log_sha256": "4dabb76013caec51c3f56da271eb0a58b695f2bfcf5327d2708624abfe11fb50",
+      "outcomes": []
+    },
+    {
+      "command": [
+        ".venv/bin/python",
+        "-m",
+        "compileall",
+        "-q",
+        "src",
+        "vendor"
+      ],
+      "exit_code": 0,
+      "seconds": 0.18,
+      "check": "final-compile-current",
+      "original_log": "OctoBot-Trading-final-compile-current.log",
+      "log_sha256": "9ab93f5e28f6135c91d37b0ab359ed2c85735e82131350ab5f2f038bac921895",
+      "outcomes": []
     },
     {
       "command": [
@@ -466,10 +394,46 @@
         "pytest",
         "tests"
       ],
-      "label": "fixture-owned-tests",
-      "exit_code": 4,
-      "seconds": 0.61,
-      "log": "OctoBot-Trading-fixture-owned-tests.log"
+      "exit_code": 1,
+      "seconds": 297.63,
+      "check": "final-current-tests",
+      "original_log": "OctoBot-Trading-final-current-tests.log",
+      "log_sha256": "26aa5eecc1bbaa1b631c472f7797cdfd11282de4fca3a2c6aced3b0bcd68b281",
+      "outcomes": [
+        "2 failed, 903 passed in 296.07s (0:04:56)"
+      ]
+    },
+    {
+      "command": [
+        ".venv/bin/python",
+        "-m",
+        "pytest",
+        "tests"
+      ],
+      "exit_code": 1,
+      "seconds": 66.7,
+      "check": "final-existing-tests",
+      "original_log": "OctoBot-Trading-final-existing-tests.log",
+      "log_sha256": "435b1e4ef11adb21779c437248bff2ce0012f18c9d42e6089a8b57844807704f",
+      "outcomes": [
+        "1 failed, 902 passed, 3 errors in 65.54s (0:01:05)"
+      ]
+    },
+    {
+      "command": [
+        ".venv/bin/python",
+        "-m",
+        "pytest",
+        "tests"
+      ],
+      "exit_code": 0,
+      "seconds": 150.7,
+      "check": "final-existing-tests-2",
+      "original_log": "OctoBot-Trading-final-existing-tests-2.log",
+      "log_sha256": "bb4ab77f5abaee39dd66acd8416c251f0e5b249d9703a2e0f54c933f8ec7ca30",
+      "outcomes": [
+        "905 passed in 148.88s (0:02:28)"
+      ]
     },
     {
       "command": [
@@ -477,10 +441,25 @@
         "lock",
         "--upgrade"
       ],
-      "label": "final-lock-2",
+      "exit_code": 0,
+      "seconds": 0.24,
+      "check": "final-lock",
+      "original_log": "OctoBot-Trading-final-lock.log",
+      "log_sha256": "a757739f996b9cff8c5f9ffffef10c22040d02f6c84dfe574489ec4ac2e26348",
+      "outcomes": []
+    },
+    {
+      "command": [
+        "uv",
+        "lock",
+        "--upgrade"
+      ],
       "exit_code": 0,
       "seconds": 0.23,
-      "log": "OctoBot-Trading-final-lock-2.log"
+      "check": "final-lock-2",
+      "original_log": "OctoBot-Trading-final-lock-2.log",
+      "log_sha256": "057b15fa7fb8efc0bc95bb5af26e6d2c3e91165aebda44c6bbc9d0277a51ae6d",
+      "outcomes": []
     },
     {
       "command": [
@@ -491,35 +470,28 @@
         "--python",
         "3.14.8"
       ],
-      "label": "final-sync-2",
       "exit_code": 0,
-      "seconds": 0.13,
-      "log": "OctoBot-Trading-final-sync-2.log"
+      "seconds": 0.05,
+      "check": "final-sync",
+      "original_log": "OctoBot-Trading-final-sync.log",
+      "log_sha256": "6d74b30b4cc68d11ea2992bb703efe2a93e60fbd76ac2f8bf456aa6b11c2c8cf",
+      "outcomes": []
     },
     {
       "command": [
         "uv",
-        "build",
+        "sync",
+        "--all-extras",
+        "--frozen",
         "--python",
         "3.14.8"
       ],
-      "label": "final-build-2",
       "exit_code": 0,
-      "seconds": 1.55,
-      "log": "OctoBot-Trading-final-build-2.log"
-    },
-    {
-      "command": [
-        ".venv/bin/python",
-        "-m",
-        "compileall",
-        "-q",
-        "src"
-      ],
-      "label": "final-compile-2",
-      "exit_code": 0,
-      "seconds": 0.12,
-      "log": "OctoBot-Trading-final-compile-2.log"
+      "seconds": 0.13,
+      "check": "final-sync-2",
+      "original_log": "OctoBot-Trading-final-sync-2.log",
+      "log_sha256": "15a90d9a99694f9afb961d61dca8c968691b83e3d8610c87c089908e3b4f2697",
+      "outcomes": []
     },
     {
       "command": [
@@ -528,10 +500,301 @@
         "pytest",
         "tests"
       ],
-      "label": "fixture-owned-tests-2",
+      "exit_code": 4,
+      "seconds": 0.61,
+      "check": "fixture-owned-tests",
+      "original_log": "OctoBot-Trading-fixture-owned-tests.log",
+      "log_sha256": "ead7b7c18c50487283db7c002081361c42346249043fe63fadf1641d58bda8a3",
+      "outcomes": []
+    },
+    {
+      "command": [
+        ".venv/bin/python",
+        "-m",
+        "pytest",
+        "tests"
+      ],
       "exit_code": 1,
       "seconds": 292.57,
-      "log": "OctoBot-Trading-fixture-owned-tests-2.log"
+      "check": "fixture-owned-tests-2",
+      "original_log": "OctoBot-Trading-fixture-owned-tests-2.log",
+      "log_sha256": "6a5d25558944e0a723a9304f0a6659c25c938245c055647f427093d979c30b5c",
+      "outcomes": [
+        "3 failed, 902 passed in 291.25s (0:04:51)"
+      ]
+    },
+    {
+      "command": [
+        ".venv/bin/python",
+        "-m",
+        "pytest",
+        "tests"
+      ],
+      "exit_code": 1,
+      "seconds": 68.65,
+      "check": "full-current-tests",
+      "original_log": "OctoBot-Trading-full-current-tests.log",
+      "log_sha256": "b8001abd4afc2fd7fff8bcf677e92b01693806ec2a08a4ca1e65c3eb9be70bb6",
+      "outcomes": [
+        "2 failed, 900 passed, 3 errors in 66.94s (0:01:06)"
+      ]
+    },
+    {
+      "command": [
+        ".venv/bin/python",
+        "-m",
+        "pytest",
+        "tests/exchanges/traders/test_trader.py"
+      ],
+      "exit_code": 1,
+      "seconds": 15.56,
+      "check": "lazy-positional-tests",
+      "original_log": "OctoBot-Trading-lazy-positional-tests.log",
+      "log_sha256": "29c143ac095312e1936de684546b94787a90bacfde620d12d9439b79dd1b0a7e",
+      "outcomes": [
+        "2 failed, 33 passed in 14.00s"
+      ]
+    },
+    {
+      "command": [
+        "uv",
+        "lock",
+        "--upgrade",
+        "--python",
+        "3.14"
+      ],
+      "exit_code": 0,
+      "seconds": 0.46,
+      "check": "lock-3.14",
+      "original_log": "OctoBot-Trading-lock-3.14.log",
+      "log_sha256": "580c8aaf296a0408d13f944de7fb52aacf951f51edddd51cc8bd013b35cfe03d",
+      "outcomes": []
+    },
+    {
+      "command": [
+        "uv",
+        "lock",
+        "--upgrade",
+        "--python",
+        "3.15"
+      ],
+      "exit_code": 0,
+      "seconds": 6.15,
+      "check": "lock-3.15",
+      "original_log": "OctoBot-Trading-lock-3.15.log",
+      "log_sha256": "a28e2a403d13ed22acd2cd3fb6db69c65171bf52e4a232c4284adcdfdf9d55b3",
+      "outcomes": []
+    },
+    {
+      "command": [
+        ".venv/bin/python",
+        "-m",
+        "pytest",
+        "tests"
+      ],
+      "exit_code": 0,
+      "seconds": 151.0,
+      "check": "manager-owned-tests",
+      "original_log": "OctoBot-Trading-manager-owned-tests.log",
+      "log_sha256": "ffaced10465ae299952bbf3a5404b1b782d0a7cd7eea25fe4ed942fa7cb49477",
+      "outcomes": [
+        "905 passed in 149.65s (0:02:29)"
+      ]
+    },
+    {
+      "command": [
+        "uv",
+        "sync",
+        "--all-extras",
+        "--python",
+        "3.14"
+      ],
+      "exit_code": 0,
+      "seconds": 1.6,
+      "check": "public-manager-sync",
+      "original_log": "OctoBot-Trading-public-manager-sync.log",
+      "log_sha256": "6e9cb03f261cbd61642eb7c13658c672192f1e777b13899fb3eef333dc83f9e0",
+      "outcomes": []
+    },
+    {
+      "command": [
+        ".venv/bin/python",
+        "-m",
+        "pytest",
+        "tests/exchanges/traders/test_trader.py"
+      ],
+      "exit_code": 0,
+      "seconds": 16.38,
+      "check": "scheduled-session-tests",
+      "original_log": "OctoBot-Trading-scheduled-session-tests.log",
+      "log_sha256": "502efac631b2ef7055f783e0455f93aba9bff0960b5b44f71a2c18c1100dcda1",
+      "outcomes": [
+        "35 passed in 14.46s"
+      ]
+    },
+    {
+      "command": [
+        ".venv/bin/python",
+        "-m",
+        "pytest",
+        "tests/exchanges/traders/test_trader.py"
+      ],
+      "exit_code": 1,
+      "seconds": 15.08,
+      "check": "stopped-paused-tests",
+      "original_log": "OctoBot-Trading-stopped-paused-tests.log",
+      "log_sha256": "69df654bb93f22d9c486638f35c88ba5a369ea03f0c9a812db11bfe829c3a54e",
+      "outcomes": [
+        "2 failed, 33 passed in 13.86s"
+      ]
+    },
+    {
+      "command": [
+        "uv",
+        "sync",
+        "--all-extras",
+        "--python",
+        "3.14"
+      ],
+      "exit_code": 0,
+      "seconds": 0.3,
+      "check": "sync-3.14",
+      "original_log": "OctoBot-Trading-sync-3.14.log",
+      "log_sha256": "b0d3503e0d3f360bfb557b40c6fef024f8e543fbc60a7bf5fa202931cac6fbd6",
+      "outcomes": []
+    },
+    {
+      "command": [
+        "uv",
+        "sync",
+        "--all-extras",
+        "--python",
+        "3.15"
+      ],
+      "exit_code": 1,
+      "seconds": 63.71,
+      "check": "sync-3.15",
+      "original_log": "OctoBot-Trading-sync-3.15.log",
+      "log_sha256": "d75ba807b8a75fec3ab53f4bad3e54a15eb4d10db5ff52dcd13973e9a886c757",
+      "outcomes": []
+    },
+    {
+      "command": [
+        "<workspace>/OctoBot-Trading/.venv/bin/python",
+        "-m",
+        "pytest",
+        "tests"
+      ],
+      "exit_code": 2,
+      "seconds": 18.96,
+      "check": "tests",
+      "original_log": "OctoBot-Trading-tests.log",
+      "log_sha256": "88ead6bb23a01541b3c1e5ead977b240e3af923688ab366313d9edd05628445c",
+      "outcomes": []
+    },
+    {
+      "command": [
+        ".venv/bin/python",
+        "-m",
+        "pytest",
+        "tests"
+      ],
+      "exit_code": 2,
+      "seconds": 8.94,
+      "check": "tests-2",
+      "original_log": "OctoBot-Trading-tests-2.log",
+      "log_sha256": "72126d58ef88c58c80d06bf5e7a067a630987a4804e193285371e597a62ce1bb",
+      "outcomes": []
+    },
+    {
+      "command": [
+        ".venv/bin/python",
+        "-m",
+        "pytest",
+        "tests"
+      ],
+      "exit_code": 1,
+      "seconds": 113.46,
+      "check": "tests-3",
+      "original_log": "OctoBot-Trading-tests-3.log",
+      "log_sha256": "5fce80f87efe359d3bd52003c59c769697ea35c1082ff9f3b773fa3a0208f4a6",
+      "outcomes": [
+        "16 failed, 888 passed, 1 error in 111.06s (0:01:51)"
+      ]
+    },
+    {
+      "command": [
+        ".venv/bin/python",
+        "-m",
+        "pytest",
+        "tests"
+      ],
+      "exit_code": 1,
+      "seconds": 137.25,
+      "check": "tests-4",
+      "original_log": "OctoBot-Trading-tests-4.log",
+      "log_sha256": "6fa43673c596b9876eee29132d50239429d096c096a7b4d6e2deecd309cf2560",
+      "outcomes": [
+        "8 failed, 897 passed in 134.71s (0:02:14)"
+      ]
+    },
+    {
+      "command": [
+        ".venv/bin/python",
+        "-m",
+        "pytest",
+        "tests"
+      ],
+      "exit_code": 2,
+      "seconds": 23.83,
+      "check": "tests-5",
+      "original_log": "OctoBot-Trading-tests-5.log",
+      "log_sha256": "bb3203790354db647f71b60e6e8a11e0875cdf63795f962e4543d0d58ad95525",
+      "outcomes": []
+    },
+    {
+      "command": [
+        ".venv/bin/python",
+        "-m",
+        "pytest",
+        "tests"
+      ],
+      "exit_code": 2,
+      "seconds": 20.81,
+      "check": "tests-6",
+      "original_log": "OctoBot-Trading-tests-6.log",
+      "log_sha256": "f69947453ddc4b61a1c74b8eff2d0467dc8a7a306b7b434328281c92cadcc907",
+      "outcomes": []
+    },
+    {
+      "command": [
+        ".venv/bin/python",
+        "-m",
+        "pytest",
+        "tests"
+      ],
+      "exit_code": 2,
+      "seconds": 11.76,
+      "check": "tests-7",
+      "original_log": "OctoBot-Trading-tests-7.log",
+      "log_sha256": "31afa46fba15adbf55ab0c6ae820ea30d29cae4f01368fb2bbe10793b747e7dc",
+      "outcomes": []
+    },
+    {
+      "command": [
+        ".venv/bin/python",
+        "-m",
+        "pytest",
+        "tests/exchanges/traders/test_trader.py"
+      ],
+      "exit_code": 1,
+      "seconds": 14.89,
+      "check": "transport-abort-tests",
+      "original_log": "OctoBot-Trading-transport-abort-tests.log",
+      "log_sha256": "216005e98239fc0e660960458d6ff48b5f9f1b529b97f66809a99c74e812844e",
+      "outcomes": [
+        "3 failed, 32 passed in 13.74s"
+      ]
     },
     {
       "command": [
@@ -542,10 +805,30 @@
         "pytest",
         "tests/exchanges/traders/test_trader.py"
       ],
-      "label": "transport-diagnosis-tests",
       "exit_code": 1,
       "seconds": 117.64,
-      "log": "OctoBot-Trading-transport-diagnosis-tests.log"
+      "check": "transport-diagnosis-tests",
+      "original_log": "OctoBot-Trading-transport-diagnosis-tests.log",
+      "log_sha256": "aa256e2ecf43ed3229e8ae56a6f821af7b0c8e85afe1369bd0dc5813eb794d7d",
+      "outcomes": [
+        "2 failed, 33 passed in 102.02s (0:01:42)"
+      ]
+    },
+    {
+      "command": [
+        ".venv/bin/python",
+        "-m",
+        "pytest",
+        "tests"
+      ],
+      "exit_code": 1,
+      "seconds": 66.04,
+      "check": "transport-lazy-tests",
+      "original_log": "OctoBot-Trading-transport-lazy-tests.log",
+      "log_sha256": "c2387d5e0ab21ebd2f04d668865e4da55e899d7cff6d387d7244a30e15d4397b",
+      "outcomes": [
+        "6 failed, 896 passed, 5 errors in 64.97s (0:01:04)"
+      ]
     },
     {
       "command": [
@@ -554,112 +837,114 @@
         "pytest",
         "tests/exchanges/traders/test_trader.py"
       ],
-      "label": "transport-owned-tests",
       "exit_code": 1,
       "seconds": 16.23,
-      "log": "OctoBot-Trading-transport-owned-tests.log"
+      "check": "transport-owned-tests",
+      "original_log": "OctoBot-Trading-transport-owned-tests.log",
+      "log_sha256": "bde01dcc23bf4563d8c163aae90ca149be5381f005c8ca3c019e224d6f6cff2c",
+      "outcomes": [
+        "3 failed, 32 passed in 14.67s"
+      ]
     },
     {
       "command": [
-        ".venv/bin/python",
-        "-m",
-        "pytest",
-        "tests/exchanges/traders/test_trader.py"
+        "uv",
+        "sync",
+        "--all-extras",
+        "--python",
+        "3.14"
       ],
-      "label": "transport-abort-tests",
-      "exit_code": 1,
-      "seconds": 14.89,
-      "log": "OctoBot-Trading-transport-abort-tests.log"
-    },
-    {
-      "command": [
-        ".venv/bin/python",
-        "-m",
-        "pytest",
-        "-s",
-        "tests/exchanges/traders/test_trader.py::TestTrader::test_init_paused",
-        "tests/exchanges/traders/test_trader.py::TestTrader::test_enabled"
-      ],
-      "label": "connection-diagnosis-tests",
-      "exit_code": 1,
-      "seconds": 1.97,
-      "log": "OctoBot-Trading-connection-diagnosis-tests.log"
-    },
-    {
-      "command": [
-        ".venv/bin/python",
-        "-m",
-        "pytest",
-        "-s",
-        "tests/exchanges/traders/test_trader.py::TestTrader::test_init_paused",
-        "tests/exchanges/traders/test_trader.py::TestTrader::test_enabled"
-      ],
-      "label": "allocation-diagnosis-tests",
-      "exit_code": 1,
-      "seconds": 2.69,
-      "log": "OctoBot-Trading-allocation-diagnosis-tests.log"
-    },
-    {
-      "command": [
-        ".venv/bin/python",
-        "-m",
-        "pytest",
-        "tests/exchanges/traders/test_trader.py"
-      ],
-      "label": "stopped-paused-tests",
-      "exit_code": 1,
-      "seconds": 15.08,
-      "log": "OctoBot-Trading-stopped-paused-tests.log"
-    },
-    {
-      "command": [
-        ".venv/bin/python",
-        "-m",
-        "pytest",
-        "tests/exchanges/traders/test_trader.py"
-      ],
-      "label": "lazy-positional-tests",
-      "exit_code": 1,
-      "seconds": 15.56,
-      "log": "OctoBot-Trading-lazy-positional-tests.log"
-    },
-    {
-      "command": [
-        ".venv/bin/python",
-        "-m",
-        "pytest",
-        "tests/exchanges/traders/test_trader.py"
-      ],
-      "label": "scheduled-session-tests",
       "exit_code": 0,
-      "seconds": 16.38,
-      "log": "OctoBot-Trading-scheduled-session-tests.log"
+      "seconds": 1.32,
+      "check": "updated-manager-sync",
+      "original_log": "OctoBot-Trading-updated-manager-sync.log",
+      "log_sha256": "741e5f3558d09412be31f499dcb9a22d8a5e6a61062ad8c585de414a979f28b3",
+      "outcomes": []
+    }
+  ],
+  "summary": {
+    "repo": "OctoBot-Trading",
+    "started": "2026-10-12T00:13:26+0800",
+    "python": "3.14.8",
+    "head": "92ed3e2581702e7d6a8ebf55c8f4722b3db834af",
+    "branch": "feature/ayu_develop",
+    "runtime_inventory": {
+      "executable": "<workspace>/OctoBot-Trading/.venv/bin/python",
+      "packages": {
+        "Cython": "3.3.0",
+        "Jinja2": "3.1.6",
+        "MarkupSafe": "3.0.4",
+        "PyYAML": "6.0.3",
+        "Pygments": "2.21.0",
+        "aioboto3": "15.5.0",
+        "aiobotocore": "2.25.1",
+        "aiofiles": "25.1.0",
+        "aiohappyeyeballs": "2.7.1",
+        "aiohttp": "3.14.5",
+        "aiohttp-fast-zlib": "0.3.0",
+        "aioitertools": "0.13.0",
+        "aiosignal": "1.4.0",
+        "aiosqlite": "0.22.1",
+        "async_channel": "2.2.2",
+        "attrs": "26.1.0",
+        "boto3": "1.40.61",
+        "botocore": "1.40.61",
+        "cachetools": "7.2.1",
+        "ccxt": "4.5.85",
+        "certifi": "2026.6.17",
+        "cffi": "2.0.0",
+        "charset-normalizer": "3.4.7",
+        "coverage": "7.16.2",
+        "cryptography": "50.0.2",
+        "ecdsa": "0.19.2",
+        "execnet": "2.1.2",
+        "frozenlist": "1.8.0",
+        "idna": "3.18",
+        "iniconfig": "2.3.1",
+        "jmespath": "1.1.0",
+        "jsonschema": "4.26.0",
+        "jsonschema-specifications": "2025.9.1",
+        "mock": "5.2.0",
+        "multidict": "6.7.1",
+        "numpy": "2.5.4",
+        "octobot-backtesting": "1.10.0",
+        "octobot-commons": "1.10.6",
+        "octobot-tentacles-manager": "2.10.0+ayu.1",
+        "octobot-trading": "2.5.13",
+        "orjson": "3.11.9",
+        "packaging": "26.3",
+        "pluggy": "1.6.0",
+        "propcache": "0.5.2",
+        "psutil": "7.2.2",
+        "pycparser": "3.0",
+        "pytest": "9.1.1",
+        "pytest-asyncio": "1.4.0",
+        "pytest-cov": "7.1.0",
+        "pytest-timeout": "2.4.0",
+        "pytest-xdist": "3.8.0",
+        "python-dateutil": "2.9.0.post0",
+        "referencing": "0.37.0",
+        "requests": "2.34.2",
+        "rpds-py": "2026.9.1",
+        "ruff": "0.17.0",
+        "s3transfer": "0.14.0",
+        "six": "1.17.0",
+        "sortedcontainers": "2.4.0",
+        "tinydb": "4.9.0",
+        "trading-backend": "1.2.43+ayu.1",
+        "typing_extensions": "4.16.0",
+        "urllib3": "2.8.0",
+        "uvloop": "0.22.1",
+        "wrapt": "1.17.3",
+        "yarl": "1.25.1",
+        "zlib-ng": "1.0.0"
+      },
+      "python": "3.14.8 (main, Oct  9 2026, 15:11:09) [Clang 22.1.3 ]"
     },
-    {
-      "command": [
-        ".venv/bin/python",
-        "-m",
-        "pytest",
-        "tests"
-      ],
-      "label": "final-existing-tests-2",
-      "exit_code": 0,
-      "seconds": 150.7,
-      "log": "OctoBot-Trading-final-existing-tests-2.log"
-    },
-    {
-      "command": [
-        ".venv/bin/python",
-        "-m",
-        "pytest",
-        "tests"
-      ],
-      "label": "final-current-tests",
-      "exit_code": 1,
-      "seconds": 297.63,
-      "log": "OctoBot-Trading-final-current-tests.log"
-    },
-    {
+    "validation_updated": "2026-10-12T01:56:57.671387+08:00",
+    "python_decision": "The Python 3.15 dependency installation failed in native pycares. Python 3.14.8 is selected.",
+    "outcome_notes": "Current CCXT removed its private ECDSA package; the LGPL upstream trading-backend source is retained under vendor with a public ecdsa.der import. The shared compatible manager comes from ../OctoBot-Evaluators/vendor/tentacles-manager. Current TLS cleanup and counter composition are repaired; remaining final test failures, if any, are retained explicitly.",
+    "selected_test": {
       "command": [
         ".venv/bin/python",
         "-m",
@@ -669,182 +954,66 @@
       "label": "manager-owned-tests",
       "exit_code": 0,
       "seconds": 151.0,
-      "log": "OctoBot-Trading-manager-owned-tests.log"
+      "log": "<workspace>/docs/maintenance-2026-10-12/OctoBot-Trading-manager-owned-tests.log"
     },
-    {
-      "command": [
-        ".venv/bin/python",
-        "-m",
-        "compileall",
-        "-q",
-        "src",
-        "vendor"
-      ],
-      "label": "final-compile-current",
-      "exit_code": 0,
-      "seconds": 0.18,
-      "log": "OctoBot-Trading-final-compile-current.log"
+    "test_summary": "905 passed in 149.65s (0:02:29)",
+    "status": "passed",
+    "final_checks": {
+      "lock": {
+        "command": [
+          "uv",
+          "lock",
+          "--upgrade"
+        ],
+        "label": "final-lock-2",
+        "exit_code": 0,
+        "seconds": 0.23,
+        "log": "<workspace>/docs/maintenance-2026-10-12/OctoBot-Trading-final-lock-2.log"
+      },
+      "sync": {
+        "command": [
+          "uv",
+          "sync",
+          "--all-extras",
+          "--frozen",
+          "--python",
+          "3.14.8"
+        ],
+        "label": "final-sync-2",
+        "exit_code": 0,
+        "seconds": 0.13,
+        "log": "<workspace>/docs/maintenance-2026-10-12/OctoBot-Trading-final-sync-2.log"
+      },
+      "build": {
+        "command": [
+          "uv",
+          "build",
+          "--python",
+          "3.14.8"
+        ],
+        "label": "final-build-current",
+        "exit_code": 0,
+        "seconds": 1.41,
+        "log": "<workspace>/docs/maintenance-2026-10-12/OctoBot-Trading-final-build-current.log"
+      },
+      "compile": {
+        "command": [
+          ".venv/bin/python",
+          "-m",
+          "compileall",
+          "-q",
+          "src",
+          "vendor"
+        ],
+        "label": "final-compile-current",
+        "exit_code": 0,
+        "seconds": 0.18,
+        "log": "<workspace>/docs/maintenance-2026-10-12/OctoBot-Trading-final-compile-current.log"
+      }
     },
-    {
-      "command": [
-        "uv",
-        "build",
-        "--python",
-        "3.14.8"
-      ],
-      "label": "final-build-current",
-      "exit_code": 0,
-      "seconds": 1.41,
-      "log": "OctoBot-Trading-final-build-current.log"
-    }
-  ],
-  "started": "2026-10-12T00:13:26+0800",
-  "python": "3.14.8",
-  "head": "92ed3e2581702e7d6a8ebf55c8f4722b3db834af",
-  "branch": "feature/ayu_develop",
-  "runtime_inventory": {
-    "executable": "/Users/alex/workspaces/trading/OctoBot-Trading/.venv/bin/python",
-    "packages": {
-      "Cython": "3.3.0",
-      "Jinja2": "3.1.6",
-      "MarkupSafe": "3.0.4",
-      "PyYAML": "6.0.3",
-      "Pygments": "2.21.0",
-      "aioboto3": "15.5.0",
-      "aiobotocore": "2.25.1",
-      "aiofiles": "25.1.0",
-      "aiohappyeyeballs": "2.7.1",
-      "aiohttp": "3.14.5",
-      "aiohttp-fast-zlib": "0.3.0",
-      "aioitertools": "0.13.0",
-      "aiosignal": "1.4.0",
-      "aiosqlite": "0.22.1",
-      "async_channel": "2.2.2",
-      "attrs": "26.1.0",
-      "boto3": "1.40.61",
-      "botocore": "1.40.61",
-      "cachetools": "7.2.1",
-      "ccxt": "4.5.85",
-      "certifi": "2026.6.17",
-      "cffi": "2.0.0",
-      "charset-normalizer": "3.4.7",
-      "coverage": "7.16.2",
-      "cryptography": "50.0.2",
-      "ecdsa": "0.19.2",
-      "execnet": "2.1.2",
-      "frozenlist": "1.8.0",
-      "idna": "3.18",
-      "iniconfig": "2.3.1",
-      "jmespath": "1.1.0",
-      "jsonschema": "4.26.0",
-      "jsonschema-specifications": "2025.9.1",
-      "mock": "5.2.0",
-      "multidict": "6.7.1",
-      "numpy": "2.5.4",
-      "octobot-backtesting": "1.10.0",
-      "octobot-commons": "1.10.6",
-      "octobot-tentacles-manager": "2.10.0+ayu.1",
-      "octobot-trading": "2.5.13",
-      "orjson": "3.11.9",
-      "packaging": "26.3",
-      "pluggy": "1.6.0",
-      "propcache": "0.5.2",
-      "psutil": "7.2.2",
-      "pycparser": "3.0",
-      "pytest": "9.1.1",
-      "pytest-asyncio": "1.4.0",
-      "pytest-cov": "7.1.0",
-      "pytest-timeout": "2.4.0",
-      "pytest-xdist": "3.8.0",
-      "python-dateutil": "2.9.0.post0",
-      "referencing": "0.37.0",
-      "requests": "2.34.2",
-      "rpds-py": "2026.9.1",
-      "ruff": "0.17.0",
-      "s3transfer": "0.14.0",
-      "six": "1.17.0",
-      "sortedcontainers": "2.4.0",
-      "tinydb": "4.9.0",
-      "trading-backend": "1.2.43+ayu.1",
-      "typing_extensions": "4.16.0",
-      "urllib3": "2.8.0",
-      "uvloop": "0.22.1",
-      "wrapt": "1.17.3",
-      "yarl": "1.25.1",
-      "zlib-ng": "1.0.0"
-    },
-    "python": "3.14.8 (main, Oct  9 2026, 15:11:09) [Clang 22.1.3 ]"
+    "default_merged": true,
+    "upstream_default": "upstream/master",
+    "maintenance_commit": "2fd21098"
   },
-  "validation_updated": "2026-10-12T01:56:57.671387+08:00",
-  "python_decision": "The Python 3.15 dependency installation failed in native pycares. Python 3.14.8 is selected.",
-  "outcome_notes": "Current CCXT removed its private ECDSA package; the LGPL upstream trading-backend source is retained under vendor with a public ecdsa.der import. The shared compatible manager comes from ../OctoBot-Evaluators/vendor/tentacles-manager. Current TLS cleanup and counter composition are repaired; remaining final test failures, if any, are retained explicitly.",
-  "selected_test": {
-    "command": [
-      ".venv/bin/python",
-      "-m",
-      "pytest",
-      "tests"
-    ],
-    "label": "manager-owned-tests",
-    "exit_code": 0,
-    "seconds": 151.0,
-    "log": "OctoBot-Trading-manager-owned-tests.log"
-  },
-  "test_summary": "905 passed in 149.65s (0:02:29)",
-  "status": "passed",
-  "final_checks": {
-    "lock": {
-      "command": [
-        "uv",
-        "lock",
-        "--upgrade"
-      ],
-      "label": "final-lock-2",
-      "exit_code": 0,
-      "seconds": 0.23,
-      "log": "OctoBot-Trading-final-lock-2.log"
-    },
-    "sync": {
-      "command": [
-        "uv",
-        "sync",
-        "--all-extras",
-        "--frozen",
-        "--python",
-        "3.14.8"
-      ],
-      "label": "final-sync-2",
-      "exit_code": 0,
-      "seconds": 0.13,
-      "log": "OctoBot-Trading-final-sync-2.log"
-    },
-    "build": {
-      "command": [
-        "uv",
-        "build",
-        "--python",
-        "3.14.8"
-      ],
-      "label": "final-build-current",
-      "exit_code": 0,
-      "seconds": 1.41,
-      "log": "OctoBot-Trading-final-build-current.log"
-    },
-    "compile": {
-      "command": [
-        ".venv/bin/python",
-        "-m",
-        "compileall",
-        "-q",
-        "src",
-        "vendor"
-      ],
-      "label": "final-compile-current",
-      "exit_code": 0,
-      "seconds": 0.18,
-      "log": "OctoBot-Trading-final-compile-current.log"
-    }
-  },
-  "default_merged": true,
-  "upstream_default": "upstream/master"
+  "note": "Full raw logs are retained in the workspace maintenance evidence, not distributed here. Hashes identify those original logs. A successful build or selected test subset does not imply a full test-suite pass. Commands containing <workspace> describe the original execution environment."
 }
