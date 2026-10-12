@@ -74,7 +74,7 @@ Extend the owning component behind its existing public interface. Keep metadata 
 
 ## Packaging and dependency design
 
-Uses sibling Commons and Backtesting via uv. Python 3.15 currently encounters native pycares compatibility; the usable fallback is Python 3.14.8. Existing fixture names and regular-expression literals are corrected for strict modern pytest/Python collection without changing assertions or adding cases.
+Uses sibling Commons and Backtesting via uv. Python 3.15 builds the complete native dependency graph using pycares’ supported system c-ares option; see [the exact build flags](development.md#native-python-315-dependency-build). All 905 original standalone cases pass. Existing fixture names and regular-expression literals support strict modern pytest/Python collection without changing assertions or adding cases.
 
 The lock records exact package versions, hashes, platform markers, and local source mappings. Path sources deliberately bind related repositories in this workspace; clone sibling repositories at the documented names before synchronization. Published packaging metadata describes public dependencies, while uv source settings select this development workspace. Resolve dependency changes with uv lock --upgrade and retain the generated lock, then verify the same locked environment.
 
