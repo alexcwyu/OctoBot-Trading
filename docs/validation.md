@@ -9,13 +9,13 @@ Selected runtime: **managed Python 3.15.0**, uv **0.13.0**; source commit `5af59
 
 Recorded 2026-10-12T01:56:57.671387+08:00. Branch `feature/ayu_develop`; upstream default `upstream/master` is merged: **true**. Branch/tag synchronization records are retained in the workspace maintenance evidence. Feature branch publication is coordinated separately.
 
-Runtime: **CPython 3.14.8**, uv **0.13.0**, build backend `hatchling.build`. The Python 3.15 dependency installation failed in native pycares. Python 3.14.8 is selected.
+Historical runtime: **CPython 3.14.8**, uv **0.13.0**, build backend `hatchling.build`. The Python 3.15 dependency installation failed in native pycares. Python 3.14.8 was selected at this stage; the reviewed Python 3.15 migration above supersedes that fallback.
 
 Existing suite: **905 passed in 149.65s (0:02:29)** (exit `0`). Current CCXT removed its private ECDSA package; the LGPL upstream trading-backend source is retained under vendor with a public ecdsa.der import. The shared compatible manager comes from ../OctoBot-Evaluators/vendor/tentacles-manager. Current TLS cleanup and counter composition are repaired; remaining final test failures, if any, are retained explicitly.
 
 No test cases were added. Existing assertions and strict warning behavior remain active; repaired fixtures own their loops, sessions, files and configuration paths. Existing upstream platform skips and configured deselections are reported exactly.
 
-## Final build commands
+## Historical build commands
 
 | Check | Exact command | Exit | Seconds |
 | --- | --- | ---: | ---: |
@@ -61,9 +61,9 @@ No test cases were added. Existing assertions and strict warning behavior remain
 
 Raw logs remain in the workspace maintenance evidence directory. The [portable verification record](maintenance/verification.json) retains exact command arrays, exits, timing, runtime inventory and log filenames. Earlier failed attempts remain recorded and are not treated as successful final validation.
 
-## Installed dependency versions
+## Historical installed dependency versions
 
-This is the selected environment after locked synchronization; isolated wheel build dependencies are resolved by the build backend and recorded in build output.
+This is the historical environment captured after its locked synchronization; isolated wheel build dependencies are resolved by the build backend and recorded in build output.
 
 | Distribution | Version |
 | --- | --- |
